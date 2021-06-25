@@ -1,0 +1,5 @@
+<svg id="輔導員" xmlns="http://www.w3.org/2000/svg" width="255" height="100" viewBox="0 0 255 100">
+  <rect id="Rectangle_2" data-name="Rectangle 2" width="255" height="100" rx="10" fill="#93b2cc"/>
+  <path id="Icon_material-people" data-name="Icon material-people" d="M87.5,41.9A17.2,17.2,0,1,0,70.3,24.7,17.128,17.128,0,0,0,87.5,41.9Zm-45.866,0a17.2,17.2,0,1,0-17.2-17.2A17.128,17.128,0,0,0,41.633,41.9Zm0,11.467C28.274,53.366,1.5,60.074,1.5,73.433V87.766H81.766V73.433C81.766,60.074,54.991,53.366,41.633,53.366Zm45.866,0c-1.663,0-3.555.115-5.561.287,6.651,4.816,11.295,11.295,11.295,19.78V87.766h34.4V73.433C127.632,60.074,100.857,53.366,87.5,53.366Z" transform="translate(6.382 12.064)" fill="#8599af"/>
+  <text id="輔導員-2" data-name="輔導員" transform="translate(20 79)" fill="#fff" font-size="27" font-family="YuGothicUI-Regular, Yu Gothic UI"><tspan x="0" y="0">輔導員</tspan></text>
+</svg>

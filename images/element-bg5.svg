@@ -1,0 +1,16 @@
+<svg id="課程執行_措施B_" data-name="課程執行 (措施B)" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="255" height="100" viewBox="0 0 255 100">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_14" data-name="Rectangle 14" width="255" height="100" rx="10" transform="translate(831 972)" fill="#cc9793"/>
+    </clipPath>
+  </defs>
+  <g id="Mask_Group_3" data-name="Mask Group 3" transform="translate(-831 -972)" clip-path="url(#clip-path)">
+    <g id="Group_11" data-name="Group 11">
+      <rect id="Rectangle_10" data-name="Rectangle 10" width="255" height="100" rx="10" transform="translate(831 972)" fill="#cc9793"/>
+      <path id="Path_62" data-name="Path 62" d="M-4.536-5.43H11.851q8.156,0,11.6-2.394T26.89-15.68q0-5.462-3.517-7.782t-11.822-2.32H-4.536Zm0-40.479h14.59q7.333,0,10.326-2.17t2.993-7.333q0-5.462-3.217-7.482t-14.89-2.02h-9.8ZM-38.879,20.309V-89.9H6.314q14.59,0,21.25.748a50.9,50.9,0,0,1,11.448,2.469,25.8,25.8,0,0,1,12.832,9.8Q56.3-70.226,56.3-60.724a24.978,24.978,0,0,1-3.33,13.057A25.179,25.179,0,0,1,42.977-38.5q8.754,3.143,12.944,9.428t4.19,16.311A34.05,34.05,0,0,1,56.033,4.26,27.228,27.228,0,0,1,44.174,15.371,40.638,40.638,0,0,1,32.2,19.187q-6.734,1.122-22.3,1.122Z" transform="translate(869.879 1056.845)" fill="#af8585"/>
+    </g>
+  </g>
+  <text id="課程執行_措施B_2" data-name="課程執行
+(措施B)" transform="translate(20 44)" fill="#fff" font-size="27" font-family="YuGothicUI-Regular, Yu Gothic UI"><tspan x="0" y="0">課程執行</tspan><tspan y="0" font-family="SegoeUI, Segoe UI"></tspan><tspan font-family="SegoeUI, Segoe UI"><tspan x="0" y="36">(</tspan><tspan y="36" font-family="YuGothicUI-Regular, Yu Gothic UI">措施</tspan><tspan y="36">B)</tspan></tspan></text>
+  <text id="小時" transform="translate(215 82)" fill="#fff" font-size="20" font-family="YuGothicUI-Regular, Yu Gothic UI"><tspan x="-20" y="0">小時</tspan></text>
+</svg>

@@ -1,0 +1,16 @@
+<svg id="工作體驗_措施C_" data-name="工作體驗 (措施C)" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="255" height="100" viewBox="0 0 255 100">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_15" data-name="Rectangle 15" width="255" height="100" rx="10" transform="translate(1176 972)" fill="#93ccca"/>
+    </clipPath>
+  </defs>
+  <g id="Mask_Group_4" data-name="Mask Group 4" transform="translate(-1176 -972)" clip-path="url(#clip-path)">
+    <g id="Group_12" data-name="Group 12">
+      <rect id="Rectangle_11" data-name="Rectangle 11" width="255" height="100" rx="10" transform="translate(1176 972)" fill="#93ccca"/>
+      <path id="Path_63" data-name="Path 63" d="M34.09-19.886H68.566Q67.027,2.508,52.79,14.859T14.236,27.211q-27.242,0-42.864-15.968T-44.25-32.507q0-27.7,15.468-43.711T13.389-92.224q24.626,0,38.747,11.89T67.95-46.359H33.09q-.77-8.7-5.618-13.121T13.851-63.9q-10.7,0-16.045,7.811T-7.543-32.507q0,15.468,5.695,23.394t16.7,7.926q8.465,0,13.429-4.848T34.09-19.886Z" transform="translate(1212.331 1054.646)" fill="#85aeaf"/>
+    </g>
+  </g>
+  <text id="工作體驗_措施C_2" data-name="工作體驗
+(措施C)" transform="translate(20 44)" fill="#fff" font-size="27" font-family="YuGothicUI-Regular, Yu Gothic UI"><tspan x="0" y="0">工作體驗</tspan><tspan y="0" font-family="SegoeUI, Segoe UI"></tspan><tspan font-family="SegoeUI, Segoe UI"><tspan x="0" y="36">(</tspan><tspan y="36" font-family="YuGothicUI-Regular, Yu Gothic UI">措施</tspan><tspan y="36">C)</tspan></tspan></text>
+  <text id="小時" transform="translate(215 82)" fill="#fff" font-size="20" font-family="YuGothicUI-Regular, Yu Gothic UI"><tspan x="-20" y="0">小時</tspan></text>
+</svg>

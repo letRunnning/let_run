@@ -1,0 +1,224 @@
+
+.dashboard_card {
+  height: 300px;
+  overflow:auto;  
+  margin-top:20px;
+}
+
+.county_card {
+  height: 500px;
+  overflow:auto;  
+  margin-top:20px;
+}
+
+.yda_logo {
+  height: auto;
+  width: auto;
+  max-height: 60px;
+  max-width: 250px;
+  padding-left: 20px;
+}
+
+.dashboard_card_title{
+  text-align: center;
+}
+
+.copyright-text {
+  text-align: center;
+  color: black;
+  position: absolute;
+  left: 40%;
+}
+
+.demo div {
+  float: left;
+  clear: none;
+  width: auto;
+  padding-right: 30px;
+}
+
+
+.center_div {
+  align-items: center;
+}
+
+/* .operating {
+  position: absolute;
+  width: 100%;
+}
+
+.footer {
+  position: absolute;
+  width: 100%;
+} */
+
+textarea.materialize-textarea{
+  height: 4rem;
+}
+
+.nav-wrapper{
+  color: #fde8ca;
+}
+
+.sidenav-logo {
+  padding-top: 10px;
+  padding-bottom: 8px;
+}
+
+.sidenav > li > a{
+  padding: 0px 16px;
+}
+
+.logo {
+  font-size: 30px;
+  margin-left: 20px;
+  cursor: pointer;
+  color: white;
+}
+
+li > .active {
+  background-color:#fde8ca;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.sidenav {
+  width: 400px;
+}
+
+.input-field input:focus + label, .input-field select:focus + label,
+.input-field textarea:focus + label {
+  color:#f77300 !important;
+}
+/* label underline focus color */
+.row .input-field input:focus, .row .input-field textarea:focus {
+  border-bottom: 1px solid#f77300 !important;
+  box-shadow: 0 1px 0 0 #f77300 !important
+}
+
+ul.dropdown-content.select-dropdown li span {
+  color:black; /* no need for !important :) */
+}
+
+.add-btn {
+  margin-top: 20px;
+}
+
+.page-footer {
+  background-color: #fde8ca;
+  width: 100%;
+}
+
+.dropdown-content{
+  width: max-content !important;
+  height:auto !important;
+}
+
+.course_insurance{
+    padding-bottom: 30px;
+  
+}
+
+#status-element-1 {
+  background-image: url(../img/element-bg1.svg);
+  width: 255px;
+  height: 100px;
+}
+
+#status-element-2 {
+  background-image: url(../img/element-bg2.svg);
+  width: 255px;
+  height: 100px;
+}
+
+#status-element-3 {
+  background-image: url(../img/element-bg3.svg);
+  width: 255px;
+  height: 100px;
+}
+
+#status-element-4 {
+  background-image: url(../img/element-bg4.svg);
+  width: 255px;
+  height: 100px;
+}
+
+#status-element-5 {
+  background-image: url(../img/element-bg5.svg);
+  width: 255px;
+  height: 100px;
+}
+
+#status-element-6 {
+  background-image: url(../img/element-bg6.svg);
+  width: 255px;
+  height: 100px;
+}
+.element_margin {
+  margin: 1rem;
+}
+
+.element_text {
+  margin-top: 1rem;
+}
+.element_text_small {
+  margin-top: 1rem;
+  margin-left: -1rem;
+}
+
+.element_county {
+  margin-right: -15px;
+  font-size: 30px;
+}
+
+.container {
+  flex: 1;
+}
+
+#id_wrapper {
+  display: flex;
+  flex-direction: column; 
+  min-height: 100vh; 
+}
+
+.all_center {
+  margin:100px auto;
+}
+
+#gotop {
+  position: fixed;
+  border-radius: 50px;
+  right: 20px;
+  bottom: 30px;
+  padding: 10px 16px;
+  font-size: 25px;
+  background: rgba(228, 211, 211, 0.36);
+  color: #160f0f;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.top_corner{
+  position:absolute;
+  float: left;
+  left: 100%;
+}
+
+.table_th{
+  vertical-align:middle;
+}
+
+th {
+  display: table-cell;
+  vertical-align: middle;
+  font-weight: bold;
+  text-align: center;
+}
+
+
+
+
+
+

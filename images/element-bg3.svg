@@ -1,0 +1,8 @@
+<svg id="學員" xmlns="http://www.w3.org/2000/svg" width="255" height="100" viewBox="0 0 255 100">
+  <rect id="Rectangle_2" data-name="Rectangle 2" width="255" height="100" rx="10" fill="#c4cc93"/>
+  <g id="Group_7" data-name="Group 7" transform="translate(-147.731 -518.021)">
+    <path id="Path_58" data-name="Path 58" d="M249.084,642.715H168.329a39.74,39.74,0,0,1,11.891-28.308c1.095-1.105,2.289-2.116,3.475-3.125,3.927-3.342,7.3-4.711,12.754-1.385,8.943,5.453,18.588,4.249,27.381-1.427,2.107-1.36,3.565-1.385,5.581-.1C241.894,616.329,248.384,627.657,249.084,642.715Z" transform="translate(0 -26.278)" fill="#aeaf85"/>
+    <path id="Path_59" data-name="Path 59" d="M219.867,581.03a21.723,21.723,0,1,1,21.788-21.743A21.661,21.661,0,0,1,219.867,581.03Z" transform="translate(-11.179 0)" fill="#aeaf85"/>
+  </g>
+  <text id="_" data-name="```" transform="translate(20 79)" fill="#fff" font-size="27" font-family="YuGothicUI-Regular, Yu Gothic UI"><tspan x="0" y="0">學員</tspan></text>
+</svg>

@@ -1,0 +1,16 @@
+<svg id="輔導執行_措施A_" data-name="輔導執行 (措施A)" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="255" height="100" viewBox="0 0 255 100">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_2" data-name="Rectangle 2" width="255" height="100" rx="10" transform="translate(486 972)" fill="#bd93cc"/>
+    </clipPath>
+  </defs>
+  <g id="Mask_Group_2" data-name="Mask Group 2" transform="translate(-486 -972)" clip-path="url(#clip-path)">
+    <g id="Group_13" data-name="Group 13" transform="translate(1585.355 916.969)">
+      <rect id="Rectangle_14" data-name="Rectangle 14" width="266.717" height="118" rx="3.145" transform="translate(-1105.214 46.031)" fill="#bd93cc"/>
+      <path id="A" d="M47.869-28.036H71.462L59.785-68.548ZM-.428,12,40.72-105.009H78.77L119.917,12H82.662L78.293-3.49H41.038L36.51,12Z" transform="translate(-1118.526 152.031)" fill="#af85ab"/>
+    </g>
+  </g>
+  <text id="輔導執行_措施A_2" data-name="輔導執行
+(措施A)" transform="translate(20 44)" fill="#fff" font-size="27" font-family="YuGothicUI-Regular, Yu Gothic UI"><tspan x="0" y="0">輔導執行</tspan><tspan y="0" font-family="SegoeUI, Segoe UI"></tspan><tspan font-family="SegoeUI, Segoe UI"><tspan x="0" y="36">(</tspan><tspan y="36" font-family="YuGothicUI-Regular, Yu Gothic UI">措施</tspan><tspan y="36">A)</tspan></tspan></text>
+  <text id="小時" transform="translate(215 82)" fill="#fff" font-size="20" font-family="YuGothicUI-Regular, Yu Gothic UI"><tspan x="-20" y="0">小時</tspan></text>
+</svg>
