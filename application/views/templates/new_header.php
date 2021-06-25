@@ -39,7 +39,7 @@
       <ul class="list-unstyled components">
         
         <li>
-          <a href="<?php echo site_url('/user/index'); ?>" <?php echo $url == '/user/index' ? 'active' : ''; ?>>首頁</a>
+          <a href="<?php echo site_url('/user/index'); ?>" <?php echo $url == '/user/index' ? 'active' : ''; ?>>首頁 </a>
         </li>
 
         <?php if(!empty($role)) :?>
