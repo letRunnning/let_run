@@ -40,6 +40,27 @@ class Run extends CI_Controller
             redirect('user/login');
         }
     }
+    public function run_active($runNo= null)
+    {
+        $passport = $this->session->userdata('passport');
+        $userTitle = $passport['userTitle'];
+        $current_role = $passport['role'];
+        $accept_role = array(6);
+        if (in_array($current_role, $accept_role)) {
+            $beSentDataset = array(
+                'title' => '路跑活動詳細內容',
+                'url' => '/run/run_active/'.$runNo,
+                'role' => $current_role,
+                'userTitle' => $userTitle,
+                'current_role' => $current_role,
+                'password' => $passport['password']
+            );
+
+            $this->load->view('/run/run_active', $beSentDataset);
+        } else {
+            redirect('user/login');
+        }
+    }
     public function workgroup()
     {
         $passport = $this->session->userdata('passport');
