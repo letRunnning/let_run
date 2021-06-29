@@ -307,12 +307,20 @@ a.article, a.article:hover {
 }
 
 .header tr th {
+	border-top: 2px grey solid;
+	/* border-right: 0.5px grey solid; */
+	border-bottom: 0.5px grey solid;
 	position: -webkit-sticky;
 	position: sticky;
 	top: 0px;
 	background-color: #eee;
 }
-
+.table {
+	/* border-top: 2px grey solid; */
+	border-right: 2px grey solid;
+	border-left: 2px grey solid;
+	border-bottom: 2px grey solid;
+}
 .table-responsive {
 	max-height: 400px;
 }
