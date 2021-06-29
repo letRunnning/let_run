@@ -51,7 +51,9 @@ $fixedFooter = '';
             $('#sidebar').toggleClass('active');
         });
         
-        $(".time-picker").hunterTimePicker();
+        $(".time-picker-start").hunterTimePicker();
+        $(".time-picker-end").hunterTimePicker();
+        
     });
 
 </script>
