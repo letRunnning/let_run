@@ -124,6 +124,19 @@
               </li>
             </ul>
           </li>
+          <li>
+            <a href="#pageSubmenuCouselorB" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">報到</a>
+            <ul class="collapse list-unstyled" id="pageSubmenuCouselorB">
+              <li>
+                <a href="<?php echo site_url('/check/run_staff_check_in'); ?>"
+                  <?php echo $url == '/check/run_staff_check_in' ? 'active' : ''; ?>>工作人員</a>
+              </li>
+              <li>
+                <a href="<?php echo site_url('/check/run_member_check_in'); ?>"
+                  <?php echo $url == '/check/run_member_check_in' ? 'active' : ''; ?>>會員</a>
+              </li>
+            </ul>
+          </li>
 
           <?php if($role === 1) :?>
             <?php $this->load->view('templates/sidebar/yda_sidebar');?>
