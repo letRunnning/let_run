@@ -66,7 +66,7 @@ var originalSetting = {
       dayNamesMin: ['日', '一', '二', '三', '四', '五', '六'],
       weekHeader: '周',
       dateFormat: 'yy-mm-dd',
-      yearRange:'2020:2022',
+      // yearRange:':2022',
       firstDay: 1,
       isRTL: false,
       showMonthAfterYear: true
@@ -116,6 +116,13 @@ var originalSetting = {
       altFormat: "yy-mm-dd",
       dateFormat: 'yy/mm/dd'
     });
+    $("#dateRun").datepicker({
+      changeMonth: true,
+      changeYear: true,
+      altField: "#hiddenRun",
+      altFormat: "yy-mm-dd",
+      dateFormat: 'yy/mm/dd'
+    });
   }
   
   
@@ -150,7 +157,9 @@ var originalSetting = {
     $("#dateFromW").val("");
     $("#dateTo").val("");
     $("#dateToW").val("");
+    $("#dateRun").val("");
     
     $("#hiddenFrom").val("");
     $("#hiddenTo").val("");
+    $("#hiddenRun").val("");
   }
