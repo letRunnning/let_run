@@ -70,7 +70,7 @@
               </li>
               <li>
                 <a href="<?php echo site_url('/run/rungroup_gift'); ?>"
-                  <?php echo $url == '/run/rungroup_give' ? 'active' : ''; ?>>路跑組別 & 禮品</a>
+                  <?php echo $url == '/run/rungroup_gift' ? 'active' : ''; ?>>路跑組別 & 禮品</a>
               </li>
               <li>
                 <a href="<?php echo site_url('/run/pass_point'); ?>"
