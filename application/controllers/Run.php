@@ -82,7 +82,7 @@ class Run extends CI_Controller
             redirect('user/login');
         }
     }
-    public function rungroup_gift()
+    public function rungroup_gift_table()
     {
         $passport = $this->session->userdata('passport');
         $userTitle = $passport['userTitle'];
@@ -91,7 +91,28 @@ class Run extends CI_Controller
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
                 'title' => '路跑組別 & 禮品',
-                'url' => '/run/rungroup_gift/',
+                'url' => '/run/rungroup_gift_table/',
+                'role' => $current_role,
+                'userTitle' => $userTitle,
+                'current_role' => $current_role,
+                'password' => $passport['password']
+            );
+
+            $this->load->view('/run/rungroup_gift_table', $beSentDataset);
+        } else {
+            redirect('user/login');
+        }
+    }
+    public function rungroup_gift($rungroupNo = null)
+    {
+        $passport = $this->session->userdata('passport');
+        $userTitle = $passport['userTitle'];
+        $current_role = $passport['role'];
+        $accept_role = array(6);
+        if (in_array($current_role, $accept_role)) {
+            $beSentDataset = array(
+                'title' => '路跑禮品表單',
+                'url' => '/run/rungroup_gift/'.$rungroupNo,
                 'role' => $current_role,
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
