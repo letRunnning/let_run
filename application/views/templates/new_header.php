@@ -73,8 +73,8 @@
                   <?php echo $url == '/run/rungroup_gift_table' ? 'active' : ''; ?>>路跑組別 & 禮品</a>
               </li>
               <li>
-                <a href="<?php echo site_url('/run/pass_point'); ?>"
-                  <?php echo $url == '/run/pass_point' ? 'active' : ''; ?>>路跑經過點</a>
+                <a href="<?php echo site_url('/run/pass_point_table'); ?>"
+                  <?php echo $url == '/run/pass_point_table' ? 'active' : ''; ?>>路跑經過點</a>
               </li>
               <li>
                 <a href="<?php echo site_url('/run/route'); ?>"
