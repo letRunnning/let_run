@@ -166,7 +166,7 @@ class Run extends CI_Controller
             redirect('user/login');
         }
     }
-    public function route()
+    public function route_table($no = null)
     {
         $passport = $this->session->userdata('passport');
         $userTitle = $passport['userTitle'];
@@ -175,7 +175,28 @@ class Run extends CI_Controller
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
                 'title' => '路跑路線',
-                'url' => '/run/route/',
+                'url' => '/run/route/'.$no,
+                'role' => $current_role,
+                'userTitle' => $userTitle,
+                'current_role' => $current_role,
+                'password' => $passport['password']
+            );
+
+            $this->load->view('/run/route_table', $beSentDataset);
+        } else {
+            redirect('user/login');
+        }
+    }
+    public function route($no = null)
+    {
+        $passport = $this->session->userdata('passport');
+        $userTitle = $passport['userTitle'];
+        $current_role = $passport['role'];
+        $accept_role = array(6);
+        if (in_array($current_role, $accept_role)) {
+            $beSentDataset = array(
+                'title' => '路跑路線',
+                'url' => '/run/route/'.$no,
                 'role' => $current_role,
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
