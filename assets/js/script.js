@@ -13,7 +13,8 @@ var originalSetting = {
       var result = $($.datepicker._phoenixGenerateMonthYearHeader(inst, drawMonth, drawYear, minDate, maxDate,
         secondary, monthNames, monthNamesShort));
       result.children("select.ui-datepicker-year").children().each(function() {
-        $(this).text('民國' + ($(this).text() - 1911) + '年');
+        // $(this).text('民國' + ($(this).text() - 1911) + '年');
+        $(this).text('西元' + ($(this).text()) + '年');
       });
       if (inst.yearshtml) {
         var origyearshtml = inst.yearshtml;
@@ -22,7 +23,8 @@ var originalSetting = {
           if (origyearshtml === inst.yearshtml) {
             inst.dpDiv.find('select.ui-datepicker-year:first').replaceWith(inst.yearshtml);
             inst.dpDiv.find('select.ui-datepicker-year').children().each(function() {
-              $(this).text('民國' + ($(this).text() - 1911) + '年');
+              // $(this).text('民國' + ($(this).text() - 1911) + '年');
+              $(this).text('西元' + ($(this).text()) + '年');
             });
           }
           origyearshtml = inst.yearshtml = null;
@@ -41,7 +43,8 @@ var originalSetting = {
       var date = (day ? (typeof day == 'object' ? day :
           this._daylightSavingAdjust(new Date(year, month, day))) :
         this._daylightSavingAdjust(new Date(inst.currentYear, inst.currentMonth, inst.currentDay)));
-      return (date.getFullYear() - 1911) + "-" +
+      // return (date.getFullYear() - 1911) + "-" +
+      return (date.getFullYear()) + "-" +
         (date.getMonth() < 9 ? "0" + (date.getMonth() + 1) : (date.getMonth() + 1)) + "-" +
         (date.getDate() < 9 ? "0" + date.getDate() : date.getDate());
     }
