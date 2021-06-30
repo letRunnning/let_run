@@ -82,7 +82,7 @@
           </div>
           <div class="col-10 m-2 mx-auto">
             <label for="photoFile">上傳圖片</label>
-            <input type="file" id="photoFile" name="photoFile" class="form-control" value="" required placeholder="請輸入禮品 Qrcode">
+            <input type="file" id="photoFile" name="photoFile" class="form-control" value="" required >
           </div>
         </div> 
       <div class="row">
