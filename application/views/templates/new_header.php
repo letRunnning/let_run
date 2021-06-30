@@ -69,8 +69,8 @@
                   <?php echo $url == '/run/workgroup' ? 'active' : ''; ?>>工作組別 & 項目</a>
               </li>
               <li>
-                <a href="<?php echo site_url('/run/rungroup_gift'); ?>"
-                  <?php echo $url == '/run/rungroup_gift' ? 'active' : ''; ?>>路跑組別 & 禮品</a>
+                <a href="<?php echo site_url('/run/rungroup_gift_table'); ?>"
+                  <?php echo $url == '/run/rungroup_gift_table' ? 'active' : ''; ?>>路跑組別 & 禮品</a>
               </li>
               <li>
                 <a href="<?php echo site_url('/run/pass_point'); ?>"
