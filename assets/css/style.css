@@ -331,3 +331,24 @@ th {
 	font-weight: bold;
 	text-align: center;
 }
+.dropdown-toggle::after {
+    /* display: none; */
+}
+  /* Align Bootstrap default Dropdown icon closer to vertical center of collapsed icon. */
+.dropdown-toggle::after {
+    vertical-align: 0.15em;
+	/* border-top: 0.3em solid transparent;
+    border-left: 0.3em solid;
+    border-bottom: 0.3em solid transparent;
+    border-right: 0;
+    vertical-align: unset; */
+}
+
+/* Make Dropdown icon point right when collapsed, with Browser default vertical alignment. */
+.collapsed.dropdown-toggle::after {
+    border-top: 0.3em solid transparent;
+    border-left: 0.3em solid;
+    border-bottom: 0.3em solid transparent;
+    border-right: 0;
+    vertical-align: unset;
+}
