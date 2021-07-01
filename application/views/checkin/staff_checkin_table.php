@@ -6,7 +6,7 @@
         <a href="<?php echo site_url('/user/index'); ?>" <?php echo $url == '/user/index' ? 'active' : ''; ?>>首頁</a>
       </li>
       <li class="breadcrumb-item active" style="color:blue;" aria-current="page">
-        <a href="#">檢核</a>
+        <a href="#">報到</a>
       </li>
       <li class="breadcrumb-item active" aria-current="page"><?php echo $title; ?></li>
     </ol>

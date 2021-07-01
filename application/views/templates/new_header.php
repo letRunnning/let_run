@@ -70,7 +70,7 @@
               </li>
               <li>
                 <a href="<?php echo site_url('/run/rungroup_gift'); ?>"
-                  <?php echo $url == '/run/rungroup_give' ? 'active' : ''; ?>>路跑組別 & 禮品</a>
+                  <?php echo $url == '/run/rungroup_gift' ? 'active' : ''; ?>>路跑組別 & 禮品</a>
               </li>
               <li>
                 <a href="<?php echo site_url('/run/pass_point'); ?>"
@@ -92,6 +92,20 @@
               <li>
                 <a href="<?php echo site_url('/beacon/beacon_place_table'); ?>"
                   <?php echo $url == '/beacon/beacon_place_table' ? 'active' : ''; ?>>查看Beacon放置點</a>
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            <a href="#pageSubmenuCouselorB" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">報到</a>
+            <ul class="collapse list-unstyled" id="pageSubmenuCouselorB">
+              <li>
+                <a href="<?php echo site_url('/checkin/staff_checkin_table'); ?>"
+                  <?php echo $url == '/checkin/staff_checkin_table' ? 'active' : ''; ?>>工作人員</a>
+              </li>
+              <li>
+                <a href="<?php echo site_url('/checkin/member_checkin_table'); ?>"
+                  <?php echo $url == '/checkin/member_checkin_table' ? 'active' : ''; ?>>會員</a>
               </li>
             </ul>
           </li>
@@ -121,6 +135,10 @@
               <li>
                 <a href="<?php echo site_url('/check/member_pay_status_table'); ?>"
                   <?php echo $url == '/check/member_pay_status_table' ? 'active' : ''; ?>>繳費狀態</a>
+              </li>
+              <li>
+                <a href="<?php echo site_url('/check/gift_status_table'); ?>"
+                  <?php echo $url == '/check/gift_status_table' ? 'active' : ''; ?>>兌換禮品狀態</a>
               </li>
             </ul>
           </li>
@@ -182,5 +200,3 @@
           </div>
         </div>
       </nav>
-
-            
