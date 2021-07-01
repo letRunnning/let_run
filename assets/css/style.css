@@ -72,7 +72,7 @@ a, a:hover, a:focus {
 
 #sidebar .sidebar-header {
 	padding: 20px;
-	height: 80px;
+	height: 65px;
 	background: #03256c;
 }
 
@@ -171,7 +171,7 @@ a.article, a.article:hover {
 
 .header-bg {
 	background: #03256c;
-	max-height: 80px;
+	max-height: 65px;
 }
 
 .form-signin {
