@@ -75,6 +75,8 @@ class User extends CI_Controller
         
       
         $passport = $this->session->userdata('passport');
+        
+        // 檢查登入次數 
         $checkLoign = $this->session->userdata('checkLoign');
         if(empty($checkLoign)) {
           $checkLoign = 0;
@@ -86,19 +88,6 @@ class User extends CI_Controller
             redirect('/');
         }
 
-        // $this->load->helper('captcha');
-        // $config = array(
-        //     'img_path' => 'files/captcha/',
-        //     'img_url' => base_url() . 'files/captcha/',
-        //     'font_path' => FCPATH . 'assets/font/Roboto-Regular.ttf',
-        //     'font_size' => 26,
-        //     'word_length' => 4,
-        //     'img_width' => 250,
-        //     'img_height' => 40,
-        // );
-
-        // $captcha = create_captcha($config);
-        // $captchaCode = $this->session->userdata('captchaCode');
 
         // dataset will be sent to frontend
         $beSentDataset = array(
@@ -106,44 +95,31 @@ class User extends CI_Controller
             'url' => '/user/login',
             'userTitle' => $userTitle,
             'security' => $this->security,
-            // 'captcha' => $captcha,
             'password' => null,
             'updatePwd' => null
         );
         // get data from frontend
         $id = $this->security->xss_clean($this->input->post('id'));
         $password = $this->security->xss_clean($this->input->post('password'));
-        // $captchas = $this->security->xss_clean($this->input->post('captcha'));
-
-       
 
         if (empty($id) || empty($password)) {
-            // $this->session->unset_userdata('captchaCode');
-            // $this->session->set_userdata('captchaCode', $captcha['word']);
             return $this->load->view('/user/login', $beSentDataset);
         }
 
-        // if ($captchas != $captchaCode) {
-        //     $beSentDataset['error'] = '帳號密碼錯誤';
-        //     $this->session->unset_userdata('captchaCode');
-        //     $this->session->set_userdata('captchaCode', $captcha['word']);
-        //     return $this->load->view('/user/login', $beSentDataset);
-        // }
         // fetch data from model
-
         $user = $this->UserModel->get_by_id($id);
         // check user exist
         if ($user->num_rows() > 0) {
             // format user
             $user = $user->row_array();
-
+            
+            // login failed for three times, lock for 15 minutes
             if($checkLoign>=3) {
               $this->UserModel->update_login_fail_time_by_id($id);
               $minutes_to_add = 15;
 
               $time = new DateTime(date("Y-m-d H:i:s"));
               $time->add(new DateInterval('PT' . $minutes_to_add . 'M'));
-              $this->session->unset_userdata('captchaCode');
               $beSentDataset['error'] = '因密碼輸入錯誤三次，下次能登入時間為 ' .$time->format('Y-m-d H:i:s'); 
               
               return $this->load->view('/user/login', $beSentDataset);
