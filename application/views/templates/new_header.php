@@ -186,7 +186,8 @@
                 </li>
               <?php else: ?>
                 <li class="nav-item">
-                  <a class="nav-link text-white" href="<?php echo site_url('/user/logout'); ?>">登出</a>
+                  <a class="nav-link btn btn-light" style="color:#03256c;width:80px" href="<?php echo site_url('/user/logout'); ?>">登出</a>
+                  <!-- <button class="btn" style="background-color:white" href="<?php echo site_url('/user/logout'); ?>">123</buton> -->
                 </li>
               <?php endif;?>
               
