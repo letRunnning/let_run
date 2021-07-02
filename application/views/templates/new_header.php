@@ -86,11 +86,11 @@
             <ul class="collapse list-unstyled" id="pageSubmenuCouselorA">
               <li>
                 <a href="<?php echo site_url('/beacon/beacon_table'); ?>"
-                  <?php echo $url == '/beacon/beacon_table' ? 'active' : ''; ?>>新增Beacon</a>
+                  <?php echo $url == '/beacon/beacon_table' ? 'active' : ''; ?>>Beacon清單</a>
               </li>
               <li>
                 <a href="<?php echo site_url('/beacon/beacon_place_table'); ?>"
-                  <?php echo $url == '/beacon/beacon_place_table' ? 'active' : ''; ?>>查看Beacon放置點</a>
+                  <?php echo $url == '/beacon/beacon_place_table' ? 'active' : ''; ?>>Beacon放置點清單</a>
               </li>
             </ul>
           </li>
