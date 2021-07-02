@@ -138,8 +138,8 @@
             </ul>
           </li>
    
-        </nav>
         <?php endif;?>
+        </nav>
 
     <!-- Page Content  -->
     <div id="content">
