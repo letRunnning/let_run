@@ -137,26 +137,9 @@
               </li>
             </ul>
           </li>
-
-          <?php if($role === 1) :?>
-            <?php $this->load->view('templates/sidebar/yda_sidebar');?>
-          <?php elseif($role === 2) :?>
-            <?php $this->load->view('templates/sidebar/county_manager_sidebar');?>
-          <?php elseif($role === 3) :?>
-            <?php $this->load->view('templates/sidebar/county_contractor_sidebar');?>
-          <?php elseif($role === 4) :?>
-            <?php $this->load->view('templates/sidebar/organization_manager_sidebar');?>
-          <?php elseif($role === 5) :?>
-            <?php $this->load->view('templates/sidebar/organization_contractor_sidebar');?>
-          <?php elseif($role === 6) :?>
-            <?php //$this->load->view('templates/sidebar/counselor_sidebar');?>
-          <?php elseif($role === 8) :?>
-            <?php $this->load->view('templates/sidebar/yda_assistant_sidebar');?>
-          <?php endif;?>
-
-        <?php endif;?>
    
-    </nav>
+        </nav>
+        <?php endif;?>
 
     <!-- Page Content  -->
     <div id="content">
