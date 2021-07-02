@@ -25,7 +25,7 @@
             <div class="col-2 text-right"><span class="fs-5">暨大春健</span></div>
             <div class="col text-right"><span class="fs-5">休閒組</span></div>
             <div class="col text-right"><span class="fs-5 text-primary collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">查看</span></div>
-            <div class="col text-right"><a class="fs-5 text-primary " type="button" href="<?php echo site_url('run/run_active/1' );?>">編輯</a></div>
+            <div class="col text-right"><a class="fs-5 text-primary " type="button" href="<?php echo site_url('run/route/1' );?>">編輯</a></div>
         </div>
         </div>
 
@@ -44,7 +44,7 @@
             <div class="col-2 text-right"><span class="fs-5">暨大春健</span></div>
             <div class="col text-right"><span class="fs-5">挑戰組</span></div>
             <div class="col text-right"><span class="fs-5 text-primary collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">查看</span></div>
-            <div class="col text-right"><a class="fs-5 text-primary " type="button" href="<?php echo site_url('run/run_active/1' );?>">編輯</a></div>
+            <div class="col text-right"><a class="fs-5 text-primary " type="button" href="<?php echo site_url('run/route/2' );?>">編輯</a></div>
         </div>
         </div>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
@@ -63,7 +63,7 @@
             <div class="col-2 text-right"><span class="fs-5">台中花博馬拉松</span></div>
             <div class="col text-right"><span class="fs-5">菁英組</span></div>
             <div class="col text-right"><span class="fs-5 text-primary collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">查看</span></div>
-            <div class="col text-right"><a class="fs-5 text-primary " type="button" href="<?php echo site_url('run/run_active/1' );?>">編輯</a></div>
+            <div class="col text-right"><a class="fs-5 text-primary " type="button" href="<?php echo site_url('run/route/3' );?>">編輯</a></div>
         </div>
         </div>
         <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
