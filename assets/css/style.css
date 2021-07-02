@@ -72,7 +72,7 @@ a, a:hover, a:focus {
 
 #sidebar .sidebar-header {
 	padding: 20px;
-	height: 80px;
+	height: 65px;
 	background: #03256c;
 }
 
@@ -171,7 +171,7 @@ a.article, a.article:hover {
 
 .header-bg {
 	background: #03256c;
-	max-height: 80px;
+	max-height: 65px;
 }
 
 .form-signin {
@@ -332,3 +332,21 @@ th {
 	text-align: center;
 }
 
+  /* Align Bootstrap default Dropdown icon closer to vertical center of collapsed icon. */
+.dropdown-toggle::after {
+    vertical-align: 0.15em;
+	/* border-top: 0.3em solid transparent;
+    border-left: 0.3em solid;
+    border-bottom: 0.3em solid transparent;
+    border-right: 0;
+    vertical-align: unset; */
+}
+
+/* Make Dropdown icon point right when collapsed, with Browser default vertical alignment. */
+.collapsed.dropdown-toggle::after {
+    border-top: 0.3em solid transparent;
+    border-left: 0.3em solid;
+    border-bottom: 0.3em solid transparent;
+    border-right: 0;
+    vertical-align: unset;
+}

@@ -6,7 +6,7 @@
         <a href="<?php echo site_url('/user/index'); ?>" <?php echo $url == '/user/index' ? 'active' : ''; ?>>首頁</a>
       </li>
       <li class="breadcrumb-item active" style="color:blue;" aria-current="page">
-        <a href="#">Beacon</a>
+        <a href="#">路跑活動</a>
       </li>
       <li class="breadcrumb-item active" aria-current="page"><?php echo $title;?></li>
     </ol>
@@ -20,26 +20,34 @@
     <table class="table text-center border-secondary table-hover align-middle">
       <thead class="header" style="background-color:#C8C6A7">
         <tr>
-          <th scope="col">Beacon編號</th>
-          <th scope="col">Beacon型號</th>
-          <th scope="col">是否可使用</th>
+          <th scope="col">經過點ID</th>
+          <th scope="col">經過點名稱</th>
+          <th scope="col">經度</th>
+          <th scope="col">緯度</th>
+          <th scope="col">要項</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <th scope="col">asd123</th>
-          <td scope="col">Ci - BLE MESH</td>
-          <td scope="col"><a type="button" class="btn btn-warning" href="<?php echo site_url('run/pass_point/1' );?>">是</a></td>
+          <th scope="col">L1</th>
+          <td scope="col">暨大大草原</td>
+          <td scope="col">153.35</td>
+          <td scope="col">152.35</td>
+          <td scope="col"><a type="button" class="btn btn-warning" href="<?php echo site_url('run/pass_point/1' );?>">編輯/查看</a></td>
         </tr>
         <tr>
-          <th scope="col">qwe123</th>
-          <td scope="col">Ci - AYU MESH</td>
-          <td scope="col"><a type="button" class="btn btn-warning" href="<?php echo site_url('run/pass_point/2' );?>">是</a></td>
+          <th scope="col">L1</th>
+          <td scope="col">暨大體育館</td>
+          <td scope="col">166.22</td>
+          <td scope="col">165.22</td>
+          <td scope="col"><a type="button" class="btn btn-warning" href="<?php echo site_url('run/pass_point/2' );?>">編輯/查看</a></td>
         </tr>
         <tr>
-          <th scope="col">qwe126</th>
-          <td scope="col">Ci - IOP MESH</td>
-          <td scope="col"><a type="button" class="btn btn-warning" href="<?php echo site_url('run/pass_point/3' );?>">是</a></td>
+          <th scope="col">L1</th>
+          <td scope="col">暨大管院</td>
+          <td scope="col">188.21</td>
+          <td scope="col">186.21</td>
+          <td scope="col"><a type="button" class="btn btn-warning" href="<?php echo site_url('run/pass_point/3' );?>">編輯/查看</a></td>
         </tr>
       </tbody>
     </table>

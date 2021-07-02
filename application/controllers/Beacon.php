@@ -19,7 +19,7 @@ class Beacon extends CI_Controller
         $this->load->model('MonthReviewModel');
         $this->load->model('SeasonalReviewModel');
     }
-    public function beacon_table()
+    public function beacon_table($no = null)
     {
         $passport = $this->session->userdata('passport');
         $userTitle = $passport['userTitle'];
@@ -28,7 +28,7 @@ class Beacon extends CI_Controller
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
                 'title' => '新增Beacon',
-                'url' => '/beacon/beacon_table/',
+                'url' => '/beacon/beacon/'.$no,
                 'role' => $current_role,
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
@@ -36,6 +36,27 @@ class Beacon extends CI_Controller
             );
 
             $this->load->view('/beacon/beacon_table', $beSentDataset);
+        } else {
+            redirect('user/login');
+        }
+    }
+    public function beacon($no = null)
+    {
+        $passport = $this->session->userdata('passport');
+        $userTitle = $passport['userTitle'];
+        $current_role = $passport['role'];
+        $accept_role = array(6);
+        if (in_array($current_role, $accept_role)) {
+            $beSentDataset = array(
+                'title' => '新增Beacon',
+                'url' => '/beacon/beacon/'.$no,
+                'role' => $current_role,
+                'userTitle' => $userTitle,
+                'current_role' => $current_role,
+                'password' => $passport['password']
+            );
+
+            $this->load->view('/beacon/beacon', $beSentDataset);
         } else {
             redirect('user/login');
         }

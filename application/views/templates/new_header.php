@@ -69,16 +69,16 @@
                   <?php echo $url == '/run/workgroup' ? 'active' : ''; ?>>工作組別 & 項目</a>
               </li>
               <li>
-                <a href="<?php echo site_url('/run/rungroup_gift'); ?>"
-                  <?php echo $url == '/run/rungroup_give' ? 'active' : ''; ?>>路跑組別 & 禮品</a>
+                <a href="<?php echo site_url('/run/rungroup_gift_table'); ?>"
+                  <?php echo $url == '/run/rungroup_gift_table' ? 'active' : ''; ?>>路跑組別 & 禮品</a>
               </li>
               <li>
-                <a href="<?php echo site_url('/run/pass_point'); ?>"
-                  <?php echo $url == '/run/pass_point' ? 'active' : ''; ?>>路跑經過點</a>
+                <a href="<?php echo site_url('/run/pass_point_table'); ?>"
+                  <?php echo $url == '/run/pass_point_table' ? 'active' : ''; ?>>路跑經過點</a>
               </li>
               <li>
-                <a href="<?php echo site_url('/run/route'); ?>"
-                  <?php echo $url == '/run/route' ? 'active' : ''; ?>>路跑路線</a>
+                <a href="<?php echo site_url('/run/route_table'); ?>"
+                  <?php echo $url == '/run/route_table' ? 'active' : ''; ?>>路跑路線</a>
               </li>
             </ul>
           </li>
@@ -186,7 +186,8 @@
                 </li>
               <?php else: ?>
                 <li class="nav-item">
-                  <a class="nav-link text-white" href="<?php echo site_url('/user/logout'); ?>">登出</a>
+                  <a class="nav-link btn btn-light" style="color:#03256c;width:80px" href="<?php echo site_url('/user/logout'); ?>">登出</a>
+                  <!-- <button class="btn" style="background-color:white" href="<?php echo site_url('/user/logout'); ?>">123</buton> -->
                 </li>
               <?php endif;?>
               

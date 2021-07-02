@@ -43,42 +43,36 @@
                 <div class="col-md-5">
                 <label for="formStartTime">開始報名時間(日期)*</label>
                 <!-- <input class="form-control" type="text" id="dateFrom" value="<?php echo (empty($date_start)) ? "" : $date_start ?>"> -->
-                <input class="form-control" type="text" id="dateFrom" >
+                <input class="form-control" type="text" id="dateFrom" name="startDate">
                 </div>
                 <div class="col-md-5">
                 <label for="formStartTime">開始報名時間(時間)*</label>
                 <!-- <input class="form-control time-picker-start" type="text" id="formStartTime" value="<?php echo (empty($time_start)) ? "" : $time_start ?>"> -->
-                <input class="form-control time-picker-start" type="text" id="formStartTime">
+                <input class="form-control time-picker-start" type="text" id="formStartTime" name="startTime">
                 </div>
             </div>
-            <div class="row justify-content-center">
-                <div class="col-md-10" style="display:none">
-                <!-- <input type="text" name="date" id="hiddenFrom" class="form-control" value="<?php echo(empty($startDate)) ? "" : $startDate?>"/> -->
-                <!-- <input type="text" id="startTime" name="startTime" class="form-control"/> -->
-                <input type="text" name="date" id="hiddenFrom" class="form-control"/>
-                <input type="text" id="startTime" name="startTime" class="form-control"/>
-                </div>
-            </div>
-<br>
           <!-- endTime -->
           <div class="row justify-content-center">
             <div class="col-md-5">
               <label for="formEndTime">結束報名時間(日期)*</label>
-              <!-- <input class="form-control" type="text" id="dateTo" value="<?php echo (empty($date_end)) ? "" : $date_end ?>"> -->
-              <input class="form-control" type="text" id="dateTo" >
+              <input class="form-control" type="text" id="dateTo" name="endDate">
             </div>
             <div class="col-md-5">
               <label for="formEndTime">結束報名時間(時間)*</label>
-              <!-- <input class="form-control time-picker-end" type="text" id="formEndTime" value="<?php echo (empty($time_end)) ? "" : $time_end?>"> -->
-              <input class="form-control time-picker-end" type="text" id="formEndTime">
+              <input class="form-control time-picker-end" type="text" id="formEndTime" name="endTime">
             </div>
           </div>
-          <div class="row justify-content-center">
-            <div class="col-md-10" style="display:none">
-              <!-- <input type="text" name="date" id="hiddenTo" class="form-control" value="<?php echo(empty($endDate)) ? "" : $endDate?>"/> -->
-              <input type="text" name="date" id="hiddenTo" class="form-control"/>
-              <input type="text" id="endTime" name="endTime" class="form-control"/>
-            </div>
+          <div class="col-10 m-2 mx-auto">
+                <label for="bankCode" class="form-label">銀行代號</label>
+                <input class="form-control" type="text" id="bankCode" name="bankCode" value="" required placeholder="請輸入銀行代號">
+            </div> 
+          <div class="col-10 m-2 mx-auto">
+              <label for="bankAccount" class="form-label">銀行帳號</label>
+              <input class="form-control" type="text" id="bankAccount" name="bankAccount" value="" required placeholder="請輸入銀行帳號">
+          </div> 
+          <div class="col-10 m-2 mx-auto">
+            <label for="photoFile">上傳圖片</label>
+            <input type="file" id="photoFile" name="photoFile" class="form-control" value="" required >
           </div>
           <div class="row">
             <div class="d-grid gap-2 col-2 mx-auto">

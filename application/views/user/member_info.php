@@ -12,9 +12,9 @@
     </ol>
   </nav>
 </div>
-<div class="container">
+<div class="container" style="width:95%">
 
-<div class="" id="">
+<!-- <div class="" id=""> -->
   <div class="card">
     <div class="card-header" id="headingOne">
       <div class="row">
@@ -70,7 +70,7 @@
       </div>
     </div>
   </div>
-</div>
+<!-- </div> -->
 
 </div>
 <?php $this->load->view('templates/new_footer');?>
