@@ -49,11 +49,10 @@
             </a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
               <li>
-                <!-- <a href="<?php echo site_url('/user/user_info'); ?>" <?php echo $url == '/user/user_info' ? 'active' : ''; ?>>查看會員資訊</a> -->
-                <a href="<?php echo site_url('/user/member_info'); ?>" <?php echo $url == '/user/member_info' ? 'active' : ''; ?>>查看會員資訊</a>
+                <a href="<?php echo site_url('/user/member_info'); ?>" <?php echo $url == '/user/member_info' ? 'active' : ''; ?>>會員資訊</a>
               </li>
               <li>
-                <a href="<?php echo site_url('/user/staff_info'); ?>" <?php echo $url == '/user/staff_info' ? 'active' : ''; ?>>查看工作人員資訊</a>
+                <a href="<?php echo site_url('/user/staff_info'); ?>" <?php echo $url == '/user/staff_info' ? 'active' : ''; ?>>工作人員資訊</a>
               </li>
             </ul>
           </li>
