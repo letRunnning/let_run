@@ -27,26 +27,17 @@
         </div>
 
         <div class="col-10 m-2 mx-auto">
-            <label for="workgroupName" class="form-label">工作組別名稱</label>
+            <label for="workgroupName" class="form-label">路跑組別</label>
             <input class="form-control" type="text" id="workgroupName" name="workgroupName" value="暨大春健" required placeholder="請輸入工作組別名稱">
         </div>
         <div class="row group">
-          <div class="col-10 m-2 mx-auto">
-              <label for="workList" class="form-label">工作項目</label>
-              <input class="form-control" type="text" id="workList" name="workList" value="清潔流動廁所" required placeholder="請輸入工作項目">
-          </div>
-          <div class="col-10 m-2 mx-auto">
-              <label for="assemblyTime">集合時間</label>
-              <input type="text" id="assemblyTime" class="form-control" value="2021/06/01 09:00" required placeholder="請輸入活動日期">
-          </div>
-          <div class="col-10 m-2 mx-auto">
-              <label for="assemblyPlace" class="form-label">集合地點</label>
-              <input class="form-control" type="text" id="assemblyPlace" name="assemblyPlace" value="國立暨南大學" required placeholder="請輸入集合地點">
-          </div> 
-          <div class="col-10 m-2 mx-auto">
-              <label for="peoples" class="form-label">人數上限</label>
-              <input class="form-control" type="text" id="peoples" name="peoples" value="100" required placeholder="請輸入人數上限">
-          </div> 
+          <div class="col-10 mx-auto">
+            <label>經過點</label>
+            <select class="form-select mb-3" name="runActive" id="runActive" >
+              <option selected value="A1">經過點1</option>
+              <option  value="A2">經過點2</option>
+            </select>
+        </div>
         </div> 
       <div class="row">
         <div class="d-grid gap-2 col-2 mx-auto">
