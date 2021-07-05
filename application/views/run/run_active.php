@@ -19,19 +19,17 @@
     <div class="row">
     <!-- <h4 class="text-dark text-center"><?php echo $title ?></h4> -->
         <form action="<?php echo site_url($url); ?>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+        <?php foreach($activity as $i){
+            
+        ?>
             <div class="col-10 m-2 mx-auto">
                 <label for="runName" class="form-label">活動名稱</label>
-                <input class="form-control" type="text" id="runName" name="runName" value="暨大春健" required placeholder="請輸入活動名稱">
+                <input class="form-control" type="text" id="runName" name="runName" value="<?php echo $i['name'];?>" required placeholder="請輸入活動名稱">
             </div>
             <div class="row justify-content-center">
                 <div class="col-10 m-2 mx-auto" id="chineseDiv">
                 <label for="formDate">活動日期</label>
-                <input type="text" id="dateRun" class="form-control" value="2021-06-01" required placeholder="請輸入活動日期">
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-sm-10 col-md-3">
-                <input type="text" id="hiddenRun" name="date" class="form-control" style="display:none" value=""/>
+                <input type="text" id="dateRun" class="form-control" value="<?php echo $i['date'];?>" required placeholder="請輸入活動日期">
                 </div>
             </div>
             <div class="col-10 m-2 mx-auto">
@@ -79,6 +77,7 @@
               <button class="btn btn-primary m-3" type="submit">送出</button>
             </div>
           </div>
+          <?php }?>
         </form>
     </div>
     <br><br><br><br><br><br><br>
