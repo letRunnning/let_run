@@ -4,6 +4,7 @@ class Run extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->model('RunModel');
         $this->load->model('MenuModel');
         $this->load->model('YouthModel');
         $this->load->model('CaseAssessmentModel');
@@ -25,15 +26,20 @@ class Run extends CI_Controller
         $userTitle = $passport['userTitle'];
         $current_role = $passport['role'];
         $accept_role = array(6);
+        $activities = $this->RunModel->get_all_active();
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
                 'title' => '路跑活動清單',
-                'url' => '/run/run_active_table/',
+                'url' => '/run/run_active/',
                 'role' => $current_role,
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
+                'activities' => $activities,
                 'password' => $passport['password']
             );
+            // foreach ($activities as $i) {
+            //     echo $i['name'];
+            // }
 
             $this->load->view('/run/run_active_table', $beSentDataset);
         } else {
@@ -46,6 +52,8 @@ class Run extends CI_Controller
         $userTitle = $passport['userTitle'];
         $current_role = $passport['role'];
         $accept_role = array(6);
+        $activity = $this->RunModel->get_active_by_id($runNo);
+        
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
                 'title' => '路跑活動詳細內容',
@@ -53,6 +61,7 @@ class Run extends CI_Controller
                 'role' => $current_role,
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
+                'activity' => $activity,
                 'password' => $passport['password']
             );
 
