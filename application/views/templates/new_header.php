@@ -39,7 +39,7 @@
       <ul class="list-unstyled components">
         
         <li>
-          <a href="<?php echo site_url('/user/index'); ?>" <?php echo $url == '/user/index' ? 'active' : ''; ?>>首頁</a>
+          <a href="<?php echo site_url('/user/index'); ?>" <?php echo $url == '/user/index' ? 'active' : ''; ?>>首頁 </a>
         </li>
 
         <?php if(!empty($role)) :?>
@@ -49,11 +49,10 @@
             </a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
               <li>
-                <!-- <a href="<?php echo site_url('/user/user_info'); ?>" <?php echo $url == '/user/user_info' ? 'active' : ''; ?>>查看會員資訊</a> -->
-                <a href="<?php echo site_url('/user/member_info'); ?>" <?php echo $url == '/user/member_info' ? 'active' : ''; ?>>查看會員資訊</a>
+                <a href="<?php echo site_url('/user/member_info'); ?>" <?php echo $url == '/user/member_info' ? 'active' : ''; ?>>會員資訊</a>
               </li>
               <li>
-                <a href="<?php echo site_url('/user/staff_info'); ?>" <?php echo $url == '/user/staff_info' ? 'active' : ''; ?>>查看工作人員資訊</a>
+                <a href="<?php echo site_url('/user/staff_info'); ?>" <?php echo $url == '/user/staff_info' ? 'active' : ''; ?>>工作人員資訊</a>
               </li>
             </ul>
           </li>
@@ -87,18 +86,41 @@
             <ul class="collapse list-unstyled" id="pageSubmenuCouselorA">
               <li>
                 <a href="<?php echo site_url('/beacon/beacon_table'); ?>"
-                  <?php echo $url == '/beacon/beacon_table' ? 'active' : ''; ?>>新增Beacon</a>
+                  <?php echo $url == '/beacon/beacon_table' ? 'active' : ''; ?>>Beacon清單</a>
               </li>
               <li>
                 <a href="<?php echo site_url('/beacon/beacon_place_table'); ?>"
-                  <?php echo $url == '/beacon/beacon_place_table' ? 'active' : ''; ?>>查看Beacon放置點</a>
+                  <?php echo $url == '/beacon/beacon_place_table' ? 'active' : ''; ?>>Beacon放置點清單</a>
               </li>
             </ul>
           </li>
 
           <li>
-            <a href="<?php echo site_url('/ambulance/ambulance_table'); ?>"
-              <?php echo $url == '/ambulance/ambulance_table' ? 'active' : ''; ?>>救護車資訊</a>
+            <a href="#pageSubmenuCouselorB" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">報到</a>
+            <ul class="collapse list-unstyled" id="pageSubmenuCouselorB">
+              <li>
+                <a href="<?php echo site_url('/checkin/staff_checkin_table'); ?>"
+                  <?php echo $url == '/checkin/staff_checkin_table' ? 'active' : ''; ?>>工作人員</a>
+              </li>
+              <li>
+                <a href="<?php echo site_url('/checkin/member_checkin_table'); ?>"
+                  <?php echo $url == '/checkin/member_checkin_table' ? 'active' : ''; ?>>會員</a>
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            <a href="#pageSubmenuCouselorC" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">救護車資訊</a>
+            <ul class="collapse list-unstyled" id="pageSubmenuCouselorC">
+              <li>
+                <a href="<?php echo site_url('/ambulance/ambulance_table'); ?>"
+                <?php echo $url == '/ambulance/ambulance_table' ? 'active' : ''; ?>>救護車清單</a>
+              </li>
+              <li>
+                <a href="<?php echo site_url('/ambulance/ambulance_place_table'); ?>"
+                <?php echo $url == '/ambulance/ambulance_place_table' ? 'active' : ''; ?>>救護車停置點</a>
+              </li>
+            </ul>
           </li>
 
           <li>
@@ -112,8 +134,8 @@
           </li>
 
           <li>
-            <a href="#pageSubmenuCouselorC" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">檢核</a>
-            <ul class="collapse list-unstyled" id="pageSubmenuCouselorC">
+            <a href="#pageSubmenuCouselorD" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">檢核</a>
+            <ul class="collapse list-unstyled" id="pageSubmenuCouselorD">
               <li>
                 <a href="<?php echo site_url('/check/staff_apply_table'); ?>"
                   <?php echo $url == '/check/staff_apply_table' ? 'active' : ''; ?>>工作人員申請活動</a>
@@ -121,6 +143,10 @@
               <li>
                 <a href="<?php echo site_url('/check/member_pay_status_table'); ?>"
                   <?php echo $url == '/check/member_pay_status_table' ? 'active' : ''; ?>>繳費狀態</a>
+              </li>
+              <li>
+                <a href="<?php echo site_url('/check/gift_status_table'); ?>"
+                  <?php echo $url == '/check/gift_status_table' ? 'active' : ''; ?>>兌換禮品狀態</a>
               </li>
             </ul>
           </li>
@@ -196,5 +222,3 @@
           </div>
         </div>
       </nav>
-
-            
