@@ -12,6 +12,16 @@ class UserModel extends CI_Model
 
         return $result;
     }
+    public function get_member_info()
+    {
+        $result = $this->db->get('member')->result_array();
+        return $result;
+    }
+    public function get_staff_info()
+    {
+        $result = $this->db->get('staff')->result_array();
+        return $result;
+    } 
     
     /*
      * get columns from schema
