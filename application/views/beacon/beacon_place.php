@@ -50,8 +50,8 @@
       </div>
 
       <div class="col-10 m-2 mx-auto">
-        <label for="" class="form-label">序號</label>
-        <input class="form-control" type="text" id="" name="" value="" required placeholder="請輸入序號">
+        <label for="order" class="form-label">順序</label>
+        <input class="form-control" type="text" id="order" name="order" value="" required placeholder="請輸入順序">
       </div>
 
       <div class="row justify-content-center" id="chineseDiv">
@@ -76,12 +76,12 @@
         </select>
       </div>
 
-      <div class="row">
+      <div class="row my-5">
         <div class="d-grid gap-2 col-2 mx-auto">
           <button class="btn btn-primary m-3" type="submit">送出</button>
         </div>
       </div>
-      <br><br><br><br>
+
     </form>
   </div>
 </div>

@@ -1,4 +1,4 @@
-<?php $this->load->view('templates/new_header');?>
+<?php $this->load->view('templates/new_header'); ?>
 <div class="breadcrumb-div">
   <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -6,10 +6,7 @@
         <a href="<?php echo site_url('/user/index'); ?>" <?php echo $url == '/user/index' ? 'active' : ''; ?>>首頁</a>
       </li>
       <li class="breadcrumb-item active" style="color:blue;" aria-current="page">
-        <a href="#">Beacon</a>
-      </li>
-      <li class="breadcrumb-item active" style="color:blue;" aria-current="page">
-        <a href="<?php echo site_url('/beacon/beacon_table'); ?>" <?php echo $url == '/beacon/beacon_table' ? 'active' : ''; ?>>Beacon清單</a>
+        <a href="<?php echo site_url('/ambulance/ambulance_table'); ?>" <?php echo $url == '/ambulance/ambulance_table' ? 'active' : ''; ?>>救護車資訊清單</a>
       </li>
       <li class="breadcrumb-item active" aria-current="page"><?php echo $title; ?></li>
     </ol>
@@ -21,13 +18,18 @@
     <form action="<?php echo site_url($url); ?>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 
       <div class="col-10 m-2 mx-auto">
-        <label for="beaconID" class="form-label">Beacon編號</label>
-        <input class="form-control" type="text" id="beaconID" name="beaconID" value="" required placeholder="請輸入Beacon編號">
+        <label for="hospital" class="form-label">醫院名稱</label>
+        <input class="form-control" type="text" id="hospital" name="hospital" value="" required placeholder="請輸入醫院名稱">
       </div>
 
       <div class="col-10 m-2 mx-auto">
-        <label for="beaconModel" class="form-label">Beacon型號</label>
-        <input class="form-control" type="text" id="beaconModel" name="beaconModel" value="" required placeholder="請輸入Beacon型號">
+        <label for="hospitalPhone" class="form-label">醫院電話</label>
+        <input class="form-control" type="text" id="hospitalPhone" name="hospitalPhone" value="" required placeholder="請輸入醫院電話">
+      </div>
+
+      <div class="col-10 m-2 mx-auto">
+        <label for="licensePlate" class="form-label">車牌</label>
+        <input class="form-control" type="text" id="licensePlate" name="licensePlate" value="" required placeholder="請輸入車牌">
       </div>
 
       <div class="row my-5">
@@ -39,4 +41,4 @@
     </form>
   </div>
 </div>
-<?php $this->load->view('templates/new_footer');?>
+<?php $this->load->view('templates/new_footer'); ?>
