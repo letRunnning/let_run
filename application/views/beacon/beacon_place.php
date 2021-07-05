@@ -49,10 +49,10 @@
         </div>
       </div>
 
-      <div class="col-10 m-2 mx-auto">
+      <!-- <div class="col-10 m-2 mx-auto">
         <label for="order" class="form-label">順序</label>
         <input class="form-control" type="text" id="order" name="order" value="" required placeholder="請輸入順序">
-      </div>
+      </div> -->
 
       <div class="row justify-content-center" id="chineseDiv">
         <div class="col-md-5">
