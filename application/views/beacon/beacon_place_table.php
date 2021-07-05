@@ -22,7 +22,7 @@
 
     <div class="col-md-3">
       <label for="runActive" style="text-align:right;" class="col-form-label">搜尋</label>
-      <input id="myInput" class="form-control" type="search" onkeyup="myFunction('all_counselor')" placeholder="搜尋路跑活動">
+      <input id="myInput" class="form-control" type="search" onkeyup="myFunction('all_counselor')" placeholder="搜尋路跑組別">
     </div>
   </div>
   <br>

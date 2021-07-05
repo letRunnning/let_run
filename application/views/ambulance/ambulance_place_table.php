@@ -11,6 +11,13 @@
 </div>
 
 <div class="container">
+
+  <div class="col-md-3 mx-auto">
+    <label for="runActive" style="text-align:right;" class="col-form-label">搜尋</label>
+    <input id="myInput" class="form-control" type="search" onkeyup="myFunction('all_counselor')" placeholder="搜尋路跑活動">
+  </div>
+  <br>
+
   <div class="d-grid gap-2 col-2 mx-auto">
     <td scope="col"><a type="button" class="btn btn-info" href="<?php echo site_url('ambulance/ambulance_place/' );?>">新增</a></td>
   </div>
