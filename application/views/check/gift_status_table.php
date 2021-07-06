@@ -13,7 +13,12 @@
   </nav>
 </div>
 <div class="container">
+  <div class="col-md-3 mx-auto">
+    <label for="runActive" style="text-align:right;" class="col-form-label">搜尋</label>
+    <input id="myInput" class="form-control" type="search" onkeyup="myFunction('all_counselor')" placeholder="搜尋路跑活動">
+  </div>
   <br>
+  
   <table class="table text-center border-secondary table-hover align-middle">
     <thead class="header" style="background-color:#C8C6A7">
       <tr>
