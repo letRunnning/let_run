@@ -27,7 +27,7 @@ class Checkin extends CI_Controller
         $accept_role = array(6);
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
-                'title' => '工作人員報到',
+                'title' => '工作人員報到狀態',
                 'url' => '/checkin/staff_checkin_table/',
                 'role' => $current_role,
                 'userTitle' => $userTitle,
@@ -49,7 +49,7 @@ class Checkin extends CI_Controller
         $accept_role = array(6);
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
-                'title' => '會員報到',
+                'title' => '會員報到狀態',
                 'url' => '/checkin/member_checkin_table/',
                 'role' => $current_role,
                 'userTitle' => $userTitle,

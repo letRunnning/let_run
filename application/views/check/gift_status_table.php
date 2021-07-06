@@ -21,7 +21,7 @@
         <th scope="col">姓名</th>
         <th scope="col">參加之路跑編號</th>
         <th scope="col">組別</th>
-        <th scope="col">要項</th>
+        <th scope="col">狀態</th>
         <th scope="col">連絡電話</th>
       </tr>
     </thead>
