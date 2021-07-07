@@ -72,8 +72,6 @@ class User extends CI_Controller
 
     public function login()
     {
-        
-      
         $passport = $this->session->userdata('passport');
         $checkLoign = $this->session->userdata('checkLoign');
         if(empty($checkLoign)) {
@@ -320,9 +318,9 @@ class User extends CI_Controller
             'email' =>  $user->email,
             'content' => email_content_reset_password($user->name, $id)
           );
-          //api_send_email($data);            
+          //api_send_email($data);
  
-          redirect('user/login');          
+          redirect('user/login');
         } else {
           $beSentDataset['error'] = '帳號密碼錯誤';
         //   $this->session->unset_userdata('captchaCode');
@@ -1762,7 +1760,7 @@ class User extends CI_Controller
         $accept_role = array(6);
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
-                'title' => '查看會員個人資訊',
+                'title' => '會員個人資訊',
                 'url' => '/user/member_info',
                 'role' => $current_role,
                 'userTitle' => $userTitle,
@@ -1782,7 +1780,7 @@ class User extends CI_Controller
         $accept_role = array(6);
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
-                'title' => '查看工作人員個人資訊',
+                'title' => '工作人員個人資訊',
                 'url' => '/user/staff_info',
                 'role' => $current_role,
                 'userTitle' => $userTitle,

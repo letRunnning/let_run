@@ -12,6 +12,18 @@
     </ol>
   </nav>
 </div>
+
 <div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-3">
+      <label for="runActive" style="text-align:right;" class="col-form-label">搜尋</label>
+      <input id="myInput" class="form-control" type="search" onkeyup="myFunction('all_counselor')" placeholder="搜尋路跑活動">
+    </div>
+
+    <div class="col-md-3">
+      <label for="memberName" style="text-align:right;" class="col-form-label">搜尋</label>
+      <input id="myInput" class="form-control" type="search" onkeyup="myFunction('all_counselor')" placeholder="搜尋參賽者姓名">
+    </div>
+  </div>
 </div>
 <?php $this->load->view('templates/new_footer');?>

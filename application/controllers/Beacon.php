@@ -19,6 +19,7 @@ class Beacon extends CI_Controller
         $this->load->model('MonthReviewModel');
         $this->load->model('SeasonalReviewModel');
     }
+
     public function beacon_table()
     {
         $passport = $this->session->userdata('passport');
@@ -27,7 +28,7 @@ class Beacon extends CI_Controller
         $accept_role = array(6);
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
-                'title' => '新增Beacon',
+                'title' => 'Beacon清單',
                 'url' => '/beacon/beacon_table/',
                 'role' => $current_role,
                 'userTitle' => $userTitle,
@@ -40,6 +41,29 @@ class Beacon extends CI_Controller
             redirect('user/login');
         }
     }
+
+    public function beacon()
+    {
+        $passport = $this->session->userdata('passport');
+        $userTitle = $passport['userTitle'];
+        $current_role = $passport['role'];
+        $accept_role = array(6);
+        if (in_array($current_role, $accept_role)) {
+            $beSentDataset = array(
+                'title' => 'Beacon',
+                'url' => '/beacon/beacon/',
+                'role' => $current_role,
+                'userTitle' => $userTitle,
+                'current_role' => $current_role,
+                'password' => $passport['password']
+            );
+
+            $this->load->view('/beacon/beacon', $beSentDataset);
+        } else {
+            redirect('user/login');
+        }
+    }
+
     public function beacon_place_table()
     {
         $passport = $this->session->userdata('passport');
@@ -48,7 +72,7 @@ class Beacon extends CI_Controller
         $accept_role = array(6);
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
-                'title' => '查看Beacon放置點',
+                'title' => 'Beacon放置點清單',
                 'url' => '/beacon/beacon_place_table/',
                 'role' => $current_role,
                 'userTitle' => $userTitle,
@@ -62,6 +86,27 @@ class Beacon extends CI_Controller
         }
     }
     
+    public function beacon_place()
+    {
+        $passport = $this->session->userdata('passport');
+        $userTitle = $passport['userTitle'];
+        $current_role = $passport['role'];
+        $accept_role = array(6);
+        if (in_array($current_role, $accept_role)) {
+            $beSentDataset = array(
+                'title' => 'Beacon放置點',
+                'url' => '/beacon/beacon_place/',
+                'role' => $current_role,
+                'userTitle' => $userTitle,
+                'current_role' => $current_role,
+                'password' => $passport['password']
+            );
+
+            $this->load->view('/beacon/beacon_place', $beSentDataset);
+        } else {
+            redirect('user/login');
+        }
+    }
 
 
 }
