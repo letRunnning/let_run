@@ -52,11 +52,11 @@
           <div class="row justify-content-center">
             <div class="col-md-5">
               <label for="formEndTime">結束報名時間(日期)*</label>
-              <input class="form-control" type="text" id="dateTo" name="endDate" value="<?php echo (empty($activity)) ? "" : $activity->date ?>">
+              <input class="form-control" type="text" id="dateTo" name="endDate" value="<?php echo (empty($activity)) ? "" : substr($activity->end_time, 0, 10) ?>">
             </div>
             <div class="col-md-5">
               <label for="formEndTime">結束報名時間(時間)*</label>
-              <input class="form-control time-picker-end" type="text" id="formEndTime" name="endTime" value="<?php echo (empty($activity)) ? "" : $activity->date ?>">
+              <input class="form-control time-picker-end" type="text" id="formEndTime" name="endTime" value="<?php echo (empty($activity)) ? "" : substr($activity->end_time, 11, strlen($activity->end_time)) ?>">
             </div>
           </div>
           <div class="col-10 m-2 mx-auto">
