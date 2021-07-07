@@ -5,19 +5,7 @@ class Run extends CI_Controller
     {
         parent::__construct();
         $this->load->model('RunModel');
-        $this->load->model('MenuModel');
-        $this->load->model('CaseAssessmentModel');
-        $this->load->model('ProjectModel');
-        $this->load->model('CountyModel');
-        $this->load->model('MemberModel');
-        $this->load->model('UserModel');
-        $this->load->model('SeasonalReviewModel');
-        $this->load->model('IntakeModel');
-        $this->load->model('CompletionModel');
-        $this->load->model('CounselorServingMemberModel');
-        $this->load->model('ReviewModel');
-        $this->load->model('MonthReviewModel');
-        $this->load->model('SeasonalReviewModel');
+        $this->load->model('FileModel');
     }
 
     public function run_active_table()
@@ -37,38 +25,87 @@ class Run extends CI_Controller
                 'activities' => $activities,
                 'password' => $passport['password']
             );
-            // foreach ($activities as $i) {
-            //     echo $i['name'];
-            // }
-
             $this->load->view('/run/run_active_table', $beSentDataset);
         } else {
             redirect('user/login');
         }
-    }
-    public function run_active($runNo= null)
-    {
+    }public function run_active($runNo = null) {
+    
         $passport = $this->session->userdata('passport');
+        $currentRole = $passport['role'];
         $userTitle = $passport['userTitle'];
-        $current_role = $passport['role'];
-        $accept_role = array(6);
-        $activity = $this->RunModel->get_active_by_id($runNo);
+    
+        $acceptRole = array(6);
+        $activity = $runNo ? $this->RunModel->get_active_by_id($runNo) : null;
+    
+        $beSentDataset = array(
+          'title' => '路跑活動詳細內容',
+          'url' => '/run/run_active/'.$runNo,
+          'role' => $acceptRole,
+          'userTitle' => $userTitle,
+          'current_role' => $acceptRole,
+          'activity' => $activity,
+          'password' => $passport['password'],
+          'security' => $this->security
+        );
         
-        if (in_array($current_role, $accept_role)) {
-            $beSentDataset = array(
-                'title' => '路跑活動詳細內容',
-                'url' => '/run/run_active/'.$runNo,
-                'role' => $current_role,
-                'userTitle' => $userTitle,
-                'current_role' => $current_role,
-                'activity' => $activity,
-                'password' => $passport['password']
-            );
+        $start_time="";
+        $end_time="";
+        $runName = $this->security->xss_clean($this->input->post('runName'));
+        $dateRun = $this->security->xss_clean($this->input->post('dateRun'));
+        $place = $this->security->xss_clean($this->input->post('place'));
+        $startDate = $this->security->xss_clean($this->input->post('startDate'));
+        $startTime = $this->security->xss_clean($this->input->post('startTime'));
+        $endDate = $this->security->xss_clean($this->input->post('endDate'));
+        $endTime = $this->security->xss_clean($this->input->post('endTime'));
+        $bankCode = $this->security->xss_clean($this->input->post('bankCode'));
+        $bankAccount = $this->security->xss_clean($this->input->post('bankAccount'));
+        $start_time = $startDate.' '.$startTime.':00';
+        $end_time = $endDate.' '.$endTime.':00';
 
-            $this->load->view('/run/run_active', $beSentDataset);
-        } else {
-            redirect('user/login');
+        $config['upload_path'] = './files/photo';
+        $config['allowed_types'] = 'jpg|png|pdf';
+        $config['max_size'] = 5000;
+        $config['max_width'] = 5000;
+        $config['max_height'] = 5000;
+        $config['encrypt_name'] = true;
+        $this->load->library('upload', $config);
+        // upload family diagram
+        if ($this->upload->do_upload('photoFile')) {
+            $fileMetaData = $this->upload->data();
+            $file_no = $this->FileModel->create_one('user', $fileMetaData['file_name'], $fileMetaData['orig_name']);
         }
+    
+        if (empty($runName)) return $this->load->view('/run/run_active', $beSentDataset);
+        
+        if (empty($activity)) {
+          $isExecuteSuccess = $this->RunModel->create_one('A7',$runName, $dateRun, $place,$start_time,$end_time,$bankCode,$bankAccount,$file_no);
+          $runNo = $isExecuteSuccess;
+        } else {
+          $isExecuteSuccess = $this->RunModel->update_by_id($runNo,$runName, $dateRun, $place,$start_time,$end_time,$bankCode,$bankAccount,$file_no);
+        }
+    
+        if ($isExecuteSuccess) {
+            print_r('yes');
+        }else{
+            print_r('yes');
+        }
+        if ($isExecuteSuccess) {
+          $beSentDataset['success'] = '新增成功';
+          $activities = $this->RunModel->get_all_active();
+          $beSentDataset['activities'] = $activities;
+          redirect('run/run_active_table');
+        } else {
+          $beSentDataset['error'] = '新增失敗';
+        }
+    
+        $activity = $runNo ? $this->RunModel->get_by_no($runNo) : null;
+        $beSentDataset['activity'] = $activity;
+        // $beSentDataset['url'] = '/run/run_active/' . $runNo;
+        $activities = $this->RunModel->get_all_active();
+        $beSentDataset['activities'] = $activities;
+        $this->load->view('/run/run_active_table', $beSentDataset);
+           
     }
     public function workgroup()
     {
