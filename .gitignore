@@ -9,7 +9,7 @@ application/logs/*
 !application/logs/.htaccess
 
 application/config/*
-
+application/controllers/User-old.php
 composer.lock
 
 user_guide_src/build/*
