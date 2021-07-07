@@ -45,8 +45,6 @@ class User extends CI_Controller
 
     public function login()
     {
-        
-      
         $passport = $this->session->userdata('passport');
         
         // 檢查登入次數 
@@ -253,9 +251,9 @@ class User extends CI_Controller
             'email' =>  $user->email,
             'content' => email_content_reset_password($user->name, $id)
           );
-          //api_send_email($data);            
+          //api_send_email($data);
  
-          redirect('user/login');          
+          redirect('user/login');
         } else {
           $beSentDataset['error'] = '帳號密碼錯誤';
           $this->load->view('/user/forget_password', $beSentDataset);

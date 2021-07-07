@@ -6,9 +6,9 @@
         <a href="<?php echo site_url('/user/index'); ?>" <?php echo $url == '/user/index' ? 'active' : ''; ?>>首頁</a>
       </li>
       <li class="breadcrumb-item active" style="color:blue;" aria-current="page">
-        <a href="#">檢核</a>
+        <a href="#">報到</a>
       </li>
-      <li class="breadcrumb-item active" aria-current="page"><?php echo $title;?></li>
+      <li class="breadcrumb-item active" aria-current="page"><?php echo $title; ?></li>
     </ol>
   </nav>
 </div>
@@ -26,6 +26,8 @@
         <th scope="col">姓名</th>
         <th scope="col">申請之路跑編號</th>
         <th scope="col">申請組別</th>
+        <th scope="col">狀態</th>
+        <th scope="col">連絡電話</th>
       </tr>
     </thead>
     <tbody>
@@ -34,18 +36,24 @@
         <td scope="col">袁宮依</td>
         <td scope="col">A1</td>
         <td scope="col">機動組</td>
+        <td scope="col">已報到</td>
+        <td scope="col">0900112233</td>
       </tr>
       <tr>
         <th scope="col">S000002</th>
         <td scope="col">袁宮貳</td>
         <td scope="col">A1</td>
         <td scope="col">報到組</td>
+        <td scope="col">已報到</td>
+        <td scope="col">0900112244</td>
       </tr>
       <tr>
         <th scope="col">S000003</th>
         <td scope="col">袁宮參</td>
         <td scope="col">A1</td>
         <td scope="col">機動組</td>
+        <td scope="col">尚未報到</td>
+        <td scope="col">0900112255</td>
       </tr>
     </tbody>
   </table>

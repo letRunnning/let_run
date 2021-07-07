@@ -1,11 +1,10 @@
 <?php
-class Check extends CI_Controller
+class Checkin extends CI_Controller
 {
     public function __construct()
     {
         parent::__construct();
         $this->load->model('MenuModel');
-        $this->load->model('YouthModel');
         $this->load->model('CaseAssessmentModel');
         $this->load->model('ProjectModel');
         $this->load->model('CountyModel');
@@ -19,7 +18,8 @@ class Check extends CI_Controller
         $this->load->model('MonthReviewModel');
         $this->load->model('SeasonalReviewModel');
     }
-    public function staff_apply_table()
+
+    public function staff_checkin_table()
     {
         $passport = $this->session->userdata('passport');
         $userTitle = $passport['userTitle'];
@@ -27,21 +27,21 @@ class Check extends CI_Controller
         $accept_role = array(6);
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
-                'title' => '工作人員申請活動',
-                'url' => '/check/staff_apply_table/',
+                'title' => '工作人員報到狀態',
+                'url' => '/checkin/staff_checkin_table/',
                 'role' => $current_role,
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
                 'password' => $passport['password']
             );
 
-            $this->load->view('/check/staff_apply_table', $beSentDataset);
+            $this->load->view('/checkin/staff_checkin_table', $beSentDataset);
         } else {
             redirect('user/login');
         }
     }
 
-    public function member_pay_status_table()
+    public function member_checkin_table()
     {
         $passport = $this->session->userdata('passport');
         $userTitle = $passport['userTitle'];
@@ -49,41 +49,17 @@ class Check extends CI_Controller
         $accept_role = array(6);
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
-                'title' => '繳費狀態',
-                'url' => '/check/member_pay_status_table/',
+                'title' => '會員報到狀態',
+                'url' => '/checkin/member_checkin_table/',
                 'role' => $current_role,
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
                 'password' => $passport['password']
             );
 
-            $this->load->view('/check/member_pay_status_table', $beSentDataset);
+            $this->load->view('/checkin/member_checkin_table', $beSentDataset);
         } else {
             redirect('user/login');
         }
     }
-    
-    public function gift_status_table()
-    {
-        $passport = $this->session->userdata('passport');
-        $userTitle = $passport['userTitle'];
-        $current_role = $passport['role'];
-        $accept_role = array(6);
-        if (in_array($current_role, $accept_role)) {
-            $beSentDataset = array(
-                'title' => '兌換禮品狀態',
-                'url' => '/check/gift_status_table/',
-                'role' => $current_role,
-                'userTitle' => $userTitle,
-                'current_role' => $current_role,
-                'password' => $passport['password']
-            );
-
-            $this->load->view('/check/gift_status_table', $beSentDataset);
-        } else {
-            redirect('user/login');
-        }
-    }
-
-
 }

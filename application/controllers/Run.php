@@ -6,7 +6,6 @@ class Run extends CI_Controller
         parent::__construct();
         $this->load->model('RunModel');
         $this->load->model('MenuModel');
-        $this->load->model('YouthModel');
         $this->load->model('CaseAssessmentModel');
         $this->load->model('ProjectModel');
         $this->load->model('CountyModel');
@@ -20,6 +19,7 @@ class Run extends CI_Controller
         $this->load->model('MonthReviewModel');
         $this->load->model('SeasonalReviewModel');
     }
+
     public function run_active_table()
     {
         $passport = $this->session->userdata('passport');
@@ -217,6 +217,7 @@ class Run extends CI_Controller
             redirect('user/login');
         }
     }
+
     public function print_join_proof()
     {
         $passport = $this->session->userdata('passport');
@@ -238,6 +239,7 @@ class Run extends CI_Controller
             redirect('user/login');
         }
     }
+
     public function dynamic_position_graph()
     {
         $passport = $this->session->userdata('passport');
@@ -259,7 +261,4 @@ class Run extends CI_Controller
             redirect('user/login');
         }
     }
-
-
-
 }

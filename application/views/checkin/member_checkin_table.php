@@ -6,9 +6,9 @@
         <a href="<?php echo site_url('/user/index'); ?>" <?php echo $url == '/user/index' ? 'active' : ''; ?>>首頁</a>
       </li>
       <li class="breadcrumb-item active" style="color:blue;" aria-current="page">
-        <a href="#">檢核</a>
+        <a href="#">報到</a>
       </li>
-      <li class="breadcrumb-item active" aria-current="page"><?php echo $title;?></li>
+      <li class="breadcrumb-item active" aria-current="page"><?php echo $title; ?></li>
     </ol>
   </nav>
 </div>
@@ -22,30 +22,38 @@
   <table class="table text-center border-secondary table-hover align-middle">
     <thead class="header" style="background-color:#C8C6A7">
       <tr>
-        <th scope="col">工作人員編號</th>
+        <th scope="col">會員編號</th>
         <th scope="col">姓名</th>
-        <th scope="col">申請之路跑編號</th>
-        <th scope="col">申請組別</th>
+        <th scope="col">參加之路跑編號</th>
+        <th scope="col">組別</th>
+        <th scope="col">狀態</th>
+        <th scope="col">連絡電話</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <th scope="col">S000001</th>
-        <td scope="col">袁宮依</td>
+        <th scope="col">M000001</th>
+        <td scope="col">會員一</td>
         <td scope="col">A1</td>
-        <td scope="col">機動組</td>
+        <td scope="col">菁英組</td>
+        <td scope="col">已報到</td>
+        <td scope="col">0900112233</td>
       </tr>
       <tr>
-        <th scope="col">S000002</th>
-        <td scope="col">袁宮貳</td>
+        <th scope="col">M000002</th>
+        <td scope="col">會員二</td>
         <td scope="col">A1</td>
-        <td scope="col">報到組</td>
+        <td scope="col">休閒組</td>
+        <td scope="col">已報到</td>
+        <td scope="col">0900112244</td>
       </tr>
       <tr>
-        <th scope="col">S000003</th>
-        <td scope="col">袁宮參</td>
+        <th scope="col">M000003</th>
+        <td scope="col">會員三</td>
         <td scope="col">A1</td>
-        <td scope="col">機動組</td>
+        <td scope="col">休閒組</td>
+        <td scope="col">尚未報到</td>
+        <td scope="col">0900112255</td>
       </tr>
     </tbody>
   </table>

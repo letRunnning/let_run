@@ -8,7 +8,7 @@
       <li class="breadcrumb-item active" style="color:blue;" aria-current="page">
         <a href="#">個人資訊</a>
       </li>
-      <li class="breadcrumb-item active" aria-current="page"><?php echo $title;?></li>
+      <li class="breadcrumb-item active" aria-current="page"><?php echo $title; ?></li>
     </ol>
   </nav>
 </div>
