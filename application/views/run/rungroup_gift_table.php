@@ -15,6 +15,9 @@
 <div class="container" style="width:95%">
 <br>
   <div class="row">
+    <div class="d-grid gap-2 col-2 mx-auto">
+      <a class="btn btn-info m-3" href="<?php echo site_url('run/rungroup_gift/' ); ?>">新增</a><br>
+    </div>
     <table class="table text-center border-secondary table-hover align-middle">
       <thead class="header" style="background-color:#C8C6A7">
         <tr>
