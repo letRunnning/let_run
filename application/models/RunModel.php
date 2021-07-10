@@ -14,6 +14,22 @@ class RunModel extends CI_Model
         $result = $this->db->get('running_activity',1);
         return $result->row();
     }
+    public function get_all_workgrpup()
+    {
+        $this->db->select('*,running_activity.name as runName,work_group.name as workName');
+        $this->db->join('running_activity', 'running_activity.running_ID = work_group.running_ID');
+        $this->db->order_by("running_activity.name", "desc");
+        $result = $this->db->get('work_group') -> result_array();
+        return $result;
+    }
+    public function get_workgrpup_by_id($workID)
+    {
+        $this->db->select('*,running_activity.name as runName');
+        $this->db->where('workgroup_ID', $workID);
+        $this->db->join('running_activity', 'running_activity.running_ID = work_group.running_ID');
+        $result = $this->db->get('work_group') -> result_array();
+        return $result;
+    }
     function create_one($id,$name, $date,$place,$start_time,$end_time,$bankCode,$bankAccount,$file_no) {
 
         $this->running_ID  = $id;
