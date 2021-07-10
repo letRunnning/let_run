@@ -64,8 +64,8 @@
                   <?php echo $url == '/run/run_active_table' ? 'active' : ''; ?>>路跑活動清單</a>
               </li>
               <li>
-                <a href="<?php echo site_url('/run/workgroup'); ?>"
-                  <?php echo $url == '/run/workgroup' ? 'active' : ''; ?>>工作組別 & 項目</a>
+                <a href="<?php echo site_url('/run/workgroup_table'); ?>"
+                  <?php echo $url == '/run/workgroup_table' ? 'active' : ''; ?>>工作組別 & 項目</a>
               </li>
               <li>
                 <a href="<?php echo site_url('/run/rungroup_gift_table'); ?>"
