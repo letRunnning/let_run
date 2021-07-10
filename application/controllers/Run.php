@@ -73,7 +73,7 @@ class Run extends CI_Controller
         // upload family diagram
         if ($this->upload->do_upload('photoFile')) {
             $fileMetaData = $this->upload->data();
-            $file_no = $this->FileModel->create_one('user', $fileMetaData['file_name'], $fileMetaData['orig_name']);
+            $file_no = $this->FileModel->create_one($fileMetaData['file_name'], $fileMetaData['orig_name']);
         }
     
         if (empty($runName)) return $this->load->view('/run/run_active', $beSentDataset);
@@ -124,6 +124,29 @@ class Run extends CI_Controller
             );
 
             $this->load->view('/run/workgroup', $beSentDataset);
+        } else {
+            redirect('user/login');
+        }
+    }
+    public function workgroup_table()
+    {
+        $passport = $this->session->userdata('passport');
+        $userTitle = $passport['userTitle'];
+        $current_role = $passport['role'];
+        $accept_role = array(6);
+        $workgroups = $this->RunModel->get_all_workgrpup();
+        if (in_array($current_role, $accept_role)) {
+            $beSentDataset = array(
+                'title' => '工作組別 & 項目',
+                'url' => '/run/workgroup/',
+                'role' => $current_role,
+                'userTitle' => $userTitle,
+                'current_role' => $current_role,
+                'password' => $passport['password'],
+                'workgroups' => $workgroups
+            );
+
+            $this->load->view('/run/workgroup_table', $beSentDataset);
         } else {
             redirect('user/login');
         }
