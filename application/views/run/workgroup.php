@@ -8,6 +8,9 @@
       <li class="breadcrumb-item active" style="color:blue;" aria-current="page">
         <a href="#">路跑活動</a>
       </li>
+      <li class="breadcrumb-item active" style="color:blue;" aria-current="page">
+        <a href="<?php echo site_url('/run/workgroup_table'); ?>">工作組別 & 項目</a>
+      </li>
       <li class="breadcrumb-item active" aria-current="page"><?php echo $title;?></li>
     </ol>
   </nav>
