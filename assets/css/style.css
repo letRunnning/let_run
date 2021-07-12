@@ -331,9 +331,6 @@ th {
 	font-weight: bold;
 	text-align: center;
 }
-.dropdown-toggle::after {
-    /* display: none; */
-}
   /* Align Bootstrap default Dropdown icon closer to vertical center of collapsed icon. */
 .dropdown-toggle::after {
     vertical-align: 0.15em;

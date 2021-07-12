@@ -1,7 +1,28 @@
 <?php
 class UserModel extends CI_Model
 {
+    /*
+     * Get user by id
+     * @Return: user object
+     */
+    public function get_by_id($id)
+    {
+        $this->db->where('id', $id);
+        $result = $this->db->get('users', 1);
 
+        return $result;
+    }
+    public function get_member_info()
+    {
+        $result = $this->db->get('member')->result_array();
+        return $result;
+    }
+    public function get_staff_info()
+    {
+        $result = $this->db->get('staff')->result_array();
+        return $result;
+    } 
+    
     /*
      * get columns from schema
      */
@@ -11,19 +32,6 @@ class UserModel extends CI_Model
       from information_schema.columns
       where table_name = 'users' and table_schema = 'yda'; ";
         return $this->db->query($sql)->result();
-    }
-
-    /*
-     * Get user by id
-     * @Return: user object
-     */
-    public function get_by_id($id)
-    {
-        $this->db->where('id', $id);
-        $this->db->where('usable', 1);
-        $result = $this->db->get('users', 1);
-
-        return $result;
     }
 
     public function get_name_by_id($id)

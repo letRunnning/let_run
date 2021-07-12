@@ -30,6 +30,19 @@
         <input class="form-control" type="text" id="beaconModel" name="beaconModel" value="" required placeholder="請輸入Beacon型號">
       </div>
 
+      <div class="col-10 m-2 mx-auto">
+        <label for="longitude" class="form-label">是否可使用</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+          <label class="form-check-label" for="gridRadios1">可使用</label>
+        </div>
+
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+          <label class="form-check-label" for="gridRadios2">不可使用</label>
+        </div>
+      </div>
+
       <div class="row my-5">
         <div class="d-grid gap-2 col-2 mx-auto">
           <button class="btn btn-primary m-3" type="submit">送出</button>
