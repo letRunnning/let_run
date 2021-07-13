@@ -113,6 +113,7 @@ class Run extends CI_Controller
         $userTitle = $passport['userTitle'];
         $current_role = $passport['role'];
         $accept_role = array(6);
+        $activities = $this->RunModel->get_all_active();
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
                 'title' => '路跑工作組別',
@@ -120,9 +121,29 @@ class Run extends CI_Controller
                 'role' => $current_role,
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
-                'password' => $passport['password']
+                'password' => $passport['password'],
+                'security' => $this->security,
+                'activities' => $activities
             );
-
+            $runActive = $this->security->xss_clean($this->input->post('runActive'));
+            $workgroupName = $this->security->xss_clean($this->input->post('workgroupName'));
+            $workData=[];
+            
+            if(!empty($workData)){
+                echo "not em";
+            }
+            $workgroups = array('workList', 'assemblyTime', 'assemblyPlace', 'peoples');
+            foreach ($workgroups as $column) {
+                // $workData[$column] = $this->input->post($column) ? implode(",", $this->input->post($column)) : 0;
+                $temp[$column] = $this->security->xss_clean($this->input->post($column)) ? $this->security->xss_clean($this->input->post($column)):'';
+            }
+            if(!empty($temp)){
+                array_push($workData,$temp);
+            }
+            if(!empty($workData)){
+                echo $workData[0]['workList'];
+            }
+            $beSentDataset['workData'] =$workData;
             $this->load->view('/run/workgroup', $beSentDataset);
         } else {
             redirect('user/login');
