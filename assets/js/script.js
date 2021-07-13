@@ -126,6 +126,13 @@ var originalSetting = {
       altFormat: "yy-mm-dd",
       dateFormat: 'yy/mm/dd'
     });
+    $(".timepicker_TW").datepicker({
+      changeMonth: true,
+      changeYear: true,
+      altField: "#hiddenRun",
+      altFormat: "yy-mm-dd",
+      dateFormat: 'yy/mm/dd'
+    });
   }
   
   
