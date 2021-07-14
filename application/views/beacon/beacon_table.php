@@ -27,7 +27,26 @@
         <th scope="col">要項</th>
       </tr>
     </thead>
+
     <tbody>
+    <?php foreach ($beacons as $i) { ?>
+    <tr>
+      <th scope="col"><?php echo $i['beacon_ID']; ?></th>
+      <td scope="col"><?php echo $i['type']; ?></td>
+      <td scope="col">
+        <?php if ($i['is_available'] == '0') {
+          echo '否';
+        } else {
+          echo '是';
+        }
+        ?>
+      </td>
+      <td scope="col"><a type="button" class="btn btn-warning" href="<?php echo site_url('beacon/beacon/'.$i['beacon_ID'] );?>">編輯/查看</a></td>
+    </tr>
+    <?php } ?>
+  </tbody>
+
+    <!-- <tbody>
       <tr>
         <th scope="col">Ada Lovelace</th>
         <td scope="col">Ci.BLE MESH</td>
@@ -46,7 +65,7 @@
         <td scope="col">否</td>
         <td scope="col"><a type="button" class="btn btn-warning" href="<?php echo site_url('beacon/beacon/3' );?>">編輯/查看</a></td>
       </tr>
-    </tbody>
+    </tbody> -->
   </table>
 </div>
 <?php $this->load->view('templates/new_footer');?>

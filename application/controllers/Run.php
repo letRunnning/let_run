@@ -29,7 +29,9 @@ class Run extends CI_Controller
         } else {
             redirect('user/login');
         }
-    }public function run_active($runNo = null) {
+    }
+    
+    public function run_active($runNo = null) {
     
         $passport = $this->session->userdata('passport');
         $currentRole = $passport['role'];

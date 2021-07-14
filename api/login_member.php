@@ -3,8 +3,8 @@ require("memberModel.php");
 header('Content-Type: application/json; charset=UTF-8');
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    $email = $_POST['Email'];
+    $password = $_POST['Password'];
     
     if ($email && $password) {
         $result = login($email, $password);
