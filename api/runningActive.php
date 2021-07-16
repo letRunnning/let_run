@@ -1,10 +1,10 @@
 <?php
-    $con = mysqli_connect("localhost", "id17225959_user", 'zS/-\q?JOg+Yvn1$', "id17225959_running");
+    $con = mysqli_connect("localhost", "id17256516_root", '&qM$(wP3Nu6/U$T3', "id17256516_run");
     
     if ($con) {
         header("Content-Type: application/json; charset=UTF-8");
 
-        $sql_runs = "SELECT *,`running_activity`.`name` as `runName`,`files`.name as fileName FROM `running_activity` JOIN `files` ON `files`.`no` = `running_activity`.`file_no`";
+        $sql_runs = "SELECT *,`running_activity`.`name` as `runName`,`files`.name as fileName FROM `running_activity` LEFT JOIN `files` ON `files`.`no` = `running_activity`.`file_no`";
         $result_runs = mysqli_query($con, $sql_runs) or die("DB Error: Cannot retrieve message.");
         $weekarray=array("日","一","二","三","四","五","六");
         $data = array();
