@@ -16,11 +16,11 @@
             JOIN `running_activity` ON `running_group`.`running_ID`=`running_activity`.`running_ID` 
             where `running_activity`.`running_ID`='$tmpID'";
             $result_rungroup = mysqli_query($con, $sql_rungroup) or die("DB Error: Cannot retrieve message.");
-            $text = '';
+            // $text = '';
             $kiloList = array();
-            foreach ($result_rungroup as $j => $i) {
-                if($j != 0) $text = $text.'/';
-                $text =  $text.$i['group_name'].'('.$i['kilometers'].'K)';
+            foreach ($result_rungroup as $j => $i) {//組別的資料依序push進kiloList陣列裡
+                // if($j != 0) $text = $text.'/'; // 用來判斷是否要隔開 
+                // $text =  $text.$i['group_name'].'('.$i['kilometers'].'K)';
                 array_push($kiloList, urlencode($i['group_name']));
                 array_push($kiloList, $i['kilometers']);
             }
