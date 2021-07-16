@@ -1,28 +1,48 @@
 <?php
-require("memberModel.php");
-header('Content-Type: application/json; charset=UTF-8');
+    require("memberModel.php");
+    header('Content-Type: application/json; charset=UTF-8');
 
-if ($_SERVER['REQUEST_METHOD'] == "GET") {
-    $id = isset($_GET['running_ID']) ? $_GET['running_ID'] : null;
+    // if ($_SERVER['REQUEST_METHOD'] == "POST") {
+        // $id = $_POST['running_ID'];
 
-    if ($id) {
-        $activity = get_running_activity_detail($id);
-        $group = get_running_group_detail($id);
-        $gift = get_gift_detail($id);
+        $data = json_decode(file_get_contents("php://input"), true);
 
-        $rs = [];
-        $rs1 = [];
-        $rs2 = [];
-        for ($i = 0; $i < mysqli_num_rows($activity); $i++) {
-            $rs[$i] = mysqli_fetch_assoc($activity);
+        if ($data) {
+            $group = get_running_group_detail($data[0]['running_ID']);
+            $gift = get_gift_detail($data[0]['running_ID']);
+
+            $data = array();
+            $giftArray = array();
+
+            foreach ($group as $i) {
+                foreach ($gift as $j) {
+                    array_push($giftArray, urlencode($j['gift_name']));
+                    array_push($giftArray, $j['file_no']);
+                }
+
+                if ($i['group_name'] == $j['group_name']) {
+                    $array = array(
+                        'group_name' => urlencode($i['group_name']),
+                        'amount' => $i['amount'],
+                        'maximum_number' => $i['maximum_number'],
+                        'start_time' => $i['start_time'],
+                        'total_time' => strtotime($i['end_time']) - strtotime($i['start_time']),
+                        'gift' => $giftArray
+                    );
+                    array_push($data, $array);
+                } else {
+                    $array = array(
+                        'group_name' => urlencode($i['group_name']),
+                        'amount' => $i['amount'],
+                        'maximum_number' => $i['maximum_number'],
+                        'start_time' => $i['start_time'],
+                        'total_time' => strtotime($i['end_time']) - strtotime($i['start_time'])
+                    );
+                    array_push($data, $array);
+                    break;
+                }
+            }
+            echo urldecode(json_encode($data, JSON_PRETTY_PRINT));
         }
-        for ($i = 0; $i < mysqli_num_rows($group); $i++) {
-            $rs1[$i] = mysqli_fetch_assoc($group);
-        }
-        for ($i = 0; $i < mysqli_num_rows($gift); $i++) {
-            $rs2[$i] = mysqli_fetch_assoc($gift);
-        }
-        echo json_encode(array($rs, $rs1, $rs2));
-    }
-}
+    // }
 ?>
