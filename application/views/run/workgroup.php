@@ -2,13 +2,15 @@
 if(!empty($workData)){
   // echo $workData[1]['workList'];
   foreach($workData as $i){
-    // echo $i ->workList;
-    echo $i['workList'];
+    // echo $i['runActive'];
+    // echo $i['workgroupName'];
+    // echo $i['workList'];
     // echo $i['assemblyTime'];
     // echo $i['assemblyPlace'];
     // echo $i['peoples'];
   }
-}?>
+}
+?>
 <div class="breadcrumb-div">
   <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -34,33 +36,39 @@ if(!empty($workData)){
       <div class="col-10 m-2 mx-auto">
         <label>路跑活動</label>
         <select class="form-select mb-3" name="runActive" id="runActive" >
+        <?php if(empty($workgroupInfo->name)){?>
           <option selected value="A1">請選擇</option>
           <?php foreach($activities as $i) {?>
           <option  value="<?php echo $i['running_ID']?>"><?php echo $i['name']?></option>
-          <?php } ?>
+          <?php } }else{ ?>
+            <option  value="<?php echo $workgroupInfo->running_ID?>"><?php echo $workgroupInfo->name?></option>
+            <?php } ?>
         </select>
         </div>
 
         <div class="col-10 m-2 mx-auto">
             <label for="workgroupName" class="form-label">工作組別名稱</label>
-            <input class="form-control" type="text" id="workgroupName" name="workgroupName" value="" required placeholder="請輸入工作組別名稱">
+            <input class="form-control" type="text" id="workgroupName" name="workgroupName" value="<?php echo (empty($workgroupInfo))?"":  $workgroupInfo->workName?>" required placeholder="請輸入工作組別名稱">
         </div>
         <div class="row group">
           <div class="col-10 m-2 mx-auto">
               <label for="workList" class="form-label">工作項目</label>
-              <input class="form-control" type="text" id="workList" name="workList" value="清潔流動廁所" required placeholder="請輸入工作項目">
+              <input class="form-control" type="text" id="workList" name="workList" value="<?php echo (empty($workContents))?"":  $workContents->content?>" required placeholder="請輸入工作項目">
           </div>
           <div class="col-10 m-2 mx-auto">
               <label for="assemblyTime">集合時間</label>
-              <input type="text" id="assemblyTime" name="assemblyTime" class="form-control timepicker_TW" value="2021/06/01 09:00" required placeholder="請輸入活動日期">
+              <input type="text" id="assemblyTime" name="assemblyTime" class="form-control timepicker_TW" value="<?php echo (empty($workContents))?"":  $workContents->assembletime?>" required placeholder="請輸入活動日期">
           </div>
           <div class="col-10 m-2 mx-auto">
               <label for="assemblyPlace" class="form-label">集合地點</label>
-              <input class="form-control" type="text" id="assemblyPlace" name="assemblyPlace" value="國立暨南大學" required placeholder="請輸入集合地點">
+              <input class="form-control" type="text" id="assemblyPlace" name="assemblyPlace" value="<?php echo (empty($workContents))?"":  $workContents->assembleplace?>" required placeholder="請輸入集合地點">
           </div> 
           <div class="col-10 m-2 mx-auto">
               <label for="peoples" class="form-label">人數上限</label>
-              <input class="form-control" type="text" id="peoples" name="peoples" value="100" required placeholder="請輸入人數上限">
+              <input class="form-control" type="text" id="peoples" name="maximum_number" value="<?php echo (empty($workContents))?"":  $workContents->maximum_number?>" required placeholder="請輸入人數上限">
+          </div> 
+          <div class="col-10 m-2 mx-auto">
+            <hr>
           </div> 
         </div> 
       <div class="row">
