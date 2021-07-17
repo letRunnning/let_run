@@ -17,11 +17,12 @@
             foreach ($group as $i) {
                 foreach ($gift as $j) {
                     array_push($giftArray, urlencode($j['gift_name']));
-                    array_push($giftArray, $j['file_no']);
+                    array_push($giftArray, $j['name']);
                 }
 
                 if ($i['group_name'] == $j['group_name']) {
                     $array = array(
+                        'running_ID' => $i['running_ID'],
                         'group_name' => urlencode($i['group_name']),
                         'amount' => $i['amount'],
                         'maximum_number' => $i['maximum_number'],
@@ -32,6 +33,7 @@
                     array_push($data, $array);
                 } else {
                     $array = array(
+                        'running_ID' => $i['running_ID'],
                         'group_name' => urlencode($i['group_name']),
                         'amount' => $i['amount'],
                         'maximum_number' => $i['maximum_number'],

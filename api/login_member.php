@@ -42,7 +42,7 @@
                             'Member_ID' => urlencode($j['member_ID']),
                             'Name' => urlencode($j['name']),
                             'Email' => urlencode($j['email']),
-                            'File_no' => urlencode($j['file_no'])
+                            'Image' => urlencode($j['file_name'])
                         );
                         array_push($data2, $array);
                     }
