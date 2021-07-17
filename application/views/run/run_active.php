@@ -61,11 +61,11 @@
           </div>
           <div class="col-10 m-2 mx-auto">
                 <label for="bankCode" class="form-label">銀行代號</label>
-                <input class="form-control" type="text" id="bankCode" name="bankCode" value="<?php echo (empty($activity)) ? "" : $activity->bank_code ?>" placeholder="請輸入銀行代號">
+                <input class="form-control" type="text" id="bankCode" name="bankCode" value="<?php echo (empty($activity)) ? "" : $activity->payment_bank_code ?>" placeholder="請輸入銀行代號">
             </div> 
           <div class="col-10 m-2 mx-auto">
               <label for="bankAccount" class="form-label">銀行帳號</label>
-              <input class="form-control" type="text" id="bankAccount" name="bankAccount" value="<?php echo (empty($activity)) ? "" : $activity->bank_account ?>" placeholder="****-****-****-****">
+              <input class="form-control" type="text" id="bankAccount" name="bankAccount" value="<?php echo (empty($activity)) ? "" : $activity->payment_account ?>" placeholder="****-****-****-****">
           </div> 
           <div class="col-10 m-2 mx-auto">
             <label for="photoFile">上傳圖片(jpg/png/pdf)</label>
