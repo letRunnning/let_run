@@ -89,8 +89,8 @@
                   <?php echo $url == '/beacon/beacon_table' ? 'active' : ''; ?>>Beacon清單</a>
               </li>
               <li>
-                <a href="<?php echo site_url('/beacon/beacon_place_table'); ?>"
-                  <?php echo $url == '/beacon/beacon_place_table' ? 'active' : ''; ?>>Beacon放置點清單</a>
+                <a href="<?php echo site_url('/beacon/beacon_placement_table'); ?>"
+                  <?php echo $url == '/beacon/beacon_placement_table' ? 'active' : ''; ?>>Beacon放置點清單</a>
               </li>
             </ul>
           </li>

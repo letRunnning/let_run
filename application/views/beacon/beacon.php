@@ -26,11 +26,7 @@
 
       <div class="col-10 m-2 mx-auto">
         <label for="beaconID" class="form-label">Beacon編號</label>
-        <input class="form-control" type="text" id="beaconID" name="beaconID" value="<?php echo (empty($beacon)) ? "" : $beacon->beacon_ID ?>" required placeholder="請輸入Beacon編號"
-          <?php if (!empty($beacon)) {
-                  echo 'readonly';
-                } ?>
-        >
+        <input class="form-control" type="text" id="beaconID" name="beaconID" value="<?php echo (empty($beacon)) ? "" : $beacon->beacon_ID ?>" required placeholder="請輸入Beacon編號">
       </div>
 
       <div class="col-10 m-2 mx-auto">

@@ -28,7 +28,7 @@
   <br>
 
   <div class="d-grid gap-2 col-2 mx-auto">
-    <td scope="col"><a type="button" class="btn btn-info" href="<?php echo site_url('beacon/beacon_place/' );?>">新增</a></td>
+    <td scope="col"><a type="button" class="btn btn-info" href="<?php echo site_url('beacon/beacon_placement/' );?>">新增</a></td>
   </div>
   <br>
   <table class="table text-center border-secondary table-hover align-middle">
@@ -37,7 +37,6 @@
         <th scope="col">Beacon編號</th>
         <th scope="col">路跑編號</th>
         <th scope="col">組別名稱</th>
-        <th scope="col">排序</th>
         <th scope="col">經度</th>
         <th scope="col">緯度</th>
         <th scope="col">種類</th>
@@ -45,40 +44,27 @@
         <th scope="col">要項</th>
       </tr>
     </thead>
+
     <tbody>
-      <tr>
-        <th scope="col">Ada Lovelace</th>
-        <td scope="col">A1</td>
-        <td scope="col">10K休閒組</td>
-        <td scope="col">1</td>
-        <td scope="col">232.12</td>
-        <td scope="col">232.12</td>
-        <td scope="col">起點</td>
-        <td scope="col">是</td>
-        <td scope="col"><a type="button" class="btn btn-warning" href="<?php echo site_url('beacon/beacon_place/1' );?>">編輯/查看</a></td>
-      </tr>
-      <tr>
-        <th scope="col">Grace Hopper</th>
-        <td scope="col">A1</td>
-        <td scope="col">10K休閒組</td>
-        <td scope="col">2</td>
-        <td scope="col">432.12</td>
-        <td scope="col">432.12</td>
-        <td scope="col">補給站</td>
-        <td scope="col">是</td>
-        <td scope="col"><a type="button" class="btn btn-warning" href="<?php echo site_url('beacon/beacon_place/2' );?>">編輯/查看</a></td>
-      </tr>
-      <tr>
-        <th scope="col">Joan Clarke</th>
-        <td scope="col">A1</td>
-        <td scope="col">10K休閒組</td>
-        <td scope="col">3</td>
-        <td scope="col">251.58</td>
-        <td scope="col">152.12</td>
-        <td scope="col">終點</td>
-        <td scope="col">是</td>
-        <td scope="col"><a type="button" class="btn btn-warning" href="<?php echo site_url('beacon/beacon_place/3' );?>">編輯/查看</a></td>
-      </tr>
+      <?php foreach ($beaconPlacement as $i) { ?>
+        <tr>
+          <th scope="col"><?php echo $i['beacon_ID']; ?></th>
+          <td scope="col"><?php echo $i['running_ID']; ?></td>
+          <td scope="col"><?php echo $i['group_name']; ?></td>
+          <td scope="col"><?php echo $i['longitude']; ?></td>
+          <td scope="col"><?php echo $i['latitude']; ?></td>
+          <td scope="col"><?php echo $i['type']; ?></td>
+          <td scope="col">
+            <?php if ($i['is_available'] == '0') {
+              echo '否';
+            } else {
+              echo '是';
+            }
+            ?>
+          </td>
+          <td scope="col"><a type="button" class="btn btn-warning" href="<?php echo site_url('beacon/beacon_placement/'.$i['beacon_ID'] );?>">編輯/查看</a></td>
+        </tr>
+      <?php } ?>
     </tbody>
   </table>
 </div>

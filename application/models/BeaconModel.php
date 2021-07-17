@@ -15,7 +15,6 @@ class BeaconModel extends CI_Model
     }
 
     function create_one($id, $type, $available) {
-
         $this->beacon_ID = $id;
         $this->type = $type;
         $this->is_available = $available;
@@ -24,7 +23,7 @@ class BeaconModel extends CI_Model
     }
     
     function update_by_id($id, $type, $isAvailable) {
-
+        $this->beacon_ID = $id;
         $this->type = $type;
         $this->is_available = $isAvailable;
         
