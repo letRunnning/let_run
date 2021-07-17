@@ -3,7 +3,7 @@
 
     function login() {
         global $db;
-        $sql = "SELECT *, `files`.`name` AS `file_name` FROM `member` JOIN `files` ON `files`.`no` = `member`.`file_no`";
+        $sql = "SELECT *, `member`.`name` AS `member_name`, `files`.`name` AS `file_name` FROM `member` JOIN `files` ON `files`.`no` = `member`.`file_no`";
         $stmt = mysqli_prepare($db, $sql); // prepare sql statement
         mysqli_stmt_execute($stmt); // 執行 SQL
         $result = mysqli_stmt_get_result($stmt); // get result

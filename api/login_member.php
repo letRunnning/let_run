@@ -40,9 +40,9 @@
                     if ($data[0]['Email'] == $j['email']) {
                         $array = array(
                             'Member_ID' => urlencode($j['member_ID']),
-                            'Name' => urlencode($j['name']),
+                            'Name' => urlencode($j['member_name']),
                             'Email' => urlencode($j['email']),
-                            'Image' => urlencode($j['file_name'])
+                            'Photo_code' => urlencode($j['file_name'])
                         );
                         array_push($data2, $array);
                     }
