@@ -30,31 +30,25 @@
         <th scope="col">信箱</th>
       </tr>
     </thead>
+
     <tbody>
-      <tr>
-        <th scope="col">M000001</th>
-        <td scope="col">會員一</td>
-        <td scope="col">A1</td>
-        <td scope="col">菁英組</td>
-        <td scope="col">尚未繳費</td>
-        <td scope="col">123@gmail.com</td>
-      </tr>
-      <tr>
-        <th scope="col">M000002</th>
-        <td scope="col">會員二</td>
-        <td scope="col">A1</td>
-        <td scope="col">休閒組</td>
-        <td scope="col">已繳費</td>
-        <td scope="col">456@gmail.com</td>
-      </tr>
-      <tr>
-        <th scope="col">M000003</th>
-        <td scope="col">會員三</td>
-        <td scope="col">A1</td>
-        <td scope="col">休閒組</td>
-        <td scope="col">已繳費</td>
-        <td scope="col">789@gmail.com</td>
-      </tr>
+      <?php foreach ($pay as $i) { ?>
+        <tr>
+          <th scope="col"><?php echo $i['mID']; ?></th>
+          <td scope="col"><?php echo $i['name']; ?></td>
+          <td scope="col"><?php echo $i['running_ID']; ?></td>
+          <td scope="col"><?php echo $i['group_name']; ?></td>
+          <td scope="col">
+            <?php if ($i['time'] != '') {
+              echo '已繳費';
+            } else {
+              echo '尚未繳費';
+            }
+            ?>
+          </td>
+          <td scope="col"><?php echo $i['email']; ?></td>
+        </tr>
+      <?php } ?>
     </tbody>
   </table>
 </div>
