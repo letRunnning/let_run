@@ -30,31 +30,32 @@
         <th scope="col">連絡電話</th>
       </tr>
     </thead>
+
     <tbody>
-      <tr>
-        <th scope="col">M000001</th>
-        <td scope="col">會員一</td>
-        <td scope="col">A1</td>
-        <td scope="col">菁英組</td>
-        <td scope="col">已報到</td>
-        <td scope="col">0900112233</td>
-      </tr>
-      <tr>
-        <th scope="col">M000002</th>
-        <td scope="col">會員二</td>
-        <td scope="col">A1</td>
-        <td scope="col">休閒組</td>
-        <td scope="col">已報到</td>
-        <td scope="col">0900112244</td>
-      </tr>
-      <tr>
-        <th scope="col">M000003</th>
-        <td scope="col">會員三</td>
-        <td scope="col">A1</td>
-        <td scope="col">休閒組</td>
-        <td scope="col">尚未報到</td>
-        <td scope="col">0900112255</td>
-      </tr>
+      <?php foreach ($checkin as $i) { ?>
+        <!-- <?php print_r($checkin); ?> -->
+        <?php $time = date('Y-m-d H:i:s', strtotime($i['start_time']. '-30 minute')); ?>
+        <!-- <?php print_r($time); ?> -->
+        <tr>
+          <th scope="col"><?php echo $i['member_ID']; ?></th>
+          <td scope="col"><?php echo $i['name']; ?></td>
+          <td scope="col"><?php echo $i['running_ID']; ?></td>
+          <td scope="col"><?php echo $i['group_name']; ?></td>
+          <td scope="col">
+            <?php if ($i['time'] != '') {
+              if ($i['time'] < $time) {
+                echo '已報到';
+              } else {
+                echo '<font style="color:#FF0000;">遲來</font>';
+              }
+            } else {
+              echo '尚未報到';
+            }
+            ?>
+          </td>
+          <td scope="col"><?php echo $i['phone']; ?></td>
+        </tr>
+      <?php } ?>
     </tbody>
   </table>
 </div>

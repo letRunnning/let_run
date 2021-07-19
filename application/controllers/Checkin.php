@@ -4,19 +4,7 @@ class Checkin extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('MenuModel');
-        $this->load->model('CaseAssessmentModel');
-        $this->load->model('ProjectModel');
-        $this->load->model('CountyModel');
-        $this->load->model('MemberModel');
-        $this->load->model('UserModel');
-        $this->load->model('SeasonalReviewModel');
-        $this->load->model('IntakeModel');
-        $this->load->model('CompletionModel');
-        $this->load->model('CounselorServingMemberModel');
-        $this->load->model('ReviewModel');
-        $this->load->model('MonthReviewModel');
-        $this->load->model('SeasonalReviewModel');
+        $this->load->model('CheckinModel');
     }
 
     public function staff_checkin_table()
@@ -47,6 +35,8 @@ class Checkin extends CI_Controller
         $userTitle = $passport['userTitle'];
         $current_role = $passport['role'];
         $accept_role = array(6);
+        $checkin = $this->CheckinModel->get_all_checkin();
+
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
                 'title' => '會員報到狀態',
@@ -54,7 +44,8 @@ class Checkin extends CI_Controller
                 'role' => $current_role,
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
-                'password' => $passport['password']
+                'password' => $passport['password'],
+                'checkin' => $checkin
             );
 
             $this->load->view('/checkin/member_checkin_table', $beSentDataset);
