@@ -12,6 +12,7 @@
     </ol>
   </nav>
 </div>
+
 <div class="container">
   <div class="col-md-3 mx-auto">
     <label for="runActive" style="text-align:right;" class="col-form-label">搜尋</label>
@@ -30,31 +31,30 @@
         <th scope="col">連絡電話</th>
       </tr>
     </thead>
+
     <tbody>
-      <tr>
-        <th scope="col">S000001</th>
-        <td scope="col">袁宮依</td>
-        <td scope="col">A1</td>
-        <td scope="col">機動組</td>
-        <td scope="col">已報到</td>
-        <td scope="col">0900112233</td>
-      </tr>
-      <tr>
-        <th scope="col">S000002</th>
-        <td scope="col">袁宮貳</td>
-        <td scope="col">A1</td>
-        <td scope="col">報到組</td>
-        <td scope="col">已報到</td>
-        <td scope="col">0900112244</td>
-      </tr>
-      <tr>
-        <th scope="col">S000003</th>
-        <td scope="col">袁宮參</td>
-        <td scope="col">A1</td>
-        <td scope="col">機動組</td>
-        <td scope="col">尚未報到</td>
-        <td scope="col">0900112255</td>
-      </tr>
+      <?php foreach ($checkin as $i) { ?>
+        <tr>
+            <th scope="col"><?php echo $i['staff_ID']; ?></th>
+            <td scope="col"><?php echo $i['sName']; ?></td>
+            <td scope="col"><?php echo $i['running_ID']; ?></td>
+            <td scope="col"><?php echo $i['name']; ?></td>
+            <td scope="col">
+              <?php 
+                if ($i['checkin_time'] != '') {
+                  if (strtotime($i['checkin_time']) < strtotime($i['assembletime'])) {
+                    echo '已報到';
+                  } else {
+                    echo '<font style="color:#FF0000;">遲到</font>';
+                  }
+                } else {
+                  echo '尚未報到';
+                }
+              ?>
+            </td>
+            <td scope="col"><?php echo $i['phone']; ?></td>
+          </tr>
+      <?php } ?>
     </tbody>
   </table>
 </div>

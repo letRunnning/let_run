@@ -13,6 +13,8 @@ class Checkin extends CI_Controller
         $userTitle = $passport['userTitle'];
         $current_role = $passport['role'];
         $accept_role = array(6);
+        $checkin = $this->CheckinModel->get_all_staff_checkin();
+
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
                 'title' => '工作人員報到狀態',
@@ -20,7 +22,8 @@ class Checkin extends CI_Controller
                 'role' => $current_role,
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
-                'password' => $passport['password']
+                'password' => $passport['password'],
+                'checkin' => $checkin
             );
 
             $this->load->view('/checkin/staff_checkin_table', $beSentDataset);
