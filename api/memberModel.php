@@ -43,4 +43,26 @@
         
         return $result;
     }
+
+    function confirm_information($registrationID, $mID, $runningID, $group, $time) {
+        global $db;
+        $sql = "INSERT INTO `registration`(`registration_ID`, `member_ID`, `running_ID`, `group_name`, `time`) VALUES (?,?,?,?,?)";
+        $stmt = mysqli_prepare($db, $sql); // prepare sql statement
+        mysqli_stmt_bind_param($stmt, "sssss", $registrationID, $mID, $runningID, $group, $time); // bind parameters with variables
+        mysqli_stmt_execute($stmt); // 執行 SQL
+        $result = mysqli_stmt_get_result($stmt); // get result
+        
+        return $result;
+    }
+
+    function check_information($rID) {
+        global $db;
+        $sql = "SELECT * FROM `registration` WHERE `registration_ID` = ?";
+        $stmt = mysqli_prepare($db, $sql); // prepare sql statement
+        mysqli_stmt_bind_param($stmt, "s", $rID); // bind parameters with variables
+        mysqli_stmt_execute($stmt); // 執行 SQL
+        $result = mysqli_stmt_get_result($stmt); // get result
+        
+        return $result;
+    }
 ?>
