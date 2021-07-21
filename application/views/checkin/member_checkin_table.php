@@ -39,9 +39,8 @@
             <td scope="col"><?php echo $i['name']; ?></td>
             <td scope="col"><?php echo $i['running_ID']; ?></td>
             <td scope="col"><?php echo $i['group_name']; ?></td>
-            <td scope="col"><?php echo $i['phone']; ?></td>
             <td scope="col">
-              <?php
+              <?php 
                 if ($i['checkin_time'] != '') {
                   if ($i['checkin_time'] < $time) {
                     echo '已報到';
@@ -51,8 +50,9 @@
                 } else {
                   echo '尚未報到';
                 }
-                ?>
-              </td>
+              ?>
+            </td>
+            <td scope="col"><?php echo $i['phone']; ?></td>
           </tr>
          
       <?php } ?>
