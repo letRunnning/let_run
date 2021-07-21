@@ -36,7 +36,6 @@ class Checkin extends CI_Controller
         $current_role = $passport['role'];
         $accept_role = array(6);
         $registration = $this->CheckinModel->get_all_registration();
-        $checkin = $this->CheckinModel->get_all_checkin();
 
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
@@ -46,8 +45,7 @@ class Checkin extends CI_Controller
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
                 'password' => $passport['password'],
-                'registration' => $registration,
-                'checkin' => $checkin
+                'registration' => $registration
             );
 
             $this->load->view('/checkin/member_checkin_table', $beSentDataset);
