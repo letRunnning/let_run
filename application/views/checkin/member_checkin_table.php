@@ -26,35 +26,35 @@
         <th scope="col">姓名</th>
         <th scope="col">參加之路跑編號</th>
         <th scope="col">組別</th>
-        <th scope="col">狀態</th>
         <th scope="col">連絡電話</th>
+        <th scope="col">狀態</th>
       </tr>
     </thead>
 
     <tbody>
-      <?php foreach ($checkin as $i) { ?>
-        <!-- <?php print_r($checkin); ?> -->
+      <?php foreach ($registration as $i) { ?>
         <?php $time = date('Y-m-d H:i:s', strtotime($i['start_time']. '-30 minute')); ?>
-        <!-- <?php print_r($time); ?> -->
         <tr>
-          <th scope="col"><?php echo $i['member_ID']; ?></th>
-          <td scope="col"><?php echo $i['name']; ?></td>
-          <td scope="col"><?php echo $i['running_ID']; ?></td>
-          <td scope="col"><?php echo $i['group_name']; ?></td>
-          <td scope="col">
-            <?php if ($i['time'] != '') {
-              if ($i['time'] < $time) {
-                echo '已報到';
-              } else {
-                echo '<font style="color:#FF0000;">遲來</font>';
-              }
-            } else {
-              echo '尚未報到';
-            }
-            ?>
-          </td>
-          <td scope="col"><?php echo $i['phone']; ?></td>
-        </tr>
+            <th scope="col"><?php echo $i['member_ID']; ?></th>
+            <td scope="col"><?php echo $i['name']; ?></td>
+            <td scope="col"><?php echo $i['running_ID']; ?></td>
+            <td scope="col"><?php echo $i['group_name']; ?></td>
+            <td scope="col"><?php echo $i['phone']; ?></td>
+            <td scope="col">
+              <?php
+                if ($i['checkin_time'] != '') {
+                  if ($i['checkin_time'] < $time) {
+                    echo '已報到';
+                  } else {
+                    echo '<font style="color:#FF0000;">遲來</font>';
+                  }
+                } else {
+                  echo '尚未報到';
+                }
+                ?>
+              </td>
+          </tr>
+         
       <?php } ?>
     </tbody>
   </table>
