@@ -556,6 +556,9 @@ ALTER TABLE `work_group`
   ADD PRIMARY KEY (`workgroup_ID`),
   ADD KEY `work_running_ID` (`running_ID`);
 
+ALTER TABLE `work_group`
+  MODIFY `workgroup_ID` bigint(50) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '組代碼';
+COMMIT;
 --
 -- 已傾印資料表的限制式
 --
