@@ -65,4 +65,15 @@
         
         return $result;
     }
+
+    function get_group_name($rID) {
+        global $db;
+        $sql = "SELECT `group_name` FROM `registration` WHERE `registration_ID` = ?";
+        $stmt = mysqli_prepare($db, $sql); // prepare sql statement
+        mysqli_stmt_bind_param($stmt, "s", $rID); // bind parameters with variables
+        mysqli_stmt_execute($stmt); // 執行 SQL
+        $result = mysqli_stmt_get_result($stmt); // get result
+        
+        return $result;
+    }
 ?>
