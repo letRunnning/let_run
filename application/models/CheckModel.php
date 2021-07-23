@@ -20,4 +20,14 @@ class CheckModel extends CI_Model
         $result = $this->db->get('staff_participation') -> result_array();
         return $result;
     }
+
+    public function get_all_gift_status()
+    {
+        $this->db->select('registration.member_ID as mID, registration.running_ID, registration.group_name, member.name, member.phone, redeem.redeem_time');
+        $this->db->join('redeem', 'redeem.registration_ID = registration.registration_ID', 'left');
+        $this->db->join('member', 'registration.member_ID = member.member_ID');
+        $this->db->order_by('registration.registration_ID', 'asc');
+        $result = $this->db->get('registration') -> result_array();
+        return $result;
+    }
 }

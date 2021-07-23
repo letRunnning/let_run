@@ -39,6 +39,7 @@ class Check extends CI_Controller
         $userTitle = $passport['userTitle'];
         $current_role = $passport['role'];
         $accept_role = array(6);
+
         $pay = $this->CheckModel->get_all_member_pay();
 
         if (in_array($current_role, $accept_role)) {
@@ -65,6 +66,8 @@ class Check extends CI_Controller
         $current_role = $passport['role'];
         $accept_role = array(6);
 
+        $status = $this->CheckModel->get_all_gift_status();
+
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
                 'title' => '兌換禮品狀態',
@@ -72,7 +75,8 @@ class Check extends CI_Controller
                 'role' => $current_role,
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
-                'password' => $passport['password']
+                'password' => $passport['password'],
+                'status' => $status
             );
 
             $this->load->view('/check/gift_status_table', $beSentDataset);
