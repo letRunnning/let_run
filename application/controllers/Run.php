@@ -7,7 +7,6 @@ class Run extends CI_Controller
         $this->load->model('RunModel');
         $this->load->model('FileModel');
     }
-
     public function run_active_table()
     {
         $passport = $this->session->userdata('passport');
@@ -30,7 +29,6 @@ class Run extends CI_Controller
             redirect('user/login');
         }
     }
-    
     public function run_active($runNo = null) {
     
         $passport = $this->session->userdata('passport');
@@ -75,7 +73,7 @@ class Run extends CI_Controller
         // upload family diagram
         if ($this->upload->do_upload('photoFile')) {
             $fileMetaData = $this->upload->data();
-            $file_no = $this->FileModel->create_one('user', $fileMetaData['file_name'], $fileMetaData['orig_name']);
+            $file_no = $this->FileModel->create_one($fileMetaData['file_name'], $fileMetaData['orig_name']);
         }
     
         if (empty($runName)) return $this->load->view('/run/run_active', $beSentDataset);
@@ -109,13 +107,15 @@ class Run extends CI_Controller
         $this->load->view('/run/run_active_table', $beSentDataset);
            
     }
-    
-    public function workgroup()
+    public function workgroup($workgroupID = null)
     {
         $passport = $this->session->userdata('passport');
         $userTitle = $passport['userTitle'];
         $current_role = $passport['role'];
         $accept_role = array(6);
+        $activities = $this->RunModel->get_all_active();
+        $workgroupInfo = $workgroupID ? $this->RunModel->get_workgrpup_byid($workgroupID):null;
+        $workgroup_contents = $workgroupID ? $this->RunModel->get_workgroup_content_byid($workgroupID):null;
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
                 'title' => '路跑工作組別',
@@ -123,10 +123,157 @@ class Run extends CI_Controller
                 'role' => $current_role,
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
-                'password' => $passport['password']
+                'password' => $passport['password'],
+                'security' => $this->security,
+                'activities' => $activities,
+                'workgroupInfo' => $workgroupInfo,
+                'workContents' => $workgroup_contents
+            );
+            $workData=array();
+            $runActive = $this->security->xss_clean($this->input->post('runActive'));
+            // print_r($runActive);
+            $temp['runActive'] = $runActive;
+            $workgroupName = $this->security->xss_clean($this->input->post('workgroupName'));
+            $temp['workgroupName'] = $workgroupName;
+            // print_r($workgroupName);
+            
+            if(empty($runActive)){
+                return $this->load->view('/run/workgroup', $beSentDataset);
+            }else{
+                $workgroups = array('workList', 'assemblyTime', 'assemblyPlace', 'maximum_number');
+                foreach ($workgroups as $column) {
+                    // $workData[$column] = $this->input->post($column) ? implode(",", $this->input->post($column)) : 0;
+                    $temp[$column] = $this->security->xss_clean($this->input->post($column)) ? $this->security->xss_clean($this->input->post($column)):'';
+                }
+                if(!empty($temp)){
+                    array_push($workData,$temp);
+                    echo $i['runActive'];
+                    echo $i['workgroupName'];
+                    echo $i['workList'];
+                    echo $i['assemblyTime'];
+                    echo $i['assemblyPlace'];
+                    echo $i['peoples'];
+                    $isExecuteSuccess = $this->RunModel->create_workgroup($workData['runActive'],$workData['workgroupName'],$workData['workList'],$workData['assemblyTime'],$workData['assemblyPlace'],$workData['peoples']);
+                    // $isExecuteSuccess = $this->RunModel->create_workgroup($workData['runActive'],$workData['workgroupName'],$workData['workList'],$workData['assemblyTime'],$workData['assemblyPlace'],$workData['peoples']);
+                }
+                if(!empty($workData)){
+                    // echo $workData[0]['workList'];
+                }
+                $beSentDataset['workData'] =$workData;
+                $this->load->view('/run/workgroup', $beSentDataset);
+            }
+        } else {
+            redirect('user/login');
+        }
+    }
+    public function workgroup_table()
+    {
+        $passport = $this->session->userdata('passport');
+        $userTitle = $passport['userTitle'];
+        $current_role = $passport['role'];
+        $accept_role = array(6);
+        $workgroups = $this->RunModel->get_all_workgrpup();
+        if (in_array($current_role, $accept_role)) {
+            $beSentDataset = array(
+                'title' => '工作組別',
+                'url' => '/run/workgroup/',
+                'role' => $current_role,
+                'userTitle' => $userTitle,
+                'current_role' => $current_role,
+                'password' => $passport['password'],
+                'workgroups' => $workgroups
             );
 
-            $this->load->view('/run/workgroup', $beSentDataset);
+            $this->load->view('/run/workgroup_table', $beSentDataset);
+        } else {
+            redirect('user/login');
+        }
+    }
+    public function workcontent_table($runNo = null)
+    {
+        $passport = $this->session->userdata('passport');
+        $userTitle = $passport['userTitle'];
+        $current_role = $passport['role'];
+        $accept_role = array(6);
+        $runID = $runNo ? $runNo : null;
+        $activities = $this->RunModel->get_all_active();
+        $workgroups = $this->RunModel->get_all_workgrpup();
+        $activity = $runNo ? $this->RunModel->get_active_by_id($runNo) : null;
+        $workcontents = $runNo ? $this->RunModel->get_workcontents_by_id($runNo) : null;
+        if (in_array($current_role, $accept_role)) {
+            $beSentDataset = array(
+                'title' => '工作項目',
+                'url' => '/run/workcontent_table/'.$runNo,
+                'role' => $current_role,
+                'userTitle' => $userTitle,
+                'current_role' => $current_role,
+                'password' => $passport['password'],
+                'workgroups' => $workgroups,
+                'activities' => $activities,
+                'workcontents' => $workcontents,
+                'runID' => $runID
+            );
+
+            $this->load->view('/run/workcontent_table', $beSentDataset);
+        } else {
+            redirect('user/login');
+        }
+    }
+    public function workcontent($runNo = null,$workID = null)
+    {
+        $passport = $this->session->userdata('passport');
+        $userTitle = $passport['userTitle'];
+        $current_role = $passport['role'];
+
+        $accept_role = array(6);
+
+        $activities = $this->RunModel->get_all_active(); //下拉式選單用
+        $activity = $runNo ? $this->RunModel->get_active_by_id($runNo) : null; //顯示當前的路跑
+        $activity_work = $runNo ? $this->RunModel->get_active_work_by_id($runNo,$workID) : null; //顯示當前的路跑
+        
+        if (in_array($current_role, $accept_role)) {
+            $beSentDataset = array(
+                'title' => '工作項目表單',
+                'url' => '/run/workcontent/'.$runNo.'/'.$workID,
+                // 'url' => '/run/workcontent/'.$runNo.'/'.$workID,
+                'role' => $current_role,
+                'userTitle' => $userTitle,
+                'current_role' => $current_role,
+                'password' => $passport['password'],
+                'activities' => $activities,
+                'activity' => $activity,
+                'activity_work' => $activity_work,
+                'runNo' => $runNo,
+                'security' => $this->security
+            );
+            $runActive = $this->security->xss_clean($this->input->post('runActive'));
+            $place = $this->security->xss_clean($this->input->post('place'));
+            $content = $this->security->xss_clean($this->input->post('contents'));
+            
+            if (empty($runActive)) return $this->load->view('/run/workcontent', $beSentDataset);
+            
+            if (empty($activity)) {
+                $isExecuteSuccess = $this->RunModel->create_work($runActive, $place, $content);
+                $workID = $isExecuteSuccess;
+
+            }else{
+                $isExecuteSuccess = $this->RunModel->update_work($workID,$runActive, $place, $content);
+                $runNo = $runActive;
+            }
+            
+            if ($isExecuteSuccess) {
+                $beSentDataset['success'] = '新增成功';
+            } else {
+                $beSentDataset['error'] = '新增失敗';
+            }
+            $activity_work = $runNo ? $this->RunModel->get_active_work_by_id($runNo,$workID) : null;
+            $activity = $runNo ? $this->RunModel->get_active_by_id($runNo) : null; //顯示當前的路跑
+            // print_r($activity->name);
+            $beSentDataset['activity_work'] = $activity_work;
+            $beSentDataset['activity'] = $activity;
+            $beSentDataset['runNo'] = $runActive;
+            $beSentDataset['url'] = '/run/workcontent/'. $runActive.'/'.$workID;
+            $this->load->view('/run/workcontent', $beSentDataset);
         } else {
             redirect('user/login');
         }
