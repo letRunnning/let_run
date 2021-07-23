@@ -5,6 +5,7 @@ class Ambulance extends CI_Controller
     {
         parent::__construct();
         $this->load->model('AmbulanceModel');
+        $this->load->model('AmbulancePlacementModel');
     }
 
     public function ambulance_table()
@@ -89,6 +90,9 @@ class Ambulance extends CI_Controller
         $userTitle = $passport['userTitle'];
         $current_role = $passport['role'];
         $accept_role = array(6);
+
+        $ambulancePlacement = $this->AmbulancePlacementModel->get_all_ambulance_placement();
+
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
                 'title' => '救護車停置點清單',
@@ -96,7 +100,8 @@ class Ambulance extends CI_Controller
                 'role' => $current_role,
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
-                'password' => $passport['password']
+                'password' => $passport['password'],
+                'ambulancePlacement' => $ambulancePlacement
             );
 
             $this->load->view('/ambulance/ambulance_place_table', $beSentDataset);

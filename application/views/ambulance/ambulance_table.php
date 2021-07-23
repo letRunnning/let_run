@@ -24,6 +24,7 @@
         <th scope="col">要項</th>
       </tr>
     </thead>
+    
     <tbody>
       <?php foreach ($ambulance as $i) { ?>
         <tr>

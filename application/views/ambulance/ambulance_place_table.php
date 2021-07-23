@@ -26,15 +26,25 @@
     <thead class="header" style="background-color:#C8C6A7">
       <tr>
         <th scope="col">路跑活動編號</th>
-        <th scope="col">醫院</th>
-        <th scope="col">電話</th>
         <th scope="col">車牌</th>
         <th scope="col">時間</th>
         <th scope="col">經過點</th>
         <th scope="col">要項</th>
       </tr>
     </thead>
+
     <tbody>
+      <?php foreach ($ambulancePlacement as $i) { ?>
+        <tr>
+          <th scope="col"><?php echo $i['running_ID']; ?></th>
+          <th scope="col"><?php echo $i['liciense_plate']; ?></th>
+          <td scope="col"><?php echo $i['arrivetime']; ?></td>
+          <td scope="col"><?php echo $i['pass_ID']; ?></td>
+          <td scope="col"><a type="button" class="btn btn-warning" href="<?php echo site_url('ambulance/ambulance_place/'.$i['liciense_plate'] );?>">編輯/查看</a></td>
+        </tr>
+      <?php } ?>
+    </tbody>
+    <!-- <tbody>
       <tr>
         <th scope="col">A1</th>
         <th scope="col">林氏醫院</th>
@@ -62,7 +72,7 @@
         <td scope="col">暨大管院</td>
         <td scope="col"><a type="button" class="btn btn-warning" href="<?php echo site_url('ambulance/ambulance_place/3' );?>">編輯/查看</a></td>
       </tr>
-    </tbody>
+    </tbody> -->
   </table>
 </div>
 <?php $this->load->view('templates/new_footer'); ?>
