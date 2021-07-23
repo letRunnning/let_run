@@ -31,6 +31,8 @@
 
     $data = json_decode(file_get_contents("php://input"), true);
     $data2 = array();
+    $data3 = array();
+    $data4 = array();
 
     $count = 0;
     for ($i = 0; $i < count($response); $i++) {
@@ -51,12 +53,17 @@
                 echo urldecode(json_encode($data2, JSON_PRETTY_PRINT));
                 break;
             } else {
-                echo json_encode(["ans" => "no"]);
+                array_push($data3, array("ans" => "no"));
+                echo urldecode(json_encode($data3, JSON_PRETTY_PRINT));
+                break;
             }
         } else {
             $count++;
-            if ($count == count($response))
-                echo json_encode(["ans" => "email doesn't exist"]);
+            if ($count == count($response)) {
+                $array2 = array("ans" => "email doesn't exist");
+                array_push($data4, $array2);
+                echo urldecode(json_encode($data4, JSON_PRETTY_PRINT));
+            }
         }
     }
 ?>
