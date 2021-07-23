@@ -42,6 +42,7 @@
                             'Member_ID' => urlencode($j['member_ID']),
                             'Name' => urlencode($j['member_name']),
                             'Email' => urlencode($j['email']),
+                            'Id_card' => urlencode($j['id_card']),
                             'Photo_code' => urlencode($j['file_name'])
                         );
                         array_push($data2, $array);
@@ -50,9 +51,7 @@
                 echo urldecode(json_encode($data2, JSON_PRETTY_PRINT));
                 break;
             } else {
-                $count++;
-                if ($count == count($response))
-                    echo json_encode(["ans" => "no"]);
+                echo json_encode(["ans" => "no"]);
             }
         } else {
             $count++;
