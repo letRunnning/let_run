@@ -43,11 +43,12 @@ class Ambulance extends CI_Controller
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
                 'title' => '救護車資訊',
-                'url' => '/ambulance/ambulance/',
+                'url' => '/ambulance/ambulance/' . $liciense,
                 'role' => $current_role,
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
                 'password' => $passport['password'],
+                'security' => $this->security,
                 'ambulance' => $ambulance
             );
 

@@ -16,6 +16,10 @@
 <div class="container" style="width:95%">
   <div class="row">
     <form action="<?php echo site_url($url); ?>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+      <input type="hidden" name="<?php echo $security->get_csrf_token_name() ?>" value="<?php echo $security->get_csrf_hash() ?>" />
+
+      <?php echo isset($error) ? '<p class="red-text text-darken-3 text-center">' . $error . '</p>' : ''; ?>
+      <?php echo isset($success) ? '<p class="green-text text-darken-3 text-center">' . $success . '</p>' : ''; ?>
 
       <div class="col-10 m-2 mx-auto">
         <label for="hospital" class="form-label">醫院名稱</label>
