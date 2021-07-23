@@ -25,24 +25,14 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th scope="col">林氏醫院</th>
-        <td scope="col">0900000000</td>
-        <td scope="col">MVP-8877</td>
-        <td scope="col"><a type="button" class="btn btn-warning" href="<?php echo site_url('ambulance/ambulance/1' );?>">編輯/查看</a></td>
-      </tr>
-      <tr>
-      <th scope="col">李氏醫院</th>
-        <td scope="col">0900000001</td>
-        <td scope="col">MVP-7788</td>
-        <td scope="col"><a type="button" class="btn btn-warning" href="<?php echo site_url('ambulance/ambulance/2' );?>">編輯/查看</a></td>
-      </tr>
-      <tr>
-      <th scope="col">陳氏醫院</th>
-        <td scope="col">0900000002</td>
-        <td scope="col">MVP-7799</td>
-        <td scope="col"><a type="button" class="btn btn-warning" href="<?php echo site_url('ambulance/ambulance/3' );?>">編輯/查看</a></td>
-      </tr>
+      <?php foreach ($ambulance as $i) { ?>
+        <tr>
+          <th scope="col"><?php echo $i['hospital_name']; ?></th>
+          <td scope="col"><?php echo $i['hospital_phone']; ?></td>
+          <td scope="col"><?php echo $i['liciense_plate']; ?></td>
+          <td scope="col"><a type="button" class="btn btn-warning" href="<?php echo site_url('ambulance/ambulance/'.$i['liciense_plate'] );?>">編輯/查看</a></td>
+        </tr>
+      <?php } ?>
     </tbody>
   </table>
 </div>

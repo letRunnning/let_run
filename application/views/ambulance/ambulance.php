@@ -19,17 +19,17 @@
 
       <div class="col-10 m-2 mx-auto">
         <label for="hospital" class="form-label">醫院名稱</label>
-        <input class="form-control" type="text" id="hospital" name="hospital" value="" required placeholder="請輸入醫院名稱">
+        <input class="form-control" type="text" id="hospital" name="hospital" value="<?php echo (empty($ambulance)) ? "" : $ambulance->hospital_name ?>" required placeholder="請輸入醫院名稱">
       </div>
 
       <div class="col-10 m-2 mx-auto">
         <label for="hospitalPhone" class="form-label">醫院電話</label>
-        <input class="form-control" type="text" id="hospitalPhone" name="hospitalPhone" value="" required placeholder="請輸入醫院電話">
+        <input class="form-control" type="text" id="hospitalPhone" name="hospitalPhone" value="<?php echo (empty($ambulance)) ? "" : $ambulance->hospital_phone ?>" required placeholder="請輸入醫院電話">
       </div>
 
       <div class="col-10 m-2 mx-auto">
         <label for="licensePlate" class="form-label">車牌</label>
-        <input class="form-control" type="text" id="licensePlate" name="licensePlate" value="" required placeholder="請輸入車牌">
+        <input class="form-control" type="text" id="licensePlate" name="licensePlate" value="<?php echo (empty($ambulance)) ? "" : $ambulance->liciense_plate ?>" required placeholder="請輸入車牌">
       </div>
 
       <div class="row my-5">

@@ -6,7 +6,7 @@
         <a href="<?php echo site_url('/user/index'); ?>" <?php echo $url == '/user/index' ? 'active' : ''; ?>>首頁</a>
       </li>
       <li class="breadcrumb-item active" style="color:blue;" aria-current="page">
-        <a href="<?php echo site_url('/ambulance/ambulance_table'); ?>" <?php echo $url == '/ambulance/ambulance_table' ? 'active' : ''; ?>>救護車資訊清單</a>
+        <a href="<?php echo site_url('/ambulance/ambulance_place_table'); ?>" <?php echo $url == '/ambulance/ambulance_place_table' ? 'active' : ''; ?>>救護車停置點清單</a>
       </li>
       <li class="breadcrumb-item active" aria-current="page"><?php echo $title; ?></li>
     </ol>
