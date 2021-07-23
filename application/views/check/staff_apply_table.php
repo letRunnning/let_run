@@ -1,17 +1,15 @@
-<?php $this->load->view('templates/new_header');?>
+<?php $this->load->view('templates/new_header'); ?>
 <div class="breadcrumb-div">
   <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item active" style="color:blue;" aria-current="page">
         <a href="<?php echo site_url('/user/index'); ?>" <?php echo $url == '/user/index' ? 'active' : ''; ?>>首頁</a>
       </li>
-      <li class="breadcrumb-item active" style="color:blue;" aria-current="page">
-        <a href="#">檢核</a>
-      </li>
-      <li class="breadcrumb-item active" aria-current="page"><?php echo $title;?></li>
+      <li class="breadcrumb-item active" aria-current="page"><?php echo $title; ?></li>
     </ol>
   </nav>
 </div>
+
 <div class="container">
   <div class="col-md-3 mx-auto">
     <label for="runActive" style="text-align:right;" class="col-form-label">搜尋</label>
@@ -28,26 +26,17 @@
         <th scope="col">申請組別</th>
       </tr>
     </thead>
+
     <tbody>
-      <tr>
-        <th scope="col">S000001</th>
-        <td scope="col">袁宮依</td>
-        <td scope="col">A1</td>
-        <td scope="col">機動組</td>
-      </tr>
-      <tr>
-        <th scope="col">S000002</th>
-        <td scope="col">袁宮貳</td>
-        <td scope="col">A1</td>
-        <td scope="col">報到組</td>
-      </tr>
-      <tr>
-        <th scope="col">S000003</th>
-        <td scope="col">袁宮參</td>
-        <td scope="col">A1</td>
-        <td scope="col">機動組</td>
-      </tr>
+      <?php foreach ($application as $i) { ?>
+        <tr>
+          <th scope="col"><?php echo $i['staff_ID']; ?></th>
+          <td scope="col"><?php echo $i['name']; ?></td>
+          <td scope="col"><?php echo $i['rID']; ?></td>
+          <td scope="col"><?php echo $i['workgroupName']; ?></td>
+        </tr>
+      <?php } ?>
     </tbody>
   </table>
 </div>
-<?php $this->load->view('templates/new_footer');?>
+<?php $this->load->view('templates/new_footer'); ?>

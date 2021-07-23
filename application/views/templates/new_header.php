@@ -134,12 +134,13 @@
           </li>
 
           <li>
+            <a href="<?php echo site_url('/check/staff_apply_table'); ?>"
+              <?php echo $url == '/check/staff_apply_table' ? 'active' : ''; ?>>工作人員申請活動</a>
+          </li>
+
+          <li>
             <a href="#pageSubmenuCouselorD" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">檢核</a>
             <ul class="collapse list-unstyled" id="pageSubmenuCouselorD">
-              <li>
-                <a href="<?php echo site_url('/check/staff_apply_table'); ?>"
-                  <?php echo $url == '/check/staff_apply_table' ? 'active' : ''; ?>>工作人員申請活動</a>
-              </li>
               <li>
                 <a href="<?php echo site_url('/check/member_pay_status_table'); ?>"
                   <?php echo $url == '/check/member_pay_status_table' ? 'active' : ''; ?>>繳費狀態</a>

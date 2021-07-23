@@ -6,12 +6,16 @@ class Check extends CI_Controller
         parent::__construct();
         $this->load->model('CheckModel');
     }
+
     public function staff_apply_table()
     {
         $passport = $this->session->userdata('passport');
         $userTitle = $passport['userTitle'];
         $current_role = $passport['role'];
         $accept_role = array(6);
+
+        $application = $this->CheckModel->get_all_staff_application();
+
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
                 'title' => '工作人員申請活動',
@@ -19,7 +23,8 @@ class Check extends CI_Controller
                 'role' => $current_role,
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
-                'password' => $passport['password']
+                'password' => $passport['password'],
+                'application' => $application
             );
 
             $this->load->view('/check/staff_apply_table', $beSentDataset);

@@ -10,4 +10,14 @@ class CheckModel extends CI_Model
         $result = $this->db->get('registration') -> result_array();
         return $result;
     }
+
+    public function get_all_staff_application()
+    {
+        $this->db->select('staff_participation.running_ID as rID, work_group.name as workgroupName, staff.staff_ID, staff.name');
+        $this->db->join('work_group', 'work_group.workgroup_ID = staff_participation.workgroup_ID');
+        $this->db->join('staff', 'staff_participation.staff_ID = staff.staff_ID');
+        $this->db->order_by('staff_participation.workgroup_ID', 'asc');
+        $result = $this->db->get('staff_participation') -> result_array();
+        return $result;
+    }
 }
