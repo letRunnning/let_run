@@ -72,6 +72,7 @@ class Beacon extends CI_Controller
                 redirect('beacon/beacon_table');
             } else {
                 $beSentDataset['error'] = '新增失敗';
+                redirect('beacon/beacon_table');
             }
 
             $beacon = $beaconID ? $this->BeaconModel->get_by_id($beaconID) : null;

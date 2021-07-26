@@ -33,7 +33,8 @@
 
       <div class="col-10 m-2 mx-auto">
         <label for="licensePlate" class="form-label">車牌</label>
-        <input class="form-control" type="text" id="licensePlate" name="licensePlate" value="<?php echo (empty($ambulance)) ? "" : $ambulance->liciense_plate ?>" required placeholder="請輸入車牌">
+        <input class="form-control" type="text" id="licensePlate" name="licensePlate" value="<?php echo (empty($ambulance)) ? "" : $ambulance->liciense_plate ?>" required placeholder="請輸入車牌"
+          <?php if (!empty($ambulance)) echo "readonly" ?>>
       </div>
 
       <div class="row my-5">
