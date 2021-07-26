@@ -70,22 +70,20 @@
         </div>
 
         <div class="col-md-5">
-          <label>路跑組別</label>
+          <label>種類</label>
           <div class="input-group">
-            <select class="form-select" name="runGroup" id="runGroup">
-              <?php if (empty($beaconPlacement->group_name)) { ?>
+            <select class="form-select" name="type" id="type">
+              <?php if (empty($beaconPlacement->type)) { ?>
                 <option disabled selected value>請選擇</option>
               <?php } ?>
-              <?php foreach ($group as $i) {
-                      if (!empty($beaconPlacement->group_name)) {
-                        if ($i['group_name'] == $beaconPlacement->group_name) { ?>
-                          <option selected value="<?php echo $i['group_name']; ?>"><?php echo $i['group_name']; ?></option>
-                  <?php } else { ?>
-                          <option value="<?php echo $i['group_name']; ?>"><?php echo $i['group_name']; ?></option>
-                  <?php }
-                      } else { ?>
-                        <option value="<?php echo $i['group_name']; ?>"><?php echo $i['group_name']; ?></option>
-                <?php } ?>
+              <?php if (!empty($beaconPlacement->type)) { ?>
+                      <option selected value="<?php echo $beaconPlacement->type ?>"><?php echo $beaconPlacement->type ?></option>
+                      <option value="終點">終點</option>
+                      <option value="補給站">補給站</option>
+              <?php } else { ?>
+                      <option value="起點">起點</option>
+                      <option value="終點">終點</option>
+                      <option value="補給站">補給站</option>
               <?php } ?>
             </select>
           </div>
@@ -101,26 +99,6 @@
         <div class="col-md-5">
           <label for="latitude" class="form-label">緯度</label>
           <input class="form-control" type="text" id="latitude" name="latitude" value="<?php echo (empty($beaconPlacement)) ? "" : $beaconPlacement->latitude ?>" required placeholder="請輸入緯度">
-        </div>
-      </div>
-
-      <div class="col-10 m-2 mx-auto">
-        <label>種類</label>
-        <div class="input-group">
-          <select class="form-select" name="type" id="type">
-            <?php if (empty($beaconPlacement->type)) { ?>
-              <option disabled selected value>請選擇</option>
-            <?php } ?>
-            <?php if (!empty($beaconPlacement->type)) { ?>
-                    <option selected value="<?php echo $beaconPlacement->type ?>"><?php echo $beaconPlacement->type ?></option>
-                    <option value="終點">終點</option>
-                    <option value="補給站">補給站</option>
-            <?php } else { ?>
-                    <option value="起點">起點</option>
-                    <option value="終點">終點</option>
-                    <option value="補給站">補給站</option>
-            <?php } ?>
-          </select>
         </div>
       </div>
 

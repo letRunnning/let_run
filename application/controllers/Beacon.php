@@ -121,7 +121,6 @@ class Beacon extends CI_Controller
         $beaconPlacement = $beaconID ? $this->BeaconPlacementModel->get_beacon_placement_by_id($beaconID) : null;
         $beacons = $this->BeaconModel->get_all_beacon();
         $activities = $this->RunModel->get_all_active();
-        $group = $this->RunModel->get_all_running_group();
 
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
@@ -134,13 +133,11 @@ class Beacon extends CI_Controller
                 'security' => $this->security,
                 'beaconPlacement' => $beaconPlacement,
                 'beacons' => $beacons,
-                'activities' => $activities,
-                'group' => $group
+                'activities' => $activities
             );
 
             $beaconID = $this->security->xss_clean($this->input->post('beaconID'));
             $runActive = $this->security->xss_clean($this->input->post('runActive'));
-            $runGroup = $this->security->xss_clean($this->input->post('runGroup'));
             $longitude = $this->security->xss_clean($this->input->post('longitude'));
             $latitude = $this->security->xss_clean($this->input->post('latitude'));
             $type = $this->security->xss_clean($this->input->post('type'));
@@ -149,9 +146,9 @@ class Beacon extends CI_Controller
             if (empty($beaconID)) return $this->load->view('/beacon/beacon_placement', $beSentDataset);
 
             if (empty($beaconPlacement)) {
-                $isExecuteSuccess = $this->BeaconPlacementModel->create_one($beaconID, $runActive, $runGroup, $longitude, $latitude, $type, $available);
+                $isExecuteSuccess = $this->BeaconPlacementModel->create_one($beaconID, $runActive, $longitude, $latitude, $type, $available);
             } else {
-                $isExecuteSuccess = $this->BeaconPlacementModel->update_by_id($beaconID, $runActive, $runGroup, $longitude, $latitude, $type, $available);
+                $isExecuteSuccess = $this->BeaconPlacementModel->update_by_id($beaconID, $runActive, $longitude, $latitude, $type, $available);
             }
 
             if ($isExecuteSuccess) {

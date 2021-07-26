@@ -14,16 +14,9 @@
 </div>
 
 <div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-3">
-      <label for="runActive" style="text-align:right;" class="col-form-label">搜尋</label>
-      <input id="myInput" class="form-control" type="search" onkeyup="myFunction('all_counselor')" placeholder="搜尋路跑活動">
-    </div>
-
-    <div class="col-md-3">
-      <label for="runActive" style="text-align:right;" class="col-form-label">搜尋</label>
-      <input id="myInput" class="form-control" type="search" onkeyup="myFunction('all_counselor')" placeholder="搜尋路跑組別">
-    </div>
+  <div class="col-md-3 mx-auto">
+    <label for="runActive" style="text-align:right;" class="col-form-label">搜尋</label>
+    <input id="myInput" class="form-control" type="search" onkeyup="myFunction('all_counselor')" placeholder="搜尋路跑活動">
   </div>
   <br>
 
@@ -36,7 +29,6 @@
       <tr>
         <th scope="col">Beacon編號</th>
         <th scope="col">路跑編號</th>
-        <th scope="col">組別名稱</th>
         <th scope="col">經度</th>
         <th scope="col">緯度</th>
         <th scope="col">種類</th>
@@ -50,7 +42,6 @@
         <tr>
           <th scope="col"><?php echo $i['beacon_ID']; ?></th>
           <td scope="col"><?php echo $i['running_ID']; ?></td>
-          <td scope="col"><?php echo $i['group_name']; ?></td>
           <td scope="col"><?php echo $i['longitude']; ?></td>
           <td scope="col"><?php echo $i['latitude']; ?></td>
           <td scope="col"><?php echo $i['type']; ?></td>
