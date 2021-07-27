@@ -83,7 +83,16 @@ CREATE TABLE `ambulance_details` (
   `hospital_phone` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '醫院電話'
   -- `pass_ID` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '經過點編號'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='救護車資訊';
+--
+-- 資料表結構 `ambulance_place`
+--
 
+CREATE TABLE `ambulance_place` (
+  `pass_ID` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '經過點編號',
+  `running_ID` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '路跑編號',
+  `liciense_plate` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '車牌',
+  `time` datetime NOT NULL COMMENT '時間'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='救護車放置';
 -- --------------------------------------------------------
 
 --
@@ -424,6 +433,13 @@ ALTER TABLE `ambulance_details`
   -- ADD KEY `am_pass_id` (`pass_ID`);
 
 --
+-- 資料表索引 `ambulance_place`
+--
+ALTER TABLE `ambulance_place`
+  ADD PRIMARY KEY (`pass_ID`,`running_ID`);
+
+
+--
 -- 資料表索引 `assignment`
 --
 ALTER TABLE `assignment`
@@ -705,6 +721,14 @@ ALTER TABLE `transaction`
 ALTER TABLE `work_group`
   ADD CONSTRAINT `work_running_ID` FOREIGN KEY (`running_ID`) REFERENCES `running_activity` (`running_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
+
+--
+-- 資料表的限制式 `ambulance_place`
+--
+ALTER TABLE `ambulance_place`
+  ADD CONSTRAINT `am_pass_running_ID` FOREIGN KEY (`running_ID`) REFERENCES `running_activity` (`running_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `ambulance_place`
+  ADD CONSTRAINT `ambulance_detailsPass_id` FOREIGN KEY (`pass_ID`) REFERENCES `passing_point` (`pass_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
