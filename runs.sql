@@ -28,7 +28,18 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE `running`;
 use `running`;
-
+CREATE TABLE `route_detail` (
+  `running_ID` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '路跑編號',
+  `group_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '組別名稱',
+  `detail` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '路線詳細說明',
+  `longitude` DECIMAL( 11, 8 ) COMMENT '經度',
+  `latitude` DECIMAL( 10, 8 ) NOT NULL COMMENT '緯度'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='路線詳細內容';
+ALTER TABLE `route_detail`
+  ADD PRIMARY KEY (`running_ID`,`group_name`);
+ALTER TABLE `route_detail`
+  ADD CONSTRAINT `route_detail_running_ID` FOREIGN KEY (`running_ID`) REFERENCES `running_activity` (`running_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `route_detail_group_name` FOREIGN KEY (`group_name`) REFERENCES `running_group` (`group_name`) ON DELETE CASCADE ON UPDATE CASCADE;
 CREATE TABLE `db_log` (
   `user` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '使用者帳號',
   `time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '操作時間',
@@ -67,10 +78,10 @@ INSERT INTO `users` (`id`, `password`, `name`, `manager`, `yda`, `county`, `orga
 
 CREATE TABLE `ambulance_details` (
   `liciense_plate` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '車牌',
-  `arrivetime` datetime NOT NULL COMMENT '時間',
+  -- `arrivetime` datetime NOT NULL COMMENT '時間',
   `hospital_name` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '醫院名稱',
-  `hospital_phone` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '醫院電話',
-  `pass_ID` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '經過點編號'
+  `hospital_phone` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '醫院電話'
+  -- `pass_ID` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '經過點編號'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='救護車資訊';
 
 -- --------------------------------------------------------
@@ -106,6 +117,7 @@ CREATE TABLE `beacon` (
 
 CREATE TABLE `beacon_placement` (
   `beacon_ID` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Beacon 編號',
+  `running_ID` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '路跑編號',
   `type` tinyint(4) DEFAULT NULL COMMENT '種類',
   `longitude` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '經度',
   `latitude` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '緯度',
@@ -394,6 +406,7 @@ CREATE TABLE `work_group` (
   `leader` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '負責人',
   `line` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '工作Line群組',
   `assembletime` datetime NOT NULL COMMENT '集合時間',
+  `endtime` datetime NOT NULL COMMENT '結束時間',
   `assembleplace` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '集合地點',
   `maximum_number` int(20) NOT NULL COMMENT '人數上限'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='工作組別';
@@ -406,8 +419,9 @@ CREATE TABLE `work_group` (
 -- 資料表索引 `ambulance_details`
 --
 ALTER TABLE `ambulance_details`
-  ADD PRIMARY KEY (`liciense_plate`,`arrivetime`),
-  ADD KEY `am_pass_id` (`pass_ID`);
+  ADD PRIMARY KEY (`liciense_plate`);
+  -- ADD PRIMARY KEY (`liciense_plate`,`arrivetime`),
+  -- ADD KEY `am_pass_id` (`pass_ID`);
 
 --
 -- 資料表索引 `assignment`
