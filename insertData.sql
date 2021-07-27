@@ -48,10 +48,10 @@ INSERT INTO `passing_point` (`pass_ID`, `pass_name`, `longitude`, `latitude`) VA
 ('L2', '暨大管院', '102.51', '10.5'),
 ('L3', '暨大學活', '14.87', '87.05');
 
-INSERT INTO `ambulance_details` (`liciense_plate`, `arrivetime`, `hospital_name`, `hospital_phone`, `pass_ID`) VALUES
-('ABV-1234', '2020-05-01 14:00:00', '埔里榮民醫院', '0912345687', 'L3'),
-('ABV-1234', '2020-05-02 13:15:00', '埔里基督教醫院', '0912345678', 'L2'),
-('ABV-3214', '2020-05-01 13:15:00', '埔里基督教醫院', '0912345678', 'L1');
+INSERT INTO `ambulance_details` (`liciense_plate`,  `hospital_name`, `hospital_phone`) VALUES
+('ABV-1234', '埔里榮民醫院', '0912345687'),
+('ABV-7899',  '埔里基督教醫院', '0912345678'),
+('ABV-3214', '埔里基督教醫院', '0912345678');
 
 INSERT INTO `route` (`pass_ID`, `running_ID`, `group_name`, `priority`) VALUES
 ('L1', 'A1', '休閒組', 1),
