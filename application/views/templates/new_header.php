@@ -117,8 +117,8 @@
                 <?php echo $url == '/ambulance/ambulance_table' ? 'active' : ''; ?>>救護車清單</a>
               </li>
               <li>
-                <a href="<?php echo site_url('/ambulance/ambulance_place_table'); ?>"
-                <?php echo $url == '/ambulance/ambulance_place_table' ? 'active' : ''; ?>>救護車停置點</a>
+                <a href="<?php echo site_url('/ambulance/ambulance_placement_table'); ?>"
+                <?php echo $url == '/ambulance/ambulance_placement_table' ? 'active' : ''; ?>>救護車停置點</a>
               </li>
             </ul>
           </li>

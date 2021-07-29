@@ -9,12 +9,14 @@ class AmbulancePlacementModel extends CI_Model
         return $result;
     }
 
-    // public function get_beacon_placement_by_id($beaconID)
-    // {
-    //     $this->db->where('beacon_ID', $beaconID);
-    //     $result = $this->db->get('beacon_placement', 1);
-    //     return $result->row();
-    // }
+    public function get_ambulance_placement_by_id($liciensePlate)
+    {
+        $this->db->select('*, passing_point.pass_name');
+        $this->db->join('passing_point', 'ambulance_placement.pass_ID = passing_point.pass_ID');
+        $this->db->where('liciense_plate', $liciensePlate);
+        $result = $this->db->get('ambulance_placement') -> result_array();
+        return $result;
+    }
 
     // public function create_one($id, $active, $group, $longitude, $latitude, $type, $available) {
     //     $this->beacon_ID = $id;

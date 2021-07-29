@@ -6,6 +6,8 @@ class Ambulance extends CI_Controller
         parent::__construct();
         $this->load->model('AmbulanceModel');
         $this->load->model('AmbulancePlacementModel');
+        $this->load->model('RunModel');
+        $this->load->model('PassingPointModel');
     }
 
     public function ambulance_table()
@@ -55,7 +57,7 @@ class Ambulance extends CI_Controller
 
             $hospital = $this->security->xss_clean($this->input->post('hospital'));
             $hospitalPhone = $this->security->xss_clean($this->input->post('hospitalPhone'));
-            $liciense = $this->security->xss_clean($this->input->post('licensePlate'));
+            $liciense = $this->security->xss_clean($this->input->post('liciensePlate'));
 
             if (empty($liciense)) return $this->load->view('/ambulance/ambulance', $beSentDataset);
 
@@ -84,7 +86,7 @@ class Ambulance extends CI_Controller
         }
     }
 
-    public function ambulance_place_table()
+    public function ambulance_placement_table()
     {
         $passport = $this->session->userdata('passport');
         $userTitle = $passport['userTitle'];
@@ -96,7 +98,7 @@ class Ambulance extends CI_Controller
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
                 'title' => '救護車停置點清單',
-                'url' => '/ambulance/ambulance_place_table/',
+                'url' => '/ambulance/ambulance_placement_table/',
                 'role' => $current_role,
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
@@ -104,29 +106,37 @@ class Ambulance extends CI_Controller
                 'ambulancePlacement' => $ambulancePlacement
             );
 
-            $this->load->view('/ambulance/ambulance_place_table', $beSentDataset);
+            $this->load->view('/ambulance/ambulance_placement_table', $beSentDataset);
         } else {
             redirect('user/login');
         }
     }
 
-    public function ambulance_place()
+    public function ambulance_placement($liciense = null)
     {
         $passport = $this->session->userdata('passport');
         $userTitle = $passport['userTitle'];
         $current_role = $passport['role'];
         $accept_role = array(6);
+
+        $activities = $this->RunModel->get_all_active();
+        $pass = $this->PassingPointModel->get_all_passing_point();
+        $ambulancePlacement = $liciense ? $this->AmbulancePlacementModel->get_ambulance_placement_by_id($liciense) : null;
+
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
                 'title' => '救護車停置點',
-                'url' => '/ambulance/ambulance_place/',
+                'url' => '/ambulance/ambulance_placement/',
                 'role' => $current_role,
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
-                'password' => $passport['password']
+                'password' => $passport['password'],
+                'activities' => $activities,
+                'ambulancePlacement' => $ambulancePlacement,
+                'pass' => $pass
             );
 
-            $this->load->view('/ambulance/ambulance_place', $beSentDataset);
+            $this->load->view('/ambulance/ambulance_placement', $beSentDataset);
         } else {
             redirect('user/login');
         }
