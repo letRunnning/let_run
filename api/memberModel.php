@@ -3,7 +3,7 @@
 
     function login_member() {
         global $db;
-        $sql = "SELECT *, `member`.`name` AS `member_name`, `files`.`name` AS `file_name` FROM `member` JOIN `files` ON `files`.`no` = `member`.`file_no`";
+        $sql = "SELECT *, `member`.`name` AS `member_name`, `files`.`name` AS `file_name` FROM `member` LEFT JOIN `files` ON `files`.`no` = `member`.`file_no`";
         $stmt = mysqli_prepare($db, $sql); // prepare sql statement
         mysqli_stmt_execute($stmt); // 執行 SQL
         $result = mysqli_stmt_get_result($stmt); // get result
@@ -13,7 +13,7 @@
 
     function login_staff() {
         global $db;
-        $sql = "SELECT *, `staff`.`name` AS `staff_name`, `files`.`name` AS `file_name` FROM `staff` JOIN `files` ON `files`.`no` = `staff`.`file_no`";
+        $sql = "SELECT *, `staff`.`name` AS `staff_name`, `files`.`name` AS `file_name` FROM `staff` LEFT JOIN `files` ON `files`.`no` = `staff`.`file_no`";
         $stmt = mysqli_prepare($db, $sql); // prepare sql statement
         mysqli_stmt_execute($stmt); // 執行 SQL
         $result = mysqli_stmt_get_result($stmt); // get result

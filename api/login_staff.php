@@ -19,7 +19,7 @@
     $count = 0;
     for ($i = 0; $i < count($response); $i++) {
         if ($data[0]['Staff_ID'] == $response[$i]['staff_ID']) {
-            if ($data[0]['Password'] == $response[$i]['password']) {
+            if (password_verify($data[0]['Password'], $response[$i]['password'])) {
                 foreach ($result as $j) {
                     if ($data[0]['Staff_ID'] == $j['staff_ID']) {
                         $array = array(
