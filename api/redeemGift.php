@@ -8,7 +8,8 @@
         // $m_ID = 'M000001';
         
         if($m_ID != ''){
-            $sql_id = "SELECT * FROM `registration` JOIN `running_activity` ON `registration`.`running_ID` = `running_activity`.`running_ID`WHERE `member_ID` = '$m_ID'";
+            $sql_id = "SELECT * FROM `registration` JOIN `running_activity` ON
+             `registration`.`running_ID` = `running_activity`.`running_ID`WHERE `member_ID` = '$m_ID'";
             $result_qrcode = mysqli_query($con, $sql_id) or die("DB Error: Cannot retrieve message.");
             $data = array();
             foreach ($result_qrcode as $i){
