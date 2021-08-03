@@ -24,6 +24,7 @@
                     if ($data[0]['Staff_ID'] == $j['staff_ID']) {
                         $array = array(
                             'Staff_ID' => $j['staff_ID'],
+                            'Email' => $j['email'],
                             'Name' => urlencode($j['staff_name']),
                             'Id_card' => $j['id_card'],
                             'Photo_code' => urlencode($j['file_name'])
