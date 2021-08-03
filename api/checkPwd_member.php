@@ -5,13 +5,13 @@
         $data = json_decode(file_get_contents("php://input"), true);
 
         if ($data) {
-            $pwd = check_password($data[0]['member_ID']);
+            $pwd = check_password($data[0]['Member_ID']);
 
             $row = mysqli_fetch_assoc($pwd);
             $response['password'] = $row['password'];
 
             if ($row) {
-                if ($response['password'] == $data[0]['password']) {
+                if ($response['password'] == $data[0]['Password']) {
                     echo json_encode(["ans" => "yes"]);
                 } else {
                     echo json_encode(["ans" => "no"]);
