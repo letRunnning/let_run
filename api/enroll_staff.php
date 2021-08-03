@@ -18,10 +18,11 @@
         
         $pwd_hash = password_hash($password, PASSWORD_DEFAULT);
         
-        $sql_num = "SELECT COUNT(*) as num FROM `staff` WHERE 1 LIMIT 1";
+        $sql_num = "SELECT * FROM `staff` ORDER BY `staff`.`staff_ID` DESC LIMIT 1";
         $nums=mysqli_query($con,$sql_num) or die("DB Error: Cannot retrieve message.");
         $nums = mysqli_fetch_assoc($nums);
-        $staff_ID = 'S'.sprintf("%06d",$nums['num']+1);
+        $sNums = substr($nums['staff_ID'],1,strlen($nums['staff_ID']));
+        $staff_ID = 'S'.sprintf("%06d",$sNums+1);
         
         if($name != '' && $id_card !='' && $password !='' && $email !='' && $phone!=''){
             if (preg_match("/[0-9]+/", $password) && preg_match("/[a-z]+/", $password) && preg_match("/[A-Z]+/", $password) && strlen($password) >= 8) {
