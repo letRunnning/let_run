@@ -11,11 +11,9 @@ class AmbulancePlacementModel extends CI_Model
 
     public function get_ambulance_placement_by_id($liciensePlate)
     {
-        $this->db->select('*, passing_point.pass_name');
-        $this->db->join('passing_point', 'ambulance_placement.pass_ID = passing_point.pass_ID');
         $this->db->where('liciense_plate', $liciensePlate);
-        $result = $this->db->get('ambulance_placement') -> result_array();
-        return $result;
+        $result = $this->db->get('ambulance_placement', 1);
+        return $result->row();
     }
 
     // public function create_one($id, $active, $group, $longitude, $latitude, $type, $available) {

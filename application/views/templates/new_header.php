@@ -3,11 +3,9 @@
 
 <head>
   <meta charset="utf-8">
-  <!-- <link rel="icon" href="<?php echo site_url(); ?>/assets/img/yda_logo.png" type="image/png"> -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="icon" href="<?php echo site_url(); ?>files/photo/logo_temp.png" type="image/x-icon" />
-
 
   <title><?php echo $title; ?></title>
 
@@ -26,6 +24,10 @@
   <link data-require="jqueryui@*" data-semver="1.10.0" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/css/smoothness/jquery-ui-1.10.0.custom.min.css" />
   <link href="<?php echo site_url(); ?>/assets/css/style.css" rel="stylesheet">
   <link href="<?php echo site_url(); ?>/assets/css/timePicker.css" rel="stylesheet">
+
+  <!-- datetimepicker -->
+  <!-- <link href="<?php echo site_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet">
+  <link href="<?php echo site_url(); ?>assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet"> -->
 </head>
 
 <body>
@@ -110,17 +112,8 @@
           </li>
 
           <li>
-            <a href="#pageSubmenuCouselorC" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">救護車資訊</a>
-            <ul class="collapse list-unstyled" id="pageSubmenuCouselorC">
-              <li>
-                <a href="<?php echo site_url('/ambulance/ambulance_table'); ?>"
-                <?php echo $url == '/ambulance/ambulance_table' ? 'active' : ''; ?>>救護車清單</a>
-              </li>
-              <li>
-                <a href="<?php echo site_url('/ambulance/ambulance_placement_table'); ?>"
-                <?php echo $url == '/ambulance/ambulance_placement_table' ? 'active' : ''; ?>>救護車停置點</a>
-              </li>
-            </ul>
+            <a href="<?php echo site_url('/ambulance/ambulance_table'); ?>"
+              <?php echo $url == '/ambulance/ambulance_table' ? 'active' : ''; ?>>救護車清單</a>
           </li>
 
           <li>
@@ -139,8 +132,8 @@
           </li>
 
           <li>
-            <a href="#pageSubmenuCouselorD" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">檢核</a>
-            <ul class="collapse list-unstyled" id="pageSubmenuCouselorD">
+            <a href="#pageSubmenuCouselorC" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">檢核</a>
+            <ul class="collapse list-unstyled" id="pageSubmenuCouselorC">
               <li>
                 <a href="<?php echo site_url('/check/member_pay_status_table'); ?>"
                   <?php echo $url == '/check/member_pay_status_table' ? 'active' : ''; ?>>繳費狀態</a>
