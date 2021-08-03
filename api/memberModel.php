@@ -119,4 +119,26 @@
         
         return $result;
     }
+
+    function get_checkin($sid, $rid) {
+        global $db;
+        $sql = "SELECT `checkin`.`checkin_time`, `registration`.`running_ID`, `registration`.`group_name` FROM `checkin` JOIN `registration` ON `registration`.`registration_ID` = `checkin`.`registration_ID` WHERE `staff_ID` = ? AND `checkin`.`registration_ID` = ?";
+        $stmt = mysqli_prepare($db, $sql); // prepare sql statement
+        mysqli_stmt_bind_param($stmt, "ss", $sid, $rid); // bind parameters with variables
+        mysqli_stmt_execute($stmt); // 執行 SQL
+        $result = mysqli_stmt_get_result($stmt); // get result
+        
+        return $result;
+    }
+
+    function checkin($sid, $rid, $time) {
+        global $db;
+        $sql = "INSERT INTO `checkin`(`staff_ID`, `registration_ID `, `checkin_time`) VALUES (?,?,?)";
+        $stmt = mysqli_prepare($db, $sql); // prepare sql statement
+        mysqli_stmt_bind_param($stmt, "sss", $sid, $rid, $time); // bind parameters with variables
+        mysqli_stmt_execute($stmt); // 執行 SQL
+        $result = mysqli_stmt_get_result($stmt); // get result
+        
+        return $result;
+    }
 ?>
