@@ -14,7 +14,6 @@
             $array = array( 
                 'Name' => urlencode($i['name']),
                 'Id_card' => $i['id_card'],
-                'password' => $i['password'],
                 'Email' => $i['email'],
                 'Phone' => $i['phone'],
                 'Birthday' => $i['birthday'],
