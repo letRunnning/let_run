@@ -131,11 +131,22 @@
         return $result;
     }
 
-    function checkin($sid, $rid, $time) {
+    function checkin($rid, $sid, $time) {
         global $db;
-        $sql = "INSERT INTO `checkin`(`staff_ID`, `registration_ID `, `checkin_time`) VALUES (?,?,?)";
+        $sql = "INSERT INTO `checkin`(`registration_ID`, `staff_ID`, `checkin_time`) VALUES (?,?,?)";
         $stmt = mysqli_prepare($db, $sql); // prepare sql statement
-        mysqli_stmt_bind_param($stmt, "sss", $sid, $rid, $time); // bind parameters with variables
+        mysqli_stmt_bind_param($stmt, "sss", $rid, $sid, $time); // bind parameters with variables
+        mysqli_stmt_execute($stmt); // 執行 SQL
+        $result = mysqli_stmt_get_result($stmt); // get result
+        
+        return $result;
+    }
+
+    function check_checkin($rID) {
+        global $db;
+        $sql = "SELECT * FROM `checkin` WHERE `registration_ID` = ?";
+        $stmt = mysqli_prepare($db, $sql); // prepare sql statement
+        mysqli_stmt_bind_param($stmt, "s", $rID); // bind parameters with variables
         mysqli_stmt_execute($stmt); // 執行 SQL
         $result = mysqli_stmt_get_result($stmt); // get result
         
