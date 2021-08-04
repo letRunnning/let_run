@@ -15,7 +15,6 @@
         $contact_name = $data[0]['Contact_name'];
         $contact_phone = $data[0]['Contact_phone'];
         $relation = $data[0]['Relation'];
-        $Photo_code = $data[0]['Photo_code'];
         $uploadcode = $data[0]['Uploadcode'];
 
         $file_no ='';
@@ -35,7 +34,7 @@
             }
         }
         if($file_no != ''){
-            if($name != '' && $id_card !='' && $password !='' && $email !='' && $phone!=''){
+            if($name != '' && $id_card !='' && $email !='' && $phone!=''){
                 $sql = "UPDATE `member` SET `id_card`='$id_card',`name`='$name',`phone`='$phone',
             `email`='$email',`birthday`='$birthday',`address`='$address',`contact_name`='$contact_name',
             `contact_phone`='$contact_phone',`relation`='$relation',`file_no`='$file_no' WHERE `member_ID` = '$member_ID'";
