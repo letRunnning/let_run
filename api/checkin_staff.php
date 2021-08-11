@@ -5,7 +5,7 @@
         $data = json_decode(file_get_contents("php://input"), true);
 
         if ($data) {
-            $checkin = checkin($data[0]['registration_ID'], $data[0]['staff_ID'], $data[0]['checkin_time']);
+            $checkin = checkin($data[0]['registration_ID'], $data[0]['staff_ID'], $data[0]['time']);
             
             $result = check_checkin($data[0]['registration_ID']);
             $row = mysqli_fetch_assoc($result);

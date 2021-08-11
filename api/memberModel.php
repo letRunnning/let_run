@@ -120,11 +120,11 @@
         return $result;
     }
 
-    function get_checkin($sid, $rid) {
+    function get_checkin($rid) {
         global $db;
-        $sql = "SELECT `checkin`.`checkin_time`, `registration`.`running_ID`, `registration`.`group_name` FROM `checkin` JOIN `registration` ON `registration`.`registration_ID` = `checkin`.`registration_ID` WHERE `staff_ID` = ? AND `checkin`.`registration_ID` = ?";
+        $sql = "SELECT `checkin`.`checkin_time`, `running_activity`.`name` AS `running_name`, `registration`.`group_name` FROM `registration` LEFT JOIN `checkin` ON `registration`.`registration_ID` = `checkin`.`registration_ID` JOIN `running_activity` ON `running_activity`.`running_ID` = `registration`.`running_ID` WHERE `registration`.`registration_ID` = ?";
         $stmt = mysqli_prepare($db, $sql); // prepare sql statement
-        mysqli_stmt_bind_param($stmt, "ss", $sid, $rid); // bind parameters with variables
+        mysqli_stmt_bind_param($stmt, "s", $rid); // bind parameters with variables
         mysqli_stmt_execute($stmt); // 執行 SQL
         $result = mysqli_stmt_get_result($stmt); // get result
         
