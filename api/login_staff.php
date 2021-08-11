@@ -1,9 +1,9 @@
 <?php
-    require("memberModel.php");
+    require("staffModel.php");
     header('Content-Type: application/json; charset=UTF-8');
     
     $i = 0;
-    $result = login_staff();
+    $result = login();
 
     while ($row = mysqli_fetch_assoc($result)) {
         $response[$i]['staff_ID'] = $row['staff_ID'];

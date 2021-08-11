@@ -20,6 +20,6 @@
             echo json_encode(["ans" => "no"]);
         }
     } else {
-        echo json_encode(["ans" => "no"]);
+        echo json_encode(["ans" => "No data sent"]);
     }
 ?>

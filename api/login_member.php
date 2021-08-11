@@ -21,7 +21,7 @@
     // }
     
     $i = 0;
-    $result = login_member();
+    $result = login();
 
     while ($row = mysqli_fetch_assoc($result)) {
         $response[$i]['email'] = $row['email'];
