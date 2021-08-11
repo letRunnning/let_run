@@ -11,15 +11,15 @@
             $response['password'] = $row['password'];
 
             if ($row) {
-                if ($response['password'] == $data[0]['Password']) {
+                if (password_verify($data[0]['Password'], $response['password'])) {
                     echo json_encode(["ans" => "yes"]);
                 } else {
                     echo json_encode(["ans" => "no"]);
                 }
             } else {
-                echo json_encode(["ans" => "no"]);
+                echo json_encode(["ans" => "No data in the database"]);
             }
         } else {
-            echo json_encode(["ans" => "no"]);
+            echo json_encode(["ans" => "No data sent"]);
         }
 ?>
