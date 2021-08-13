@@ -33,6 +33,28 @@
         return $result;
     }
 
+    function get_gift($rid, $gname) {
+        global $db;
+        $sql = "SELECT `gift_ID`, `gift_name` FROM `gift` WHERE `running_ID` = ? AND `group_name` = ?";
+        $stmt = mysqli_prepare($db, $sql); // prepare sql statement
+        mysqli_stmt_bind_param($stmt, "ss", $rid, $gname); // bind parameters with variables
+        mysqli_stmt_execute($stmt); // 執行 SQL
+        $result = mysqli_stmt_get_result($stmt); // get result
+        
+        return $result;
+    }
+
+    function get_gift_size($rid, $gname) {
+        global $db;
+        $sql = "SELECT `gift_detail`.`gift_ID`, `gdetail_size` FROM `gift_detail` JOIN `gift` ON `gift`.`gift_ID` = `gift_detail`.`gift_ID` WHERE `running_ID` = ? AND `group_name` = ?";
+        $stmt = mysqli_prepare($db, $sql); // prepare sql statement
+        mysqli_stmt_bind_param($stmt, "ss", $rid, $gname); // bind parameters with variables
+        mysqli_stmt_execute($stmt); // 執行 SQL
+        $result = mysqli_stmt_get_result($stmt); // get result
+        
+        return $result;
+    }
+
     function check_registration($id) {
         global $db;
         $sql = "SELECT `affidavit` FROM `running_activity` WHERE `running_ID` = ?";
