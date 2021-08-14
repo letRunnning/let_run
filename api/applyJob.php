@@ -28,7 +28,7 @@
                     }
                 }
             } else {
-                echo json_encode(["ans" => $row['name']]);
+                echo urldecode(json_encode(["ans" => $row['name']], JSON_PRETTY_PRINT));
             }
         } else {
             echo json_encode(["ans" => "No data sent"]);
