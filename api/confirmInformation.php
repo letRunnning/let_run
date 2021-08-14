@@ -15,16 +15,23 @@
             } else {
                 $information = confirm_information($registrationID, $data[0]['member_ID'], $data[0]['running_ID'], $data[0]['group_name'], $data[0]['registration_time']);
                 
+                for ($i = 0; $i < count($data[0]['gift_size']); $i++) {
+                    $gift = insert_selected_gift_size($registrationID, $data[0]['gift_size'][$i]['id'], $data[0]['gift_size'][$i]['selectedSize']);
+                }
+
                 $result = check_information($registrationID);
                 $row2 = mysqli_fetch_assoc($result);
 
-                if ($row2) {
+                $result2 = check_selected_gift_size($registrationID, $data[0]['gift_size'][0]['id']);
+                $row3 = mysqli_fetch_assoc($result2);
+
+                if ($row2 && $row3) {
                     echo json_encode(["ans" => "yes"]);
                 } else {
                     echo json_encode(["ans" => "no"]);
                 }
             }
         } else {
-            echo json_encode(["ans" => "no"]);
+            echo json_encode(["ans" => "No data sent"]);
         }
 ?>

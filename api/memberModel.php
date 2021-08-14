@@ -77,11 +77,33 @@
         return $result;
     }
 
+    function insert_selected_gift_size($rid, $gid, $size) {
+        global $db;
+        $sql = "INSERT INTO `gift_size`(`registration_ID`, `gift_ID`, `size`) VALUES (?,?,?)";
+        $stmt = mysqli_prepare($db, $sql); // prepare sql statement
+        mysqli_stmt_bind_param($stmt, "sss", $rid, $gid, $size); // bind parameters with variables
+        mysqli_stmt_execute($stmt); // 執行 SQL
+        $result = mysqli_stmt_get_result($stmt); // get result
+        
+        return $result;
+    }
+
     function check_information($rID) {
         global $db;
         $sql = "SELECT * FROM `registration` WHERE `registration_ID` = ?";
         $stmt = mysqli_prepare($db, $sql); // prepare sql statement
         mysqli_stmt_bind_param($stmt, "s", $rID); // bind parameters with variables
+        mysqli_stmt_execute($stmt); // 執行 SQL
+        $result = mysqli_stmt_get_result($stmt); // get result
+        
+        return $result;
+    }
+
+    function check_selected_gift_size($rid, $gid) {
+        global $db;
+        $sql = "SELECT * FROM `gift_size` WHERE `registration_ID` = ? AND `gift_ID` = ?";
+        $stmt = mysqli_prepare($db, $sql); // prepare sql statement
+        mysqli_stmt_bind_param($stmt, "ss", $rid, $gid); // bind parameters with variables
         mysqli_stmt_execute($stmt); // 執行 SQL
         $result = mysqli_stmt_get_result($stmt); // get result
         
