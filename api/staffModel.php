@@ -98,4 +98,18 @@
         
         return $result;
     }
+
+    function get_work_content($wid) {
+        global $db;
+        $sql = "SELECT `content`, `assembletime`, `place` FROM `work_content` 
+            JOIN `assignment` ON `assignment`.`work_ID` = `work_content`.`work_ID` 
+            JOIN `work_group` ON `work_group`.`workgroup_ID` = `assignment`.`workgroup_ID` 
+            WHERE `assignment`.`workgroup_ID` = ?";
+        $stmt = mysqli_prepare($db, $sql); // prepare sql statement
+        mysqli_stmt_bind_param($stmt, "i", $wid); // bind parameters with variables
+        mysqli_stmt_execute($stmt); // 執行 SQL
+        $result = mysqli_stmt_get_result($stmt); // get result
+        
+        return $result;
+    }
 ?>
