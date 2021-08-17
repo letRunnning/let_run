@@ -3,7 +3,7 @@ class AmbulanceModel extends CI_Model
 {
     public function get_all_ambulance()
     {
-        $this->db->order_by('running_ID');
+        $this->db->order_by('arrivetime');
         $result = $this->db->get('ambulance_details')->result_array();
         
         return $result;

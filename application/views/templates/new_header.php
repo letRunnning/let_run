@@ -26,8 +26,9 @@
   <link href="<?php echo site_url(); ?>/assets/css/timePicker.css" rel="stylesheet">
 
   <!-- datetimepicker -->
-  <!-- <link href="<?php echo site_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet">
-  <link href="<?php echo site_url(); ?>assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet"> -->
+  <link href="<?php echo site_url(); ?>assets/css/bootstrap-iso.css" rel="stylesheet">
+  <!-- <link href="<?php echo site_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet"> -->
+  <link href="<?php echo site_url(); ?>assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 </head>
 
 <body>

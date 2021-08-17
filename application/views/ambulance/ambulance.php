@@ -45,21 +45,21 @@
         </div>
 
         <div class="col-md-5">
-          <label>經過點</label>
+          <label>補給站</label>
           <div class="input-group">
             <select class="form-select" name="passPoint" id="passPoint">
-              <?php if (empty($ambulance->pass_ID)) { ?>
+              <?php if (empty($ambulance->supply_ID)) { ?>
                 <option disabled selected value>請選擇</option>
               <?php } ?>
               <?php foreach ($pass as $i) {
-                      if (!empty($ambulance->pass_ID)) {
-                        if ($i['pass_ID'] == $ambulance->pass_ID) { ?>
-                          <option selected value="<?php echo $i['pass_ID']; ?>"><?php echo $i['pass_name']; ?></option>
+                      if (!empty($ambulance->supply_ID)) {
+                        if ($i['supply_ID'] == $ambulance->supply_ID) { ?>
+                          <option selected value="<?php echo $i['supply_ID']; ?>"><?php echo $i['supply_name']; ?></option>
                   <?php } else { ?>
-                          <option value="<?php echo $i['pass_ID']; ?>"><?php echo $i['pass_name']; ?></option>
+                          <option value="<?php echo $i['supply_ID']; ?>"><?php echo $i['supply_name']; ?></option>
                   <?php }
                       } else { ?>
-                        <option value="<?php echo $i['pass_ID']; ?>"><?php echo $i['pass_name']; ?></option>
+                        <option value="<?php echo $i['supply_ID']; ?>"><?php echo $i['supply_name']; ?></option>
                 <?php } ?>
               <?php } ?>
             </select>
@@ -85,12 +85,14 @@
 
       <div class="col-10 m-2 mx-auto">
         <label for="time">時間*</label>
-        <div class="input-group date form_datetime col-md-5" data-date-format="yyyy-mm-dd hh:ii" data-link-field="time">
-          <input class="form-control" size="16" type="text" value="<?php echo (empty($ambulance)) ? "" : $ambulance->arrivetime ?>" readonly>
-          <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-          <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+        <div class="bootstrap-iso">
+          <div class="input-group date form_datetime col-md-12" data-date-format="yyyy-mm-dd hh:ii:00" data-link-field="time">
+            <input class="form-control" type="text" value="<?php echo (empty($ambulance)) ? "" : $ambulance->arrivetime ?>" readonly>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+          </div>
+          <input type="hidden" id="time" name="time" value="" /><br/>
         </div>
-        <input type="hidden" id="time" value="" /><br/>
       </div>
 
       <div class="row my-5">
@@ -103,7 +105,7 @@
   </div>
 </div>
 
-<script type="text/javascript" src="<?php echo site_url(); ?>assets/jquery/jquery-1.8.3.min.js" charset="UTF-8"></script>
+<script type="text/javascript" src="<?php echo site_url(); ?>assets/js/jquery-1.8.3.min.js" charset="UTF-8"></script>
 <script type="text/javascript" src="<?php echo site_url(); ?>assets/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo site_url(); ?>assets/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 <script type="text/javascript" src="<?php echo site_url(); ?>assets/js/locales/bootstrap-datetimepicker.zh-TW.js" charset="UTF-8"></script>

@@ -43,7 +43,7 @@
           <td scope="col"><?php echo $i['liciense_plate']; ?></td>
           <td scope="col"><?php echo $i['arrivetime']; ?></td>
           <td scope="col"><?php echo $i['running_ID']; ?></td>
-          <td scope="col"><?php echo $i['pass_ID']; ?></td>
+          <td scope="col"><?php echo $i['supply_ID']; ?></td>
           <td scope="col"><a type="button" class="btn btn-warning" href="<?php echo site_url('ambulance/ambulance/'.$i['liciense_plate'] );?>">編輯/查看</a></td>
         </tr>
       <?php } ?>
