@@ -7,6 +7,7 @@ class Beacon extends CI_Controller
         $this->load->model('BeaconModel');
         $this->load->model('BeaconPlacementModel');
         $this->load->model('RunModel');
+        $this->load->model('SupplyLocationModel');
     }
 
     public function beacon_table()
@@ -121,6 +122,7 @@ class Beacon extends CI_Controller
         $beaconPlacement = $beaconID ? $this->BeaconPlacementModel->get_beacon_placement_by_id($beaconID) : null;
         $beacons = $this->BeaconModel->get_all_beacon();
         $activities = $this->RunModel->get_all_active();
+        $supply = $this->SupplyLocationModel->get_all_supply_location();
 
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
@@ -133,22 +135,20 @@ class Beacon extends CI_Controller
                 'security' => $this->security,
                 'beaconPlacement' => $beaconPlacement,
                 'beacons' => $beacons,
-                'activities' => $activities
+                'activities' => $activities,
+                'supply' => $supply
             );
 
             $beaconID = $this->security->xss_clean($this->input->post('beaconID'));
             $runActive = $this->security->xss_clean($this->input->post('runActive'));
-            $longitude = $this->security->xss_clean($this->input->post('longitude'));
-            $latitude = $this->security->xss_clean($this->input->post('latitude'));
-            $type = $this->security->xss_clean($this->input->post('type'));
-            $available = $this->security->xss_clean($this->input->post('isAvailable'));
+            $supplyID = $this->security->xss_clean($this->input->post('supplyID'));
 
             if (empty($beaconID)) return $this->load->view('/beacon/beacon_placement', $beSentDataset);
 
             if (empty($beaconPlacement)) {
-                $isExecuteSuccess = $this->BeaconPlacementModel->create_one($beaconID, $runActive, $longitude, $latitude, $type, $available);
+                $isExecuteSuccess = $this->BeaconPlacementModel->create_one($beaconID, $runActive, $supplyID);
             } else {
-                $isExecuteSuccess = $this->BeaconPlacementModel->update_by_id($beaconID, $runActive, $longitude, $latitude, $type, $available);
+                $isExecuteSuccess = $this->BeaconPlacementModel->update_by_id($beaconID, $runActive, $supplyID);
             }
 
             if ($isExecuteSuccess) {

@@ -14,24 +14,18 @@ class BeaconPlacementModel extends CI_Model
         return $result->row();
     }
 
-    public function create_one($id, $active, $longitude, $latitude, $type, $available) {
+    public function create_one($id, $active, $supplyID) {
         $this->beacon_ID = $id;
         $this->running_ID = $active;
-        $this->longitude = $longitude;
-        $this->latitude = $latitude;
-        $this->type = $type;
-        $this->is_available = $available;
+        $this->supply_ID = $supplyID;
 
         return ($this->db->insert('beacon_placement', $this)) ? $this->db->insert_id() : '';
     }
     
-    public function update_by_id($id, $active, $longitude, $latitude, $type, $available) {
+    public function update_by_id($id, $active, $supplyID) {
         // $this->beacon_ID = $id;
         $this->running_ID = $active;
-        $this->longitude = $longitude;
-        $this->latitude = $latitude;
-        $this->type = $type;
-        $this->is_available = $available;
+        $this->supply_ID = $supplyID;
         
         $this->db->where('beacon_ID', $id);
         return $this->db->update('beacon_placement', $this);

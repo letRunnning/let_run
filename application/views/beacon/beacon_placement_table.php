@@ -29,10 +29,7 @@
       <tr>
         <th scope="col">Beacon編號</th>
         <th scope="col">路跑編號</th>
-        <th scope="col">經度</th>
-        <th scope="col">緯度</th>
-        <th scope="col">種類</th>
-        <th scope="col">使用中</th>
+        <th scope="col">補給站編號</th>
         <th scope="col">要項</th>
       </tr>
     </thead>
@@ -42,17 +39,7 @@
         <tr>
           <th scope="col"><?php echo $i['beacon_ID']; ?></th>
           <td scope="col"><?php echo $i['running_ID']; ?></td>
-          <td scope="col"><?php echo $i['longitude']; ?></td>
-          <td scope="col"><?php echo $i['latitude']; ?></td>
-          <td scope="col"><?php echo $i['type']; ?></td>
-          <td scope="col">
-            <?php if ($i['is_available'] == '0') {
-              echo '否';
-            } else {
-              echo '是';
-            }
-            ?>
-          </td>
+          <td scope="col"><?php echo $i['supply_ID']; ?></td>
           <td scope="col"><a type="button" class="btn btn-warning" href="<?php echo site_url('beacon/beacon_placement/'.$i['beacon_ID'] );?>">編輯/查看</a></td>
         </tr>
       <?php } ?>

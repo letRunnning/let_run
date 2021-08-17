@@ -70,56 +70,25 @@
         </div>
 
         <div class="col-md-5">
-          <label>種類</label>
+          <label>補給站</label>
           <div class="input-group">
-            <select class="form-select" name="type" id="type">
-              <?php if (empty($beaconPlacement->type)) { ?>
+            <select class="form-select" name="supplyID" id="supplyID">
+              <?php if (empty($beaconPlacement->supply_ID)) { ?>
                 <option disabled selected value>請選擇</option>
               <?php } ?>
-              <?php if (!empty($beaconPlacement->type)) { ?>
-                      <option selected value="<?php echo $beaconPlacement->type ?>"><?php echo $beaconPlacement->type ?></option>
-                      <option value="終點">終點</option>
-                      <option value="補給站">補給站</option>
-              <?php } else { ?>
-                      <option value="起點">起點</option>
-                      <option value="終點">終點</option>
-                      <option value="補給站">補給站</option>
+              <?php foreach ($supply as $i) {
+                      if (!empty($beaconPlacement->supply_ID)) {
+                        if ($i['supply_ID'] == $beaconPlacement->supply_ID) { ?>
+                          <option selected value="<?php echo $i['supply_ID']; ?>"><?php echo $i['supply_name']; ?></option>
+                  <?php } else { ?>
+                          <option value="<?php echo $i['supply_ID']; ?>"><?php echo $i['supply_name']; ?></option>
+                  <?php }
+                      } else { ?>
+                        <option value="<?php echo $i['supply_ID']; ?>"><?php echo $i['supply_name']; ?></option>
+                <?php } ?>
               <?php } ?>
             </select>
           </div>
-        </div>
-      </div>
-
-      <div class="row justify-content-center" id="chineseDiv">
-        <div class="col-md-5">
-          <label for="longitude" class="form-label">經度</label>
-          <input class="form-control" type="text" id="longitude" name="longitude" value="<?php echo (empty($beaconPlacement)) ? "" : $beaconPlacement->longitude ?>" required placeholder="請輸入經度">
-        </div>
-
-        <div class="col-md-5">
-          <label for="latitude" class="form-label">緯度</label>
-          <input class="form-control" type="text" id="latitude" name="latitude" value="<?php echo (empty($beaconPlacement)) ? "" : $beaconPlacement->latitude ?>" required placeholder="請輸入緯度">
-        </div>
-      </div>
-
-      <div class="col-10 m-2 mx-auto">
-        <label>是否使用中</label>
-        <div class="input-group">
-          <select class="form-select" name="isAvailable" id="isAvailable">
-          <?php if ($beaconPlacement->is_available == "0" || $beaconPlacement->is_available == "1") {
-              if ($beaconPlacement->is_available == "1") { ?>
-              <option value="1" selected>是</option>
-              <option value="0">否</option>
-            <?php } else { ?>
-              <option value="1">是</option>
-              <option value="0" selected>否</option>
-            <?php }
-            } else { ?>
-              <option disabled selected value>請選擇</option>
-              <option value="1">是</option>
-              <option value="0">否</option>
-            <?php } ?>
-          </select>
         </div>
       </div>
 
