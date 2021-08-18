@@ -48,7 +48,7 @@ INSERT INTO `beacon`(`beacon_ID`, `type`, `version`, `is_available`) VALUES
 ('SFH-FGH-24', 'V140','4.0', 0),
 ('SFH-FGH-40', 'A4785','5.1', 0);
 
-INSERT INTO `beacon_placement`(`no`, `beacon_ID`, `running_ID`, `supply_ID`, `longitude`, `latitude`) VALUES
+INSERT INTO `beacon_placement`( `beacon_ID`, `running_ID`, `supply_ID`, `longitude`, `latitude`) VALUES
 ('EWR-ERQ-45', 'A1','L2', '12.45', '159.8'),
 ('SFH-FGH-24', 'A1','L3', '14.87', '87.05'),
 ('SFH-FGH-40', 'A1','L4', '102.51', '10.5');
