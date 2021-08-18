@@ -26,20 +26,18 @@ SET time_zone = "+00:00";
 --
 -- 資料表結構 `ambulance_details`
 --
-CREATE DATABASE `running`;
-use `running`;
+CREATE DATABASE `runnings`;
+use `runnings`;
+
 CREATE TABLE `route_detail` (
+  `no` bigint(20) UNSIGNED NOT NULL COMMENT '流水號',
   `running_ID` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '路跑編號',
   `group_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '組別名稱',
   `detail` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '路線詳細說明',
   `longitude` DECIMAL( 11, 8 ) COMMENT '經度',
   `latitude` DECIMAL( 10, 8 ) NOT NULL COMMENT '緯度'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='路線詳細內容';
-ALTER TABLE `route_detail`
-  ADD PRIMARY KEY (`running_ID`,`group_name`);
-ALTER TABLE `route_detail`
-  ADD CONSTRAINT `route_detail_running_ID` FOREIGN KEY (`running_ID`) REFERENCES `running_activity` (`running_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `route_detail_group_name` FOREIGN KEY (`group_name`) REFERENCES `running_group` (`group_name`) ON DELETE CASCADE ON UPDATE CASCADE;
+
 CREATE TABLE `db_log` (
   `user` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '使用者帳號',
   `time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '操作時間',
@@ -78,17 +76,16 @@ INSERT INTO `users` (`id`, `password`, `name`, `manager`, `yda`, `county`, `orga
 
 CREATE TABLE `ambulance_details` (
   `liciense_plate` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '車牌',
-  -- `arrivetime` datetime NOT NULL COMMENT '時間',
   `hospital_name` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '醫院名稱',
   `hospital_phone` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '醫院電話'
-  -- `pass_ID` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '經過點編號'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='救護車資訊';
 --
 -- 資料表結構 `ambulance_place`
 --
 
 CREATE TABLE `ambulance_place` (
-  `pass_ID` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '經過點編號',
+  `no` bigint(20) UNSIGNED NOT NULL COMMENT '流水號',
+  `supply_ID` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '補給站編號',
   `running_ID` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '路跑編號',
   `liciense_plate` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '車牌',
   `time` datetime NOT NULL COMMENT '時間'
@@ -101,7 +98,6 @@ CREATE TABLE `ambulance_place` (
 
 CREATE TABLE `assignment` (
   `work_ID` bigint(20) UNSIGNED NOT NULL COMMENT '工作編號',
-  -- `work_ID` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '工作編號',
   `time` datetime NOT NULL COMMENT '時間',
   `workgroup_ID` bigint(50) UNSIGNED NOT NULL COMMENT '組代碼'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='分派';
@@ -115,6 +111,7 @@ CREATE TABLE `assignment` (
 CREATE TABLE `beacon` (
   `beacon_ID` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Beacon 編號',
   `type` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '型號',
+  `version` varchar(50) NOT NULL COMMENT '藍芽版本',
   `is_available` int(5) NOT NULL COMMENT '是否使用'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Beacon';
 
@@ -125,12 +122,12 @@ CREATE TABLE `beacon` (
 --
 
 CREATE TABLE `beacon_placement` (
+  `no` bigint(20) UNSIGNED NOT NULL COMMENT '流水號',
   `beacon_ID` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Beacon 編號',
   `running_ID` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '路跑編號',
-  `type` tinyint(4) DEFAULT NULL COMMENT '種類',
-  `longitude` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '經度',
-  `latitude` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '緯度',
-  `is_available` tinyint(4) NOT NULL COMMENT '是否啟用'
+  `supply_ID` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '補給站編號',
+  `longitude` DECIMAL( 11, 8 )  NOT NULL COMMENT '經度',
+  `latitude` DECIMAL( 10, 8 ) NOT NULL COMMENT '緯度'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Beacon 放置';
 
 -- --------------------------------------------------------
@@ -221,8 +218,8 @@ CREATE TABLE `location` (
   `member_ID` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '會員編號',
   `running_ID` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '路跑編號',
   `pass_time` datetime NOT NULL COMMENT '經過時間',
-  `pass_longitude` float NOT NULL COMMENT '經度',
-  `pass_latitude` float NOT NULL COMMENT '緯度',
+  `longitude` DECIMAL( 11, 8 )  NOT NULL COMMENT '經度',
+  `latitude` DECIMAL( 10, 8 ) NOT NULL COMMENT '緯度',
   `beacon_ID` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Beacon 編號'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='位置資訊';
 
@@ -250,15 +247,17 @@ CREATE TABLE `member` (
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `passing_point`
+-- 資料表結構 `supply_location`
 --
 
-CREATE TABLE `passing_point` (
-  `pass_ID` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '經過點編號',
-  `pass_name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '經過點名稱',
-  `longitude` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '經度',
-  `latitude` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '緯度'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='經過點';
+CREATE TABLE `supply_location` (
+  `supply_ID` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '補給站編號',
+  `supply_name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '補給站名稱',
+  `longitude` DECIMAL( 11, 8 )  NOT NULL COMMENT '經度',
+  `latitude` DECIMAL( 10, 8 ) NOT NULL COMMENT '緯度',
+  `running_ID` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '路跑編號',
+  `detail` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '補給物資'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='補給站';
 
 -- --------------------------------------------------------
 
@@ -294,7 +293,7 @@ CREATE TABLE `registration` (
 --
 
 CREATE TABLE `route` (
-  `pass_ID` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '經過點編號',
+  `supply_ID` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '補給站編號',
   `running_ID` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '路跑編號',
   `group_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '組別名稱',
   `priority` int(100) NOT NULL COMMENT '排序'
@@ -315,7 +314,8 @@ CREATE TABLE `running_activity` (
   `date` date NOT NULL COMMENT '活動日期',
   `payment_account` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '繳費帳號',
   `payment_bank_code` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '繳費銀行代碼',
-  `file_no` bigint(20) UNSIGNED DEFAULT NULL COMMENT '照片檔案編號'
+  `file_no` bigint(20) UNSIGNED DEFAULT NULL COMMENT '照片檔案編號',
+  `affidavit` text NOT NULL COMMENT '切結書'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='路跑活動';
 
 -- --------------------------------------------------------
@@ -368,8 +368,11 @@ CREATE TABLE `staff` (
 CREATE TABLE `staff_participation` (
   `workgroup_ID` bigint(50) UNSIGNED NOT NULL COMMENT '組代碼',
   `staff_ID` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '員工ID',
-  `status` tinyint(4) NOT NULL COMMENT '狀態'
+  `running_ID` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '路跑編號',
+  `checkin_time` datetime NULL COMMENT '報到時間'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='參與';
+
+
 
 -- --------------------------------------------------------
 
@@ -381,10 +384,6 @@ CREATE TABLE `transaction` (
   `registration_ID` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '報名編號',
   `member_ID` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '會員編號',
   `time` datetime NOT NULL COMMENT '交易時間',
-  `way` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '交易方式',
-  `card_number` int(50) DEFAULT NULL COMMENT '信用卡卡號',
-  `card_expiry_date` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '信用卡到期日',
-  `card_type` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '信用卡種類',
   `bank_code` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '銀行代號',
   `remittance_account` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '匯款帳號'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='交易';
@@ -396,7 +395,7 @@ CREATE TABLE `transaction` (
 --
 
 CREATE TABLE `work_content` (
-  `work_ID` bigint(20) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '工作編號',
+  `work_ID` bigint(20) UNSIGNED NOT NULL COMMENT '工作編號',
   `running_ID` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '路跑編號',
   `place` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '地點',
   `content` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '內容'
@@ -430,13 +429,16 @@ CREATE TABLE `work_group` (
 ALTER TABLE `ambulance_details`
   ADD PRIMARY KEY (`liciense_plate`);
   -- ADD PRIMARY KEY (`liciense_plate`,`arrivetime`),
-  -- ADD KEY `am_pass_id` (`pass_ID`);
+  -- ADD KEY `am_supply_ID` (`supply_ID`);
 
 --
 -- 資料表索引 `ambulance_place`
 --
 ALTER TABLE `ambulance_place`
-  ADD PRIMARY KEY (`pass_ID`,`running_ID`);
+  -- ADD PRIMARY KEY (`supply_ID`,`running_ID`);
+  ADD PRIMARY KEY (`no`),
+  ADD KEY `ambulance_place_running_id` (`running_ID`),
+  ADD KEY `ambulance_place_supply_id` (`supply_ID`);
 
 
 --
@@ -456,7 +458,10 @@ ALTER TABLE `beacon`
 -- 資料表索引 `beacon_placement`
 --
 ALTER TABLE `beacon_placement`
-  ADD PRIMARY KEY (`beacon_ID`);
+  ADD PRIMARY KEY (`no`),
+  ADD KEY `beacon_placement_beacon_id` (`beacon_ID`),
+  ADD KEY `beacon_placement_running_id` (`running_ID`),
+  ADD KEY `beacon_placement_supply_id` (`supply_ID`);
 
 --
 -- 資料表索引 `checkin`
@@ -514,11 +519,11 @@ ALTER TABLE `member`
   ADD KEY `member_file_no` (`file_no`);
 
 --
--- 資料表索引 `passing_point`
+-- 資料表索引 `supply_location`
 --
-ALTER TABLE `passing_point`
-  ADD PRIMARY KEY (`pass_ID`);
-
+ALTER TABLE `supply_location`
+  ADD PRIMARY KEY (`supply_ID`),
+  ADD KEY `supply_location_running_ID` (`running_ID`);
 --
 -- 資料表索引 `redeem`
 --
@@ -537,7 +542,7 @@ ALTER TABLE `registration`
 -- 資料表索引 `route`
 --
 ALTER TABLE `route`
-  ADD PRIMARY KEY (`pass_ID`,`priority`) USING BTREE,
+  ADD PRIMARY KEY (`supply_ID`,`priority`) USING BTREE,
   ADD KEY `route_running_id` (`running_ID`);
 
 --
@@ -564,7 +569,8 @@ ALTER TABLE `staff`
 -- 資料表索引 `staff_participation`
 --
 ALTER TABLE `staff_participation`
-  ADD PRIMARY KEY (`staff_ID`,`workgroup_ID`);
+  ADD PRIMARY KEY (`workgroup_ID`,`staff_ID`),
+  ADD KEY `staff_participation_staff_id` (`staff_ID`);
 
 --
 -- 資料表索引 `transaction`
@@ -576,8 +582,14 @@ ALTER TABLE `transaction`
 --
 -- 資料表索引 `work_content`
 --
--- ALTER TABLE `work_content`
---   ADD PRIMARY KEY (`work_ID`);
+ALTER TABLE `work_content`
+  ADD PRIMARY KEY (`work_ID`),
+  ADD KEY `work_content_running_ID` (`running_ID`);
+--
+-- 資料表索引 `staff_participation`
+--
+ALTER TABLE `staff_participation`
+  ADD CONSTRAINT `staff_participation_running_id` FOREIGN KEY (`running_ID`) REFERENCES `running_activity` (`running_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- 資料表索引 `work_group`
@@ -592,14 +604,18 @@ COMMIT;
 --
 -- 已傾印資料表的限制式
 --
+ALTER TABLE `work_content`
+  MODIFY `work_ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '工作編號';
+
+ALTER TABLE `beacon_placement`
+  MODIFY `no` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '流水號';
+ALTER TABLE `ambulance_place`
+  MODIFY `no` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '流水號';
+
 -- 資料表的限制式 `work_content`
 --
-ALTER TABLE `work_content` ADD CONSTRAINT `work_content_running_ID` FOREIGN KEY (`running_ID`) REFERENCES `running_activity` (`running_ID`) on delete CASCADE on update CASCADE;
---
--- 資料表的限制式 `ambulance_details`
---
-ALTER TABLE `ambulance_details`
-  ADD CONSTRAINT `am_pass_id` FOREIGN KEY (`pass_ID`) REFERENCES `passing_point` (`pass_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `work_content`
+  ADD CONSTRAINT `work_content_running_ID` FOREIGN KEY (`running_ID`) REFERENCES `running_activity` (`running_ID`) on delete CASCADE on update CASCADE;
 
 --
 -- 資料表的限制式 `assignment`
@@ -615,7 +631,9 @@ ALTER TABLE `assignment`
 -- 資料表的限制式 `beacon_placement`
 --
 ALTER TABLE `beacon_placement`
-  ADD CONSTRAINT `B_beacon_id` FOREIGN KEY (`beacon_ID`) REFERENCES `beacon` (`beacon_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `B_beacon_id` FOREIGN KEY (`beacon_ID`) REFERENCES `beacon` (`beacon_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `beacon_placement_running_id` FOREIGN KEY (`running_ID`) REFERENCES `running_activity` (`running_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `beacon_placement_supply_id` FOREIGN KEY (`supply_ID`) REFERENCES `supply_location` (`supply_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- 資料表的限制式 `checkin`
@@ -681,7 +699,7 @@ ALTER TABLE `registration`
 -- 資料表的限制式 `route`
 --
 ALTER TABLE `route`
-  ADD CONSTRAINT `route_pass_id` FOREIGN KEY (`pass_ID`) REFERENCES `passing_point` (`pass_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `route_supply_ID` FOREIGN KEY (`supply_ID`) REFERENCES `supply_location` (`supply_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `route_running_id` FOREIGN KEY (`running_ID`) REFERENCES `running_activity` (`running_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
@@ -722,13 +740,23 @@ ALTER TABLE `work_group`
   ADD CONSTRAINT `work_running_ID` FOREIGN KEY (`running_ID`) REFERENCES `running_activity` (`running_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
+ALTER TABLE `supply_location`
+  ADD CONSTRAINT `supply_location_running_ID` FOREIGN KEY (`running_ID`) REFERENCES `running_activity` (`running_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
 --
 -- 資料表的限制式 `ambulance_place`
 --
 ALTER TABLE `ambulance_place`
-  ADD CONSTRAINT `am_pass_running_ID` FOREIGN KEY (`running_ID`) REFERENCES `running_activity` (`running_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `ambulance_place`
-  ADD CONSTRAINT `ambulance_detailsPass_id` FOREIGN KEY (`pass_ID`) REFERENCES `passing_point` (`pass_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `am_pass_running_ID` FOREIGN KEY (`running_ID`) REFERENCES `running_activity` (`running_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `ambulance_detailssupply_ID` FOREIGN KEY (`supply_ID`) REFERENCES `supply_location` (`supply_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `route_detail`
+  ADD PRIMARY KEY (`no`,`running_ID`,`group_name`),
+  ADD KEY `route_detail_running_ID` (`running_ID`);
+ALTER TABLE `route_detail`
+  MODIFY `no` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '流水號';
+ALTER TABLE `route_detail`
+  ADD CONSTRAINT `route_detail_running_ID` FOREIGN KEY (`running_ID`) REFERENCES `running_activity` (`running_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
