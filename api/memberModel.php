@@ -186,4 +186,59 @@
         
         return $result;
     }
+
+    function get_today_activity($now) {
+        global $db;
+        $sql = "SELECT `running_ID`, `name`, `date` FROM `running_activity` WHERE `date` = ?";
+        $stmt = mysqli_prepare($db, $sql); // prepare sql statement
+        mysqli_stmt_bind_param($stmt, "s", $now); // bind parameters with variables
+        mysqli_stmt_execute($stmt); // 執行 SQL
+        $result = mysqli_stmt_get_result($stmt); // get result
+        
+        return $result;
+    }
+
+    function get_beacon($rid) {
+        global $db;
+        $sql = "SELECT `beacon_ID` FROM `beacon_placement` WHERE `running_ID` = ?";
+        $stmt = mysqli_prepare($db, $sql); // prepare sql statement
+        mysqli_stmt_bind_param($stmt, "s", $rid); // bind parameters with variables
+        mysqli_stmt_execute($stmt); // 執行 SQL
+        $result = mysqli_stmt_get_result($stmt); // get result
+        
+        return $result;
+    }
+
+    function get_checkin_by_mid($rid) {
+        global $db;
+        $sql = "SELECT * FROM `checkin` WHERE `registration_ID` = ?";
+        $stmt = mysqli_prepare($db, $sql); // prepare sql statement
+        mysqli_stmt_bind_param($stmt, "s", $rid); // bind parameters with variables
+        mysqli_stmt_execute($stmt); // 執行 SQL
+        $result = mysqli_stmt_get_result($stmt); // get result
+        
+        return $result;
+    }
+
+    function upload_location($mid, $rid, $time, $bid) {
+        global $db;
+        $sql = "INSERT INTO `location`(`member_ID`, `running_ID`, `pass_time`, `beacon_ID`) VALUES (?,?,?,?)";
+        $stmt = mysqli_prepare($db, $sql); // prepare sql statement
+        mysqli_stmt_bind_param($stmt, "ssss", $mid, $rid, $time, $bid); // bind parameters with variables
+        mysqli_stmt_execute($stmt); // 執行 SQL
+        $result = mysqli_stmt_get_result($stmt); // get result
+        
+        return $result;
+    }
+
+    function check_location($mid, $rid, $time) {
+        global $db;
+        $sql = "SELECT * FROM `location` WHERE `member_ID` = ? AND `running_ID` = ? AND `pass_time` = ?";
+        $stmt = mysqli_prepare($db, $sql); // prepare sql statement
+        mysqli_stmt_bind_param($stmt, "sss", $mid, $rid, $time); // bind parameters with variables
+        mysqli_stmt_execute($stmt); // 執行 SQL
+        $result = mysqli_stmt_get_result($stmt); // get result
+        
+        return $result;
+    }
 ?>
