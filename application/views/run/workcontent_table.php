@@ -16,14 +16,10 @@
 <div class="container" style="width:95%">
   <div class="row justify-content-center">
     <div class="col-4 text-right">
-        <!-- <label for="runActive" style="text-align:right;" class="col-form-label">搜尋</label> -->
-        <!-- <input id="myInput" class="form-control" type="search" onkeyup="myFunction('all_counselor')" placeholder="搜尋路跑活動"> -->
-        <!-- <label>路跑活動</label> -->
-        <select onchange="location = this.value;" class="form-select mb-3" name="runActive" id="G-runActive" >
+      <select onchange="location = this.value;" class="form-select mb-3" name="runActive" id="G-runActive" >
         <?php if(empty($workgroupInfo->name)){?>
           <option selected value="<?php echo site_url('run/workcontent_table/'); ?>">請選擇路跑活動</option>
           <?php foreach($activities as $i) {?>
-          <!-- <option  value="<?php echo $i['running_ID'] ?>"><?php echo $i['name'];?></option> -->
           <option  <?php echo ($runID == $i['running_ID']) ? 'selected' : '' ?> value="<?php echo site_url('run/workcontent_table/'.$i['running_ID']); ?>" ><?php echo $i['name']?></option>
           <?php } }else{ ?>
             <option  value="<?php echo $workgroupInfo->running_ID?>"><?php echo $workgroupInfo->name?></option>
