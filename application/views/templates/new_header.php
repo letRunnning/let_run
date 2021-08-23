@@ -26,6 +26,7 @@
   <link data-require="jqueryui@*" data-semver="1.10.0" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/css/smoothness/jquery-ui-1.10.0.custom.min.css" />
   <link href="<?php echo site_url(); ?>/assets/css/style.css" rel="stylesheet">
   <link href="<?php echo site_url(); ?>/assets/css/timePicker.css" rel="stylesheet">
+  <script src="<?php echo site_url(); ?>/assets/js/map.js"></script>
 </head>
 
 <body>
@@ -43,6 +44,10 @@
         </li>
 
         <?php if(!empty($role)) :?>
+          <li>
+            <a href="<?php echo site_url('/beacon/show_map'); ?>"
+              <?php echo $url == '/beacon/show_map' ? 'active' : ''; ?>>map</a>
+          </li>
           <li>
             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">個人資訊
             <!-- <i class="fas fa-angle-down"></i> -->
@@ -77,7 +82,7 @@
               </li>
               <li>
                 <a href="<?php echo site_url('/run/pass_point_table'); ?>"
-                  <?php echo $url == '/run/pass_point_table' ? 'active' : ''; ?>>路跑經過點</a>
+                  <?php echo $url == '/run/pass_point_table' ? 'active' : ''; ?>>路跑補給站</a>
               </li>
               <li>
                 <a href="<?php echo site_url('/run/route_table'); ?>"
@@ -154,6 +159,22 @@
               </li>
             </ul>
           </li>
+
+          <li>
+            <a href="#pageSubmenuCouselorE" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">列印Qrcode</a>
+            <ul class="collapse list-unstyled" id="pageSubmenuCouselorE">
+              <li>
+                <a href="<?php echo site_url('/prints/beacon_qrcode'); ?>"
+                  <?php echo $url == '/prints/beacon_qrcode' ? 'active' : ''; ?>>Beacon Qrcode</a>
+              </li>
+              <li>
+                <a href="<?php echo site_url('/prints/supply_qrcode'); ?>"
+                  <?php echo $url == '/prints/supply_qrcode' ? 'active' : ''; ?>>補給站 Qrcode</a>
+              </li>
+            </ul>
+          </li>
+
+          
    
         <?php endif;?>
         </nav>
