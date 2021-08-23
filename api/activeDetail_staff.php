@@ -12,6 +12,7 @@
             $data = array();
             foreach ($group as $i){
                 $array = array( 
+                    'running_ID' => $i['running_ID'],
                     'workgroup_ID' => $i['workgroup_ID'],
                     'name' => urlencode($i['name']),
                     'assemble_time' => $i['assembletime'],
