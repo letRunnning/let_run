@@ -4,22 +4,24 @@
     if ($con) {
         header("Content-Type: application/json; charset=UTF-8");
         $data = json_decode(file_get_contents("php://input"), true);
-        $m_ID = $data[0]['Member_ID'];
-        // $m_ID = 'M000004';
+        // $running_ID = $data[0]['Running_ID'];
+        $running_ID = 'A1';
 
-        if($m_ID != ''){
-            $sql_id = "";
+        if($running_ID != ''){
+            $sql_id = "SELECT * FROM `supply_location` WHERE `running_ID` = '$running_ID'";
             $result_member = mysqli_query($con, $sql_id) or die("DB Error: Cannot retrieve message.");
             $data = array();
             foreach ($result_member as $i){
                 $array = array( 
-
+                    'Longitude' => $i['longitude'],
+                    'Latitude' => $i['latitude'],
+                    'Supplies' => urlencode($i['supplies'])
                 );
                 array_push($data, $array);
             }
             echo urldecode(json_encode($data, JSON_PRETTY_PRINT));
         }else{
-            echo json_encode(["ans" => "Member_ID can't empty"]);
+            echo json_encode(["ans" => "running_ID can't empty"]);
         }    
     } else {
         echo json_encode(["result" => "DataBase connection failed"]);
