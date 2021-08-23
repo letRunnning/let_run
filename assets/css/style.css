@@ -321,8 +321,8 @@ a.article, a.article:hover {
 	border-left: 2px grey solid;
 	border-bottom: 2px grey solid;
 }
-.table-responsive {
-	max-height: 400px;
+.table-responsive{
+	max-height: 250px;
 }
 
 th {
