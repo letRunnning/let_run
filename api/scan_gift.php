@@ -16,9 +16,9 @@
                 VALUES ('$r_ID','$s_ID','$time')";
                 $result = mysqli_query($con, $sql);       
                 if($result){
-                    echo json_encode([["ans" => "yes"]]);
+                    echo json_encode(["ans" => "yes"]);
                 }else{
-                    echo json_encode([["ans" => "no"]]);
+                    echo json_encode(["ans" => "no"]);
                 }
         }else{
             echo json_encode(["ans" => "staff_ID and registration_ID and time can't empty"]);
