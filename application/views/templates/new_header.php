@@ -113,8 +113,17 @@
           </li>
 
           <li>
-            <a href="<?php echo site_url('/ambulance/ambulance_table'); ?>"
-              <?php echo $url == '/ambulance/ambulance_table' ? 'active' : ''; ?>>救護車清單</a>
+            <a href="#pageSubmenuCouselorC" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">救護車資訊</a>
+            <ul class="collapse list-unstyled" id="pageSubmenuCouselorC">
+              <li>
+                <a href="<?php echo site_url('/ambulance/ambulance_table'); ?>"
+                <?php echo $url == '/ambulance/ambulance_table' ? 'active' : ''; ?>>救護車清單</a>
+              </li>
+              <li>
+                <a href="<?php echo site_url('/ambulance/ambulance_placement_table'); ?>"
+                  <?php echo $url == '/ambulance/ambulance_placement_table' ? 'active' : ''; ?>>救護車放置清單</a>
+              </li>
+            </ul>
           </li>
 
           <li>
@@ -133,8 +142,8 @@
           </li>
 
           <li>
-            <a href="#pageSubmenuCouselorC" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">檢核</a>
-            <ul class="collapse list-unstyled" id="pageSubmenuCouselorC">
+            <a href="#pageSubmenuCouselorD" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">檢核</a>
+            <ul class="collapse list-unstyled" id="pageSubmenuCouselorD">
               <li>
                 <a href="<?php echo site_url('/check/member_pay_status_table'); ?>"
                   <?php echo $url == '/check/member_pay_status_table' ? 'active' : ''; ?>>繳費狀態</a>

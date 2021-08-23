@@ -28,9 +28,6 @@
         <th scope="col">醫院</th>
         <th scope="col">電話</th>
         <th scope="col">車牌</th>
-        <th scope="col">時間</th>
-        <th scope="col">活動編號</th>
-        <th scope="col">經過點編號</th>
         <th scope="col">要項</th>
       </tr>
     </thead>
@@ -41,9 +38,6 @@
           <th scope="col"><?php echo $i['hospital_name']; ?></th>
           <td scope="col"><?php echo $i['hospital_phone']; ?></td>
           <td scope="col"><?php echo $i['liciense_plate']; ?></td>
-          <td scope="col"><?php echo $i['arrivetime']; ?></td>
-          <td scope="col"><?php echo $i['running_ID']; ?></td>
-          <td scope="col"><?php echo $i['supply_ID']; ?></td>
           <td scope="col"><a type="button" class="btn btn-warning" href="<?php echo site_url('ambulance/ambulance/'.$i['liciense_plate'] );?>">編輯/查看</a></td>
         </tr>
       <?php } ?>

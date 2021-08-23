@@ -23,76 +23,20 @@
 
       <div class="row justify-content-center" id="chineseDiv">
         <div class="col-md-5">
-          <label>路跑活動</label>
-          <div class="input-group">
-            <select class="form-select" name="runActive" id="runActive">
-              <?php if (empty($ambulance->running_ID)) { ?>
-                <option disabled selected value>請選擇</option>
-              <?php } ?>
-              <?php foreach ($activities as $i) {
-                      if (!empty($ambulance->running_ID)) {
-                        if ($i['running_ID'] == $ambulance->running_ID) { ?>
-                          <option selected value="<?php echo $i['running_ID']; ?>"><?php echo $i['name']; ?></option>
-                  <?php } else { ?>
-                          <option value="<?php echo $i['running_ID']; ?>"><?php echo $i['name']; ?></option>
-                  <?php }
-                      } else { ?>
-                        <option value="<?php echo $i['running_ID']; ?>"><?php echo $i['name']; ?></option>
-                <?php } ?>
-              <?php } ?>
-            </select>
-          </div>
+          <label for="hospital" class="form-label">醫院名稱</label>
+          <input class="form-control" type="text" id="hospital" name="hospital" value="<?php echo (empty($ambulance)) ? "" : $ambulance->hospital_name ?>" required placeholder="請輸入醫院名稱">
         </div>
 
         <div class="col-md-5">
-          <label>補給站</label>
-          <div class="input-group">
-            <select class="form-select" name="passPoint" id="passPoint">
-              <?php if (empty($ambulance->supply_ID)) { ?>
-                <option disabled selected value>請選擇</option>
-              <?php } ?>
-              <?php foreach ($pass as $i) {
-                      if (!empty($ambulance->supply_ID)) {
-                        if ($i['supply_ID'] == $ambulance->supply_ID) { ?>
-                          <option selected value="<?php echo $i['supply_ID']; ?>"><?php echo $i['supply_name']; ?></option>
-                  <?php } else { ?>
-                          <option value="<?php echo $i['supply_ID']; ?>"><?php echo $i['supply_name']; ?></option>
-                  <?php }
-                      } else { ?>
-                        <option value="<?php echo $i['supply_ID']; ?>"><?php echo $i['supply_name']; ?></option>
-                <?php } ?>
-              <?php } ?>
-            </select>
-          </div>
+          <label for="hospitalPhone" class="form-label">醫院電話</label>
+          <input class="form-control" type="text" id="hospitalPhone" name="hospitalPhone" value="<?php echo (empty($ambulance)) ? "" : $ambulance->hospital_phone ?>" required placeholder="請輸入醫院電話">
         </div>
-      </div>
-
-      <div class="col-10 m-2 mx-auto">
-        <label for="hospital" class="form-label">醫院名稱</label>
-        <input class="form-control" type="text" id="hospital" name="hospital" value="<?php echo (empty($ambulance)) ? "" : $ambulance->hospital_name ?>" required placeholder="請輸入醫院名稱">
-      </div>
-
-      <div class="col-10 m-2 mx-auto">
-        <label for="hospitalPhone" class="form-label">醫院電話</label>
-        <input class="form-control" type="text" id="hospitalPhone" name="hospitalPhone" value="<?php echo (empty($ambulance)) ? "" : $ambulance->hospital_phone ?>" required placeholder="請輸入醫院電話">
       </div>
 
       <div class="col-10 m-2 mx-auto">
         <label for="liciensePlate" class="form-label">車牌</label>
         <input class="form-control" type="text" id="liciensePlate" name="liciensePlate" value="<?php echo (empty($ambulance)) ? "" : $ambulance->liciense_plate ?>" required placeholder="請輸入車牌"
           <?php if (!empty($ambulance)) echo "readonly" ?>>
-      </div>
-
-      <div class="col-10 m-2 mx-auto">
-        <label for="time">時間*</label>
-        <div class="bootstrap-iso">
-          <div class="input-group date form_datetime col-md-12" data-date-format="yyyy-mm-dd hh:ii:00" data-link-field="time">
-            <input class="form-control" type="text" value="<?php echo (empty($ambulance)) ? "" : $ambulance->arrivetime ?>" readonly>
-            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-            <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
-          </div>
-          <input type="hidden" id="time" name="time" value="" /><br/>
-        </div>
       </div>
 
       <div class="row my-5">
@@ -104,25 +48,5 @@
     </form>
   </div>
 </div>
-
-<script type="text/javascript" src="<?php echo site_url(); ?>assets/js/jquery-1.8.3.min.js" charset="UTF-8"></script>
-<script type="text/javascript" src="<?php echo site_url(); ?>assets/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="<?php echo site_url(); ?>assets/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-<script type="text/javascript" src="<?php echo site_url(); ?>assets/js/locales/bootstrap-datetimepicker.zh-TW.js" charset="UTF-8"></script>
-
-<script type="text/javascript">
-    $('.form_datetime').datetimepicker({
-        language: 'zh-TW',
-        weekStart: 1,
-        todayBtn: 1,
-        autoclose: 1,
-        todayHighlight: 1,
-        startView: 2,
-        forceParse: 0,
-        startDate:new Date(),
-        showMeridian: 0 // 是否顯示上下午
-    });
-
-</script>
 
 <?php $this->load->view('templates/new_footer'); ?>
