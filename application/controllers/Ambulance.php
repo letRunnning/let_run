@@ -87,24 +87,30 @@ class Ambulance extends CI_Controller
         }
     }
 
-    public function ambulance_placement_table()
+    public function ambulance_placement_table($rid = null)
     {
         $passport = $this->session->userdata('passport');
         $userTitle = $passport['userTitle'];
         $current_role = $passport['role'];
         $accept_role = array(6);
 
+        $runID = $rid ? $rid : null;
+        $activities = $this->RunModel->get_all_active();
         $ambulancePlacement = $this->AmbulancePlacementModel->get_all_ambulance_placement();
+        $ambulancePlacements = $rid ? $this->AmbulancePlacementModel->get_ambulance_placement_by_runningID($rid) : null;
 
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
                 'title' => '救護車停置點清單',
-                'url' => '/ambulance/ambulance_placement_table/',
+                'url' => '/ambulance/ambulance_placement_table/' . $rid,
                 'role' => $current_role,
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
                 'password' => $passport['password'],
-                'ambulancePlacement' => $ambulancePlacement
+                'ambulancePlacement' => $ambulancePlacement,
+                'runID' => $runID,
+                'activities' => $activities,
+                'ambulancePlacements' => $ambulancePlacements
             );
 
             $this->load->view('/ambulance/ambulance_placement_table', $beSentDataset);

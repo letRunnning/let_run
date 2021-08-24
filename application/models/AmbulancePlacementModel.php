@@ -43,5 +43,13 @@ class AmbulancePlacementModel extends CI_Model
         $result = $this->db->get('ambulance_placement', 1)->row();
         return $result;
     }
+
+    public function get_ambulance_placement_by_runningID($rid) {
+        $this->db->select('*,running_activity.name');
+        $this->db->where('ambulance_placement.running_ID', $rid);
+        $this->db->join('running_activity', 'running_activity.running_ID = ambulance_placement.running_ID');
+        $result = $this->db->get('ambulance_placement');
+        return $result->result_array();
+    }
 }
 ?>
