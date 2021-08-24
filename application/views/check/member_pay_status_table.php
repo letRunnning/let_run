@@ -12,44 +12,60 @@
     </ol>
   </nav>
 </div>
+
 <div class="container">
-  <div class="col-md-3 mx-auto">
-    <label for="runActive" style="text-align:right;" class="col-form-label">搜尋</label>
-    <input id="myInput" class="form-control" type="search" onkeyup="myFunction('all_counselor')" placeholder="搜尋路跑活動">
+  <div class="row justify-content-center">
+    <div class="col-4 text-right">
+      <select onchange="location = this.value;" class="form-select mb-3" name="runActive" id="G-runActive" >
+        <?php if (empty($payment->name)) { ?>
+          <option selected value="<?php echo site_url('check/member_pay_status_table/'); ?>">請選擇路跑活動</option>
+          <?php foreach ($activities as $i) { ?>
+            <option <?php echo ($runID == $i['running_ID']) ? 'selected' : '' ?> value="<?php echo site_url('check/member_pay_status_table/'.$i['running_ID']); ?>" ><?php echo $i['name'] ?></option>
+          <?php } } else { ?>
+            <option  value="<?php echo $payment->running_ID?>"><?php echo $payment->name?></option>
+            <?php } ?>
+        </select>
+    </div>
   </div>
   <br>
 
-  <table class="table text-center border-secondary table-hover align-middle">
-    <thead class="header" style="background-color:#C8C6A7">
-      <tr>
-        <th scope="col">會員編號</th>
-        <th scope="col">姓名</th>
-        <th scope="col">參加之路跑編號</th>
-        <th scope="col">組別</th>
-        <th scope="col">狀態</th>
-        <th scope="col">信箱</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <?php foreach ($pay as $i) { ?>
+  <?php if (!empty($payments)) { ?>
+    <table class="table text-center border-secondary table-hover align-middle">
+      <thead class="header" style="background-color:#C8C6A7">
         <tr>
-          <th scope="col"><?php echo $i['mID']; ?></th>
-          <td scope="col"><?php echo $i['name']; ?></td>
-          <td scope="col"><?php echo $i['running_ID']; ?></td>
-          <td scope="col"><?php echo $i['group_name']; ?></td>
-          <td scope="col">
-            <?php if ($i['time'] != '') {
-              echo '已繳費';
-            } else {
-              echo '尚未繳費';
-            }
-            ?>
-          </td>
-          <td scope="col"><?php echo $i['email']; ?></td>
+          <th scope="col">會員編號</th>
+          <th scope="col">姓名</th>
+          <th scope="col">參加之路跑編號</th>
+          <th scope="col">組別</th>
+          <th scope="col">狀態</th>
+          <th scope="col">信箱</th>
         </tr>
-      <?php } ?>
-    </tbody>
-  </table>
+      </thead>
+
+      <tbody>
+        <?php foreach ($payments as $i) { ?>
+          <tr>
+            <th scope="col"><?php echo $i['member_ID']; ?></th>
+            <td scope="col"><?php echo $i['name']; ?></td>
+            <td scope="col"><?php echo $i['running_ID']; ?></td>
+            <td scope="col"><?php echo $i['group_name']; ?></td>
+            <td scope="col">
+              <?php if ($i['time'] != '') {
+                echo '已繳費';
+              } else {
+                echo '尚未繳費';
+              }
+              ?>
+            </td>
+            <td scope="col"><?php echo $i['email']; ?></td>
+          </tr>
+        <?php } ?>
+      </tbody>
+    </table>
+  <?php } else { ?>
+    <div class="d-grid gap-2 col-2 mx-auto fs-5">
+      <span>尚無資料</span>
+    </div>
+  <?php } ?>
 </div>
 <?php $this->load->view('templates/new_footer');?>

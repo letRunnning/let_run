@@ -40,14 +40,17 @@ class Check extends CI_Controller
         }
     }
 
-    public function member_pay_status_table()
+    public function member_pay_status_table($rid = null)
     {
         $passport = $this->session->userdata('passport');
         $userTitle = $passport['userTitle'];
         $current_role = $passport['role'];
         $accept_role = array(6);
 
-        $pay = $this->CheckModel->get_all_member_pay();
+        $runID = $rid ? $rid : null;
+        $activities = $this->RunModel->get_all_active();
+        $payment = $this->CheckModel->get_all_member_pay();
+        $payments = $rid ? $this->CheckModel->get_pay_status_by_runningID($rid) : null;
 
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
@@ -57,7 +60,10 @@ class Check extends CI_Controller
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
                 'password' => $passport['password'],
-                'pay' => $pay
+                'runID' => $runID,
+                'activities' => $activities,
+                'payment' => $payment,
+                'payments' => $payments
             );
 
             $this->load->view('/check/member_pay_status_table', $beSentDataset);
