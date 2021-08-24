@@ -5,16 +5,21 @@ class Checkin extends CI_Controller
     {
         parent::__construct();
         $this->load->model('CheckinModel');
+        $this->load->model('RunModel');
     }
 
-    public function staff_checkin_table()
+    public function staff_checkin_table($rid = null)
     {
         $passport = $this->session->userdata('passport');
         $userTitle = $passport['userTitle'];
         $current_role = $passport['role'];
         $accept_role = array(6);
-        $checkin = $this->CheckinModel->get_all_staff_checkin();
 
+        $runID = $rid ? $rid : null;
+        $activities = $this->RunModel->get_all_active();
+        $checkin = $this->CheckinModel->get_all_staff_checkin();
+        $checkinByid = $rid ? $this->CheckinModel->get_checkin_by_runningID($rid) : null;
+        
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
                 'title' => '工作人員報到狀態',
@@ -23,7 +28,10 @@ class Checkin extends CI_Controller
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
                 'password' => $passport['password'],
-                'checkin' => $checkin
+                'runID' => $runID,
+                'activities' => $activities,
+                'checkin' => $checkin,
+                'checkinByid' => $checkinByid
             );
 
             $this->load->view('/checkin/staff_checkin_table', $beSentDataset);

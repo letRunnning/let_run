@@ -17,7 +17,7 @@
         <?php if (empty($ambulancePlacement->name)) { ?>
           <option selected value="<?php echo site_url('ambulance/ambulance_placement_table/'); ?>">請選擇路跑活動</option>
           <?php foreach ($activities as $i) { ?>
-          <option  <?php echo ($runID == $i['running_ID']) ? 'selected' : '' ?> value="<?php echo site_url('ambulance/ambulance_placement_table/'.$i['running_ID']); ?>" ><?php echo $i['name']?></option>
+            <option <?php echo ($runID == $i['running_ID']) ? 'selected' : '' ?> value="<?php echo site_url('ambulance/ambulance_placement_table/'.$i['running_ID']); ?>" ><?php echo $i['name']?></option>
           <?php } } else { ?>
             <option  value="<?php echo $ambulancePlacement->running_ID?>"><?php echo $ambulancePlacement->name?></option>
             <?php } ?>
