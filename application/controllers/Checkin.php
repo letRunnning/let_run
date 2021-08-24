@@ -18,7 +18,7 @@ class Checkin extends CI_Controller
         $runID = $rid ? $rid : null;
         $activities = $this->RunModel->get_all_active();
         $checkin = $this->CheckinModel->get_all_staff_checkin();
-        $checkinByid = $rid ? $this->CheckinModel->get_checkin_by_runningID($rid) : null;
+        $checkinByid = $rid ? $this->CheckinModel->get_staff_checkin_by_runningID($rid) : null;
         
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
@@ -40,13 +40,17 @@ class Checkin extends CI_Controller
         }
     }
 
-    public function member_checkin_table()
+    public function member_checkin_table($rid = null)
     {
         $passport = $this->session->userdata('passport');
         $userTitle = $passport['userTitle'];
         $current_role = $passport['role'];
         $accept_role = array(6);
+
+        $runID = $rid ? $rid : null;
+        $activities = $this->RunModel->get_all_active();
         $registration = $this->CheckinModel->get_all_registration();
+        $registrations = $rid ? $this->CheckinModel->get_member_checkin_by_runningID($rid) : null;
 
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
@@ -56,7 +60,10 @@ class Checkin extends CI_Controller
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
                 'password' => $passport['password'],
-                'registration' => $registration
+                'runID' => $runID,
+                'activities' => $activities,
+                'registration' => $registration,
+                'registrations' => $registrations
             );
 
             $this->load->view('/checkin/member_checkin_table', $beSentDataset);
