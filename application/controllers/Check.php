@@ -72,14 +72,17 @@ class Check extends CI_Controller
         }
     }
     
-    public function gift_status_table()
+    public function gift_status_table($rid = null)
     {
         $passport = $this->session->userdata('passport');
         $userTitle = $passport['userTitle'];
         $current_role = $passport['role'];
         $accept_role = array(6);
 
+        $runID = $rid ? $rid : null;
+        $activities = $this->RunModel->get_all_active();
         $status = $this->CheckModel->get_all_gift_status();
+        $statuses = $rid ? $this->CheckModel->get_gift_status_by_runningID($rid) : null;
 
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
@@ -89,7 +92,10 @@ class Check extends CI_Controller
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
                 'password' => $passport['password'],
-                'status' => $status
+                'runID' => $runID,
+                'activities' => $activities,
+                'status' => $status,
+                'statuses' => $statuses
             );
 
             $this->load->view('/check/gift_status_table', $beSentDataset);

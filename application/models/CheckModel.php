@@ -50,4 +50,14 @@ class CheckModel extends CI_Model
         $result = $this->db->get('registration');
         return $result->result_array();
     }
+
+    public function get_gift_status_by_runningID($rid) {
+        $this->db->select('*, running_activity.name AS rName');
+        $this->db->where('registration.running_ID', $rid);
+        $this->db->join('running_activity', 'running_activity.running_ID = registration.running_ID');
+        $this->db->join('redeem', 'redeem.registration_ID = registration.registration_ID', 'left');
+        $this->db->join('member', 'registration.member_ID = member.member_ID');
+        $result = $this->db->get('registration');
+        return $result->result_array();
+    }
 }
