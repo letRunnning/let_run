@@ -87,13 +87,17 @@ class Beacon extends CI_Controller
         }
     }
 
-    public function beacon_placement_table()
+    public function beacon_placement_table($rid = null)
     {
         $passport = $this->session->userdata('passport');
         $userTitle = $passport['userTitle'];
         $current_role = $passport['role'];
         $accept_role = array(6);
+
+        $runID = $rid ? $rid : null;
+        $activities = $this->RunModel->get_all_active();
         $beaconPlacement = $this->BeaconPlacementModel->get_all_beacon_placement();
+        $beaconPlacements = $rid ? $this->BeaconPlacementModel->get_beacon_placement_by_runningID($rid) : null;
 
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
@@ -103,7 +107,10 @@ class Beacon extends CI_Controller
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
                 'password' => $passport['password'],
-                'beaconPlacement' => $beaconPlacement
+                'runID' => $runID,
+                'activities' => $activities,
+                'beaconPlacement' => $beaconPlacement,
+                'beaconPlacements' => $beaconPlacements
             );
 
             $this->load->view('/beacon/beacon_placement_table', $beSentDataset);

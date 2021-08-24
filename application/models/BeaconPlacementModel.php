@@ -36,5 +36,13 @@ class BeaconPlacementModel extends CI_Model
         $result = $this->db->get('beacon_placement', 1)->row();
         return $result;
     }
+
+    public function get_beacon_placement_by_runningID($rid) {
+        $this->db->select('*, running_activity.name');
+        $this->db->where('beacon_placement.running_ID', $rid);
+        $this->db->join('running_activity', 'running_activity.running_ID = beacon_placement.running_ID');
+        $result = $this->db->get('beacon_placement');
+        return $result->result_array();
+    }
 }
 ?>
