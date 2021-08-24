@@ -9,6 +9,14 @@ class AmbulanceModel extends CI_Model
         return $result;
     }
 
+    public function get_ambulance_hospital_name()
+    {
+        $this->db->select('DISTINCT(hospital_name)');
+        $result = $this->db->get('ambulance_details')->result_array();
+        
+        return $result;
+    }
+
     public function get_ambulance_by_id($liciense)
     {
         $this->db->where('liciense_plate', $liciense);
