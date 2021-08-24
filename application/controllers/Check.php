@@ -5,26 +5,33 @@ class Check extends CI_Controller
     {
         parent::__construct();
         $this->load->model('CheckModel');
+        $this->load->model('RunModel');
     }
 
-    public function staff_apply_table()
+    public function staff_apply_table($rid = null)
     {
         $passport = $this->session->userdata('passport');
         $userTitle = $passport['userTitle'];
         $current_role = $passport['role'];
         $accept_role = array(6);
 
+        $runID = $rid ? $rid : null;
+        $activities = $this->RunModel->get_all_active();
         $application = $this->CheckModel->get_all_staff_application();
+        $applications = $rid ? $this->CheckModel->get_staff_apply_by_runningID($rid) : null;
 
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
                 'title' => '工作人員申請活動',
-                'url' => '/check/staff_apply_table/',
+                'url' => '/check/staff_apply_table/' . $rid,
                 'role' => $current_role,
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
                 'password' => $passport['password'],
-                'application' => $application
+                'runID' => $runID,
+                'activities' => $activities,
+                'application' => $application,
+                'applications' => $applications
             );
 
             $this->load->view('/check/staff_apply_table', $beSentDataset);
