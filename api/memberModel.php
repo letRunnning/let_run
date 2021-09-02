@@ -241,4 +241,15 @@
         
         return $result;
     }
+
+    function get_registration($mid) {
+        global $db;
+        $sql = "SELECT `registration_ID` FROM `registration` WHERE `member_ID` = ?";
+        $stmt = mysqli_prepare($db, $sql); // prepare sql statement
+        mysqli_stmt_bind_param($stmt, "s", $mid); // bind parameters with variables
+        mysqli_stmt_execute($stmt); // 執行 SQL
+        $result = mysqli_stmt_get_result($stmt); // get result
+        
+        return $result;
+    }
 ?>
