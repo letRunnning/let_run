@@ -30,6 +30,10 @@
   <br>
 
   <?php if (!empty($payments)) { ?>
+    <div class="col-2 my-3">
+      <a type="button" class="btn btn-warning" href="<?php echo site_url('check/check_payment_status/');?>">Send Email</a>
+    </div>
+
     <table class="table text-center border-secondary table-hover align-middle">
       <thead class="header" style="background-color:#C8C6A7">
         <tr>

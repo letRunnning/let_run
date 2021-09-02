@@ -1,0 +1,1 @@
+C:\Users\user\Downloads\php-7.4.9-nts-Win32-vc15-x64\php.exe -q D:\xampp\htdocs\let_run\application\controllers\CheckPayment.php
