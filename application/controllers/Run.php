@@ -112,6 +112,40 @@ class Run extends CI_Controller
         $this->load->view('/run/run_active_table', $beSentDataset);
            
     }
+    public function deletedata($no=null,$runNo=null,$workgroupID=null)
+    {
+        $passport = $this->session->userdata('passport');
+        $userTitle = $passport['userTitle'];
+        $current_role = $passport['role'];
+        $accept_role = array(6);
+        if (in_array($current_role, $accept_role)) {
+            $response = $no ? $this->RunModel->deleteAssignment($no) : null;
+            $runID = $runNo ? $runNo : null;
+            $activities = $this->RunModel->get_all_active();
+            $workgroupInfo = $workgroupID ? $this->RunModel->get_workgrpup_byid($workgroupID):null;
+            $assignments = $workgroupID ? $this->RunModel->get_assignment_content($workgroupID):null;
+            $workcontents = $runNo ? $this->RunModel->get_workcontents_by_id($runNo) : null;
+            $beSentDataset = array(
+                'title' => '路跑工作組別',
+                'url' => '/run/workgroup/'.$runNo.'/'.$workgroupID,
+                'role' => $current_role,
+                'userTitle' => $userTitle,
+                'current_role' => $current_role,
+                'password' => $passport['password'],
+                'security' => $this->security,
+                'activities' => $activities,
+                'workgroupInfo' => $workgroupInfo,
+                'assignments' => $assignments,
+                'runID' => $runID,
+                'workcontents' => $workcontents,
+                'workgroupID' => $workgroupID
+            );
+            
+            $this->load->view('/run/workgroup', $beSentDataset);
+        } else {
+            redirect('user/login');
+        }
+    }
     public function workgroup($runNo = null,$workgroupID = null)
     {
         $passport = $this->session->userdata('passport');
@@ -122,6 +156,7 @@ class Run extends CI_Controller
         $activities = $this->RunModel->get_all_active();
         $workgroupInfo = $workgroupID ? $this->RunModel->get_workgrpup_byid($workgroupID):null;
         $assignments = $workgroupID ? $this->RunModel->get_assignment_content($workgroupID):null;
+        // print_r($assignments);
         $workcontents = $runNo ? $this->RunModel->get_workcontents_by_id($runNo) : null;
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
@@ -136,7 +171,8 @@ class Run extends CI_Controller
                 'workgroupInfo' => $workgroupInfo,
                 'assignments' => $assignments,
                 'runID' => $runID,
-                'workcontents' => $workcontents
+                'workcontents' => $workcontents,
+                'workgroupID' => $workgroupID
             );
 
             $runActive = $this->security->xss_clean($this->input->post('runActive'));
@@ -429,6 +465,7 @@ class Run extends CI_Controller
         $userTitle = $passport['userTitle'];
         $current_role = $passport['role'];
         $accept_role = array(6);
+        $activity = $no? $this->RunModel->get_active_by_id($no):null;
         $activities = $this->RunModel->get_all_active();
         $supplies = $no ? $this->RunModel->get_supply_location_by_run($no) : null ;
         $data = null;
@@ -461,7 +498,8 @@ class Run extends CI_Controller
                 'points' => $points,
                 'activities' => $activities,
                 'supplies' => $supplies,
-                'data' => $data
+                'data' => $data,
+                'activity' => $activity
             );
 
             $this->load->view('/run/supplies_map', $beSentDataset);
