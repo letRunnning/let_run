@@ -44,10 +44,10 @@
         </li>
 
         <?php if(!empty($role)) :?>
-          <li>
+          <!-- <li>
             <a href="<?php echo site_url('/beacon/show_map'); ?>"
               <?php echo $url == '/beacon/show_map' ? 'active' : ''; ?>>map</a>
-          </li>
+          </li> -->
           <li>
             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">個人資訊
             <!-- <i class="fas fa-angle-down"></i> -->
@@ -189,7 +189,7 @@
           <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-list text-white " viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
           </svg>
-            <span class="h2 text-white">Let_running</span>
+            <span class="h2 text-white">Let's running</span>
           </button>
           <button class="btn btn-light d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fas fa-align-justify"></i>
