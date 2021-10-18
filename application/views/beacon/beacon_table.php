@@ -12,37 +12,39 @@
     </ol>
   </nav>
 </div>
-<div class="container" style="width:95%">
-  <div class="row">
-    <div class="d-grid gap-2 col-2 mx-auto">
-      <a class="btn btn-info m-3" href="<?php echo site_url($url); ?>">新增</a><br>
-    </div>
-    <table class="table text-center border-secondary table-hover align-middle">
-      <thead class="header" style="background-color:#C8C6A7">
+
+<div class="container">
+  <div class="d-grid gap-2 col-2 mx-auto">
+    <td scope="col"><a type="button" class="btn btn-info" href="<?php echo site_url('beacon/beacon/' );?>">新增</a></td>
+  </div>
+  <br>
+  <table class="table text-center border-secondary table-hover align-middle">
+    <thead class="header" style="background-color:#C8C6A7">
+      <tr>
+        <th scope="col">Beacon編號</th>
+        <th scope="col">Beacon型號</th>
+        <th scope="col">是否可使用</th>
+        <th scope="col">要項</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <?php foreach ($beacons as $i) { ?>
         <tr>
-          <th scope="col">Beacon編號</th>
-          <th scope="col">Beacon型號</th>
-          <th scope="col">是否可使用</th>
+          <th scope="col"><?php echo $i['beacon_ID']; ?></th>
+          <td scope="col"><?php echo $i['type']; ?></td>
+          <td scope="col">
+            <?php if ($i['is_available'] == '0') {
+              echo '否';
+            } else {
+              echo '是';
+            }
+            ?>
+          </td>
+          <td scope="col"><a type="button" class="btn btn-warning" href="<?php echo site_url('beacon/beacon/'.$i['beacon_ID'] );?>">編輯/查看</a></td>
         </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="col">asd123</th>
-          <td scope="col">Ci - BLE MESH</td>
-          <td scope="col"><a type="button" class="btn btn-warning" href="<?php echo site_url('run/pass_point/1' );?>">是</a></td>
-        </tr>
-        <tr>
-          <th scope="col">qwe123</th>
-          <td scope="col">Ci - AYU MESH</td>
-          <td scope="col"><a type="button" class="btn btn-warning" href="<?php echo site_url('run/pass_point/2' );?>">是</a></td>
-        </tr>
-        <tr>
-          <th scope="col">qwe126</th>
-          <td scope="col">Ci - IOP MESH</td>
-          <td scope="col"><a type="button" class="btn btn-warning" href="<?php echo site_url('run/pass_point/3' );?>">是</a></td>
-        </tr>
-      </tbody>
-    </table>
-  </div> 
+      <?php } ?>
+    </tbody>
+  </table>
 </div>
 <?php $this->load->view('templates/new_footer');?>

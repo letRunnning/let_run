@@ -8,6 +8,7 @@ class Run extends CI_Controller
         $this->load->model('FileModel');
         $this->load->model('AssignModel');
         $this->load->model('MapModel');
+        $this->load->model('BeaconPlacementModel');
     }
     public function run_active_table()
     {
@@ -89,12 +90,6 @@ class Run extends CI_Controller
         } else {
             $isExecuteSuccess = $this->RunModel->update_by_id($runNo,$runName, $dateRun, $place,$start_time,$end_time,$bankCode,$bankAccount,$file_no);
         }
-    
-        // if ($isExecuteSuccess) {
-        //     print_r('yes');
-        // }else{
-        //     print_r('yes');
-        // }
         if ($isExecuteSuccess) {
           $beSentDataset['success'] = '新增成功';
           $activities = $this->RunModel->get_all_active();
@@ -240,10 +235,44 @@ class Run extends CI_Controller
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
                 'password' => $passport['password'],
-                'workgroups' => $workgroups
+                'security' => $this->security,
+                'activities' => $activities,
+                'workgroupInfo' => $workgroupInfo,
+                'workContents' => $workgroup_contents
             );
-
-            $this->load->view('/run/workgroup_table', $beSentDataset);
+            $workData=array();
+            $runActive = $this->security->xss_clean($this->input->post('runActive'));
+            // print_r($runActive);
+            $temp['runActive'] = $runActive;
+            $workgroupName = $this->security->xss_clean($this->input->post('workgroupName'));
+            $temp['workgroupName'] = $workgroupName;
+            // print_r($workgroupName);
+            
+            if(empty($runActive)){
+                return $this->load->view('/run/workgroup', $beSentDataset);
+            }else{
+                $workgroups = array('workList', 'assemblyTime', 'assemblyPlace', 'maximum_number');
+                foreach ($workgroups as $column) {
+                    // $workData[$column] = $this->input->post($column) ? implode(",", $this->input->post($column)) : 0;
+                    $temp[$column] = $this->security->xss_clean($this->input->post($column)) ? $this->security->xss_clean($this->input->post($column)):'';
+                }
+                if(!empty($temp)){
+                    array_push($workData,$temp);
+                    echo $i['runActive'];
+                    echo $i['workgroupName'];
+                    echo $i['workList'];
+                    echo $i['assemblyTime'];
+                    echo $i['assemblyPlace'];
+                    echo $i['peoples'];
+                    $isExecuteSuccess = $this->RunModel->create_workgroup($workData['runActive'],$workData['workgroupName'],$workData['workList'],$workData['assemblyTime'],$workData['assemblyPlace'],$workData['peoples']);
+                    // $isExecuteSuccess = $this->RunModel->create_workgroup($workData['runActive'],$workData['workgroupName'],$workData['workList'],$workData['assemblyTime'],$workData['assemblyPlace'],$workData['peoples']);
+                }
+                if(!empty($workData)){
+                    // echo $workData[0]['workList'];
+                }
+                $beSentDataset['workData'] =$workData;
+                $this->load->view('/run/workgroup', $beSentDataset);
+            }
         } else {
             redirect('user/login');
         }
@@ -374,7 +403,7 @@ class Run extends CI_Controller
                 'password' => $passport['password']
             );
 
-            $this->load->view('/run/rungroup_gift', $beSentDataset);
+            $this->load->view('/run/rungroup_gift_table', $beSentDataset);
         } else {
             redirect('user/login');
         }
@@ -731,12 +760,18 @@ class Run extends CI_Controller
         }
     }
 
-    public function dynamic_position_graph()
+    public function dynamic_position_graph($rid = null)
     {
         $passport = $this->session->userdata('passport');
         $userTitle = $passport['userTitle'];
         $current_role = $passport['role'];
         $accept_role = array(6);
+
+        $runID = $rid ? $rid : null;
+        $activities = $this->RunModel->get_all_active();
+        $beaconPlacement = $this->BeaconPlacementModel->get_all_beacon_placement();
+        $beaconPlacements = $rid ? $this->BeaconPlacementModel->get_beacon_placement_by_runningID($rid) : null;
+
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
                 'title' => '動態位置圖表',
@@ -744,7 +779,11 @@ class Run extends CI_Controller
                 'role' => $current_role,
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
-                'password' => $passport['password']
+                'password' => $passport['password'],
+                'runID' => $runID,
+                'activities' => $activities,
+                'beaconPlacement' => $beaconPlacement,
+                'beaconPlacements' => $beaconPlacements
             );
 
             $this->load->view('/run/dynamic_position_graph', $beSentDataset);

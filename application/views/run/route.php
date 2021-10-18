@@ -176,15 +176,7 @@
           <label for="latitude" class="form-label">緯度</label>
           <input class="form-control" type="text" id="latitude" name="latitude" value="" required placeholder="請輸入緯度">
       </div>
-        <!-- <div class="row group">
-          <div class="col-10 mx-auto">
-            <label>經過點</label>
-            <select class="form-select mb-3" name="runActive" id="runActive" >
-              <option selected value="A1">經過點1</option>
-              <option  value="A2">經過點2</option>
-            </select>
-        </div> -->
-</div> 
+    </div> 
       <div class="row">
         <div class="d-grid gap-2 col-2 mx-auto">
           <button class="btn btn-primary m-3" type="submit">送出</button>

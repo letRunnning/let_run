@@ -6,6 +6,10 @@ class Beacon extends CI_Controller
         parent::__construct();
         $this->load->model('MapModel');
         $this->load->model('UserModel');
+        $this->load->model('BeaconModel');
+        $this->load->model('BeaconPlacementModel');
+        $this->load->model('RunModel');
+        $this->load->model('SupplyLocationModel');
     }
     public function beacon_table($no = null)
     {
@@ -13,6 +17,8 @@ class Beacon extends CI_Controller
         $userTitle = $passport['userTitle'];
         $current_role = $passport['role'];
         $accept_role = array(6);
+        $beacons = $this->BeaconModel->get_all_beacon();
+
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
                 'title' => '新增Beacon',
@@ -20,7 +26,8 @@ class Beacon extends CI_Controller
                 'role' => $current_role,
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
-                'password' => $passport['password']
+                'password' => $passport['password'],
+                'beacons' => $beacons
             );
 
             $this->load->view('/beacon/beacon_table', $beSentDataset);
@@ -28,106 +35,146 @@ class Beacon extends CI_Controller
             redirect('user/login');
         }
     }
-    public function beacon($no = null)
+
+    public function beacon($beaconID = null)
     {
         $passport = $this->session->userdata('passport');
         $userTitle = $passport['userTitle'];
         $current_role = $passport['role'];
         $accept_role = array(6);
+
+        $beacon = $beaconID ? $this->BeaconModel->get_beacon_by_id($beaconID) : null;
+
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
-                'title' => '新增Beacon',
-                'url' => '/beacon/beacon/'.$no,
+                'title' => 'Beacon',
+                'url' => '/beacon/beacon/' . $beaconID,
                 'role' => $current_role,
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
-                'password' => $passport['password']
+                'password' => $passport['password'],
+                'security' => $this->security,
+                'beacon' => $beacon
             );
 
-            $this->load->view('/beacon/beacon', $beSentDataset);
+            $beaconID = $this->security->xss_clean($this->input->post('beaconID'));
+            $beaconType = $this->security->xss_clean($this->input->post('beaconType'));
+            $isAvailable = $this->security->xss_clean($this->input->post('isAvailable'));
+
+            if (empty($beaconID)) return $this->load->view('/beacon/beacon', $beSentDataset);
+
+            if (empty($beacon)) {
+                $isExecuteSuccess = $this->BeaconModel->create_one($beaconID, $beaconType, $isAvailable);
+            } else {
+                $isExecuteSuccess = $this->BeaconModel->update_by_id($beaconID, $beaconType, $isAvailable);
+            }
+
+            if ($isExecuteSuccess) {
+                $beSentDataset['success'] = '新增成功';
+                redirect('beacon/beacon_table');
+            } else {
+                $beSentDataset['error'] = '新增失敗';
+                redirect('beacon/beacon_table');
+            }
+
+            $beacon = $beaconID ? $this->BeaconModel->get_by_id($beaconID) : null;
+            $beSentDataset['beacon'] = $beacon;
+            $beacons = $this->BeaconModel->get_all_beacon();
+            $beSentDataset['beacons'] = $beacons;
+
+            $this->load->view('/beacon/beacon_table', $beSentDataset);
         } else {
             redirect('user/login');
         }
     }
-    public function beacon_place_table()
+
+    public function beacon_placement_table($rid = null)
     {
         $passport = $this->session->userdata('passport');
         $userTitle = $passport['userTitle'];
         $current_role = $passport['role'];
         $accept_role = array(6);
+
+        $runID = $rid ? $rid : null;
+        $activities = $this->RunModel->get_all_active();
+        $beaconPlacement = $this->BeaconPlacementModel->get_all_beacon_placement();
+        $beaconPlacements = $rid ? $this->BeaconPlacementModel->get_beacon_placement_by_runningID($rid) : null;
+
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
                 'title' => 'Beacon放置點清單',
-                'url' => '/beacon/beacon_place_table/',
+                'url' => '/beacon/beacon_placement_table/',
                 'role' => $current_role,
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
-                'password' => $passport['password']
+                'password' => $passport['password'],
+                'runID' => $runID,
+                'activities' => $activities,
+                'beaconPlacement' => $beaconPlacement,
+                'beaconPlacements' => $beaconPlacements
             );
 
-            $this->load->view('/beacon/beacon_place_table', $beSentDataset);
+            $this->load->view('/beacon/beacon_placement_table', $beSentDataset);
         } else {
             redirect('user/login');
         }
     }
     
-    public function beacon_place()
+    public function beacon_placement($beaconID = null)
     {
         $passport = $this->session->userdata('passport');
         $userTitle = $passport['userTitle'];
         $current_role = $passport['role'];
         $accept_role = array(6);
+
+        $beaconPlacement = $beaconID ? $this->BeaconPlacementModel->get_beacon_placement_by_id($beaconID) : null;
+        $beacons = $this->BeaconModel->get_all_beacon();
+        $activities = $this->RunModel->get_all_active();
+        $supply = $this->SupplyLocationModel->get_all_supply_location();
+
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
                 'title' => 'Beacon放置點',
-                'url' => '/beacon/beacon_place/',
-                'role' => $current_role,
-                'userTitle' => $userTitle,
-                'current_role' => $current_role,
-                'password' => $passport['password']
-            );
-
-            $this->load->view('/beacon/beacon_place', $beSentDataset);
-        } else {
-            redirect('user/login');
-        }
-    }
-    public function show_map()
-    {
-        $passport = $this->session->userdata('passport');
-        $userTitle = $passport['userTitle'];
-        $current_role = $passport['role'];
-        $accept_role = array(6);
-        $route = $this->MapModel->get_route('A1','休閒組');
-        $data = array();
-        foreach($route as $i){
-            $array = array( 
-                'running_ID' => $i['running_ID'],
-                'group_name' => urlencode($i['group_name']),
-                'detail' => urlencode($i['detail']),
-                'longitude' => $i['longitude'], // 因為有中文所以要用 urlencode 去 encode
-                'latitude' => $i['latitude']
-            );
-            array_push($data, $array);
-        }
-        $data = urldecode(json_encode($data, JSON_PRETTY_PRINT));
-        if (in_array($current_role, $accept_role)) {
-            $beSentDataset = array(
-                'title' => 'google map',
-                'url' => '/beacon/show_map/',
+                'url' => '/beacon/beacon_placement/' . $beaconID,
                 'role' => $current_role,
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
                 'password' => $passport['password'],
-                'route' => $route,
-                'data' => $data
+                'security' => $this->security,
+                'beaconPlacement' => $beaconPlacement,
+                'beacons' => $beacons,
+                'activities' => $activities,
+                'supply' => $supply
             );
 
-            $this->load->view('/beacon/show_map', $beSentDataset);
+            $beaconID = $this->security->xss_clean($this->input->post('beaconID'));
+            $runActive = $this->security->xss_clean($this->input->post('runActive'));
+            $supplyID = $this->security->xss_clean($this->input->post('supplyID'));
+
+            if (empty($beaconID)) return $this->load->view('/beacon/beacon_placement', $beSentDataset);
+
+            if (empty($beaconPlacement)) {
+                $isExecuteSuccess = $this->BeaconPlacementModel->create_one($beaconID, $runActive, $supplyID);
+            } else {
+                $isExecuteSuccess = $this->BeaconPlacementModel->update_by_id($beaconID, $runActive, $supplyID);
+            }
+
+            if ($isExecuteSuccess) {
+                $beSentDataset['success'] = '新增成功';
+                redirect('beacon/beacon_placement_table');
+            } else {
+                $beSentDataset['error'] = '新增失敗';
+                redirect('beacon/beacon_placement_table');
+            }
+            
+            $beaconPlacement = $beaconID ? $this->BeaconPlacementModel->get_by_id($beaconID) : null;
+            $beSentDataset['beaconPlacement'] = $beaconPlacement;
+            $placement = $this->BeaconPlacementModel->get_all_beacon_placement();
+            $beSentDataset['placement'] = $placement;
+
+            $this->load->view('/beacon/beacon_placement_table', $beSentDataset);
         } else {
             redirect('user/login');
         }
     }
-
-
 }

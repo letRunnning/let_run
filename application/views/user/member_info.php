@@ -20,8 +20,6 @@
     <div class="card-header" id="<?php echo 'heading'.$a?>">
       <div class="row">
         <div class="col-11 text-left"><span class="fs-5"><?php echo $value['name']?></span></div>
-        <!-- <div class="col text-right"><span class="fs-5">0場</span></div> -->
-        <!-- <div class="col text-right"><span class="fs-5">中區</span></div> -->
         <div class="col text-right"><span class="fs-5 text-primary collapsed" type="button" data-toggle="collapse" data-target="<?php echo '#collapse'.$a?>" aria-expanded="false" aria-controls="<?php echo 'collapse'.$a ?>">查看</span></div>
       </div>
     </div>

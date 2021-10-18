@@ -83,7 +83,7 @@ CREATE TABLE `ambulance_details` (
 -- 資料表結構 `ambulance_place`
 --
 
-CREATE TABLE `ambulance_place` (
+CREATE TABLE `ambulance_placement` (
   `no` bigint(20) UNSIGNED NOT NULL COMMENT '流水號',
   `supply_ID` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '補給站編號',
   `running_ID` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '路跑編號',
@@ -434,7 +434,7 @@ ALTER TABLE `ambulance_details`
 --
 -- 資料表索引 `ambulance_place`
 --
-ALTER TABLE `ambulance_place`
+ALTER TABLE `ambulance_placement`
   -- ADD PRIMARY KEY (`supply_ID`,`running_ID`);
   ADD PRIMARY KEY (`no`),
   ADD KEY `ambulance_place_running_id` (`running_ID`),
@@ -609,7 +609,7 @@ ALTER TABLE `work_content`
 
 ALTER TABLE `beacon_placement`
   MODIFY `no` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '流水號';
-ALTER TABLE `ambulance_place`
+ALTER TABLE `ambulance_placement`
   MODIFY `no` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '流水號';
 
 -- 資料表的限制式 `work_content`
@@ -746,7 +746,7 @@ COMMIT;
 --
 -- 資料表的限制式 `ambulance_place`
 --
-ALTER TABLE `ambulance_place`
+ALTER TABLE `ambulance_placement`
   ADD CONSTRAINT `am_pass_running_ID` FOREIGN KEY (`running_ID`) REFERENCES `running_activity` (`running_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `ambulance_detailssupply_ID` FOREIGN KEY (`supply_ID`) REFERENCES `supply_location` (`supply_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
