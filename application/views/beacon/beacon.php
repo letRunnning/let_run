@@ -21,11 +21,11 @@
         <form action="<?php echo site_url($url); ?>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
             <div class="col-10 m-2 mx-auto">
                 <label for="runName" class="form-label fs-5">Beacon編號</label>
-                <input class="form-control" type="text" id="runName" name="runName" value="暨大春健" required placeholder="請輸入經過點名稱">
+                <input class="form-control" type="text" id="runName" name="runName" value="" required placeholder="請輸入經過點名稱">
             </div>
             <div class="col-10 m-2 mx-auto">
                 <label for="longitude" class="form-label fs-5">Beacon型號</label>
-                <input class="form-control" type="text" id="longitude" name="longitude" value="156.12" required placeholder="請輸入經度">
+                <input class="form-control" type="text" id="longitude" name="longitude" value="" required placeholder="請輸入經度">
             </div>
             <div class="col-10 m-2 mx-auto">
                 <label for="longitude" class="form-label fs-5">是否可使用</label>
