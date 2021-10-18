@@ -17,7 +17,8 @@
       function initMap(lat,long) {
       var pathPoints=[];
       for(i = 0; i < data.length; i++) {
-        pathPoints.push([data[i].detail,
+        let text = '補給物資:'+data[i].supplies;
+        pathPoints.push(['<span style="font-weight:bolder">補給物資 :</span><br>'+'<span style="font-weight:bolder">'+data[i].supplies+'</span>',
         parseFloat(data[i].latitude),
         parseFloat(data[i].longitude)
         ]);
@@ -44,23 +45,6 @@
         }else{
           marker.setAnimation(null);
         }
-      });
-      
-      let infoWindow = new google.maps.InfoWindow({
-        content: "點擊地圖即可取得經緯度",
-        // content: "Click the map to get Lat/Lng!",
-        position: myLatlng,
-      });
-      infoWindow.open(map);
-      // Configure the click listener.
-      map.addListener("click", (mapsMouseEvent) => {
-        infoWindow.setContent(
-          JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
-        );
-        infoWindow.open(map);
-        $('#latitude').val(mapsMouseEvent.latLng.lat);
-        $('#longitude').val(mapsMouseEvent.latLng.lng);
-        infoWindow.open(map);
       });
 
       var infowindow = new google.maps.InfoWindow();
@@ -110,20 +94,25 @@
           <label>路跑活動</label>
           
           <select class="form-select mb-3" name="runActive" id="G-runActive" >
-                    <?php if(empty($point)){?>
+                    <?php if(empty($activity)){?>
             <option selected value="">請選擇路跑活動</option>
             <?php foreach($activities as $i) {?>
             <option  value="<?php echo $i['running_ID']; ?>" ><?php echo $i['name']?></option>
             <?php }  ?>
                     <?php  }else{ ?>
-                    <option  value="<?php echo $point->running_ID?>"><?php echo $point->name?></option>
+                    <option  value="<?php echo $activity->running_ID?>"><?php echo $activity->name?></option>
                     <?php } ?>
           </select>
         </div>
+      <?php if(!empty($data)){?>
+        <div id="map" class="col-10 mx-auto" style =" height: 400px;"></div>
+      <?php }else{ ?>
+        <div class="d-grid gap-2 col-2 mx-auto fs-5">
+            <span>尚無新增補給站資料</span>
+        </div>
+      <?php } ?>
 
-      <div id="map" class="col-10 mx-auto" style =" height: 400px;"></div>
-
-      <div class="col-10 m-2 mx-auto">
+      <!-- <div class="col-10 m-2 mx-auto">
         <label for="groupName" class="form-label">路跑組別</label>
           <select class="form-select mb-3" name="groupName" id="groupName">
           <?php if(empty($group_name)){?>
@@ -135,8 +124,8 @@
                   <option  value="<?php echo $group_name?>"><?php echo $group_name?></option>
                   <?php } ?>
           </select>
-      </div>
-      <div class="col-10 m-2 mx-auto">
+      </div> -->
+      <!-- <div class="col-10 m-2 mx-auto">
         <label for="detail" class="form-label">路線說明</label>
         <input class="form-control" type="text" id="detail" name="detail" value="" required placeholder="請輸入路線說明">
       </div>
@@ -147,19 +136,13 @@
       <div class="col-10 m-2 mx-auto">
           <label for="latitude" class="form-label">緯度</label>
           <input class="form-control" type="text" id="latitude" name="latitude" value="" required placeholder="請輸入緯度">
-      </div>
-        <!-- <div class="row group">
-          <div class="col-10 mx-auto">
-            <label>經過點</label>
-            <select class="form-select mb-3" name="runActive" id="runActive" >
-              <option selected value="A1">經過點1</option>
-              <option  value="A2">經過點2</option>
-            </select>
-        </div> -->
+      </div> -->
+
+
 </div> 
       <div class="row">
         <div class="d-grid gap-2 col-2 mx-auto">
-          <button class="btn btn-primary m-3" type="submit">送出</button>
+          <!-- <button class="btn btn-primary m-3" type="submit">送出</button> -->
         </div>
       </div>
     </form>
