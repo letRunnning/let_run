@@ -125,11 +125,17 @@ class RunModel extends CI_Model
     // }
     public function get_assignment_content($workgroupID)
     {
-        $this->db->select('assignment.work_ID as A_ID,work_content.*');
+        $this->db->select('assignment.no,assignment.work_ID as A_ID,work_content.*');
         $this->db->join('work_content', 'work_content.work_ID = assignment.work_ID');
         $this->db->where('assignment.workgroup_ID', $workgroupID);
         $result = $this->db->get('assignment');
         return $result->result_array();
+    }
+    public function deleteAssignment($id)
+    {
+        $this->db->where("no", $id);
+        $this->db->delete("assignment");
+        return true;
     }
     public function get_active_work_by_id($runNo,$workID)
     {
@@ -224,7 +230,7 @@ class RunModel extends CI_Model
         $this->longitude = $lon;
         $this->latitude = $lat;
         $this->running_ID = $runID;
-        $this->$supplies = $supplies;
+        $this->supplies = $supplies;
         return $this->db->insert('supply_location', $this);
     }
     // public function update_pass_point($no,$name, $lon, $lat)
