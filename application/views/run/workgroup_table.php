@@ -37,7 +37,7 @@
         <th scope="col"><?php echo $i['assembleplace']?></th>
         <th scope="col"><?php echo $i['assembletime']?></th>
         <th scope="col"><?php echo $i['leader']?></th>
-        <td scope="col"><a type="button" class="btn btn-warning" href="<?php echo site_url('run/workgroup/'.$i['workgroup_ID']  );?>">編輯/查看</a></td>
+        <td scope="col"><a type="button" class="btn btn-warning" href="<?php echo site_url('run/workgroup/'.$i['runID'].'/'.$i['workgroup_ID']  );?>">編輯/查看</a></td>
       </tr>
       <?php } ?>
     </tbody>
