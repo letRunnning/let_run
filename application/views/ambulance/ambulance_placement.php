@@ -114,14 +114,15 @@
       </div>
 
       <div class="col-10 m-2 mx-auto">
-        <label for="time">時間*</label>
+        <label for="time">時間*</label><br />
         <div class="bootstrap-iso">
-          <div class="input-group date form_datetime col-md-12" data-date-format="yyyy-mm-dd hh:ii:00" data-link-field="time">
+          <div class="input-group date form_datetime col-md-12" data-link-field="time">
             <input class="form-control" type="text" value="<?php echo (empty($ambulancePlacement)) ? "" : $ambulancePlacement->time ?>" readonly>
             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
             <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
           </div>
-          <input type="hidden" id="time" name="time" value="" /><br/>
+          <input type="" id="time" name="time" value="" /><br/>
+          <!-- hidden -->
         </div>
       </div>
 
@@ -144,6 +145,7 @@
 <script type="text/javascript">
     $('.form_datetime').datetimepicker({
         language: 'zh-TW',
+        format: 'yyyy-mm-dd hh:ii:00',
         weekStart: 1,
         todayBtn: 1,
         autoclose: 1,
