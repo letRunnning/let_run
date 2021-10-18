@@ -9,7 +9,7 @@
         const html = new DOMParser().parseFromString( domString , 'text/html');
         return html.body.firstChild;
       };
-    const groups = document.querySelectorAll('.group');
+    const groups = document.querySelectorAll('.yourUlId');
     for ( i=0, n=groups.length; i < n; i++) {
     const target = groups[i];
     const items = target.children;
@@ -19,6 +19,11 @@
       e.preventDefault();
       let cloneElement = target.cloneNode(true)
       target.parentNode.insertBefore(cloneElement, target.nextSibling);
+      var yourUl = document.getElementById("yourUlId");
+      yourUl.style.display = yourUl.style.display === 'none' ? '' : 'none';
+      var G = document.getElementById("yourUlId");
+      G.setAttribute("name" ,"workList[]");
+      $("#yourUlId").removeClass('yourUlId');
       $(".timepicker_TW").removeClass('hasDatepicker').off();
       $(".timepicker_TW").datepicker({
         changeMonth: true,
