@@ -15,7 +15,7 @@
     </ol>
   </nav>
 </div>
-<div class="container" style="width:95%">
+<div class="container">
   <div class="row">
     <form action="<?php echo site_url($url); ?>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
       <div class="col-10 m-2 mx-auto">
