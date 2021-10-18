@@ -97,6 +97,7 @@ CREATE TABLE `ambulance_place` (
 --
 
 CREATE TABLE `assignment` (
+  `no` bigint(20) UNSIGNED NOT NULL COMMENT '流水號',
   `work_ID` bigint(20) UNSIGNED NOT NULL COMMENT '工作編號',
   `time` datetime NOT NULL COMMENT '時間',
   `workgroup_ID` bigint(50) UNSIGNED NOT NULL COMMENT '組代碼'
