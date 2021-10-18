@@ -156,7 +156,6 @@ class Run extends CI_Controller
         $activities = $this->RunModel->get_all_active();
         $workgroupInfo = $workgroupID ? $this->RunModel->get_workgrpup_byid($workgroupID):null;
         $assignments = $workgroupID ? $this->RunModel->get_assignment_content($workgroupID):null;
-        // print_r($assignments);
         $workcontents = $runNo ? $this->RunModel->get_workcontents_by_id($runNo) : null;
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
@@ -183,12 +182,21 @@ class Run extends CI_Controller
             $assemblyPlace = $this->security->xss_clean($this->input->post('assemblyPlace'));
             $maximum_number = $this->security->xss_clean($this->input->post('maximum_number'));
             $workList = $this->security->xss_clean($this->input->post('workList[]'));
-            // foreach($workList as $value){
-                print_r( $workList );
+            // if($workList){
+            //     echo "wList";
+            //     foreach($workList as $value){
+            //         print_r( $workList );
+            //     }
             // }
-
             if (empty($runActive)) return $this->load->view('/run/workgroup', $beSentDataset);
             
+            // echo $runActive;
+            foreach($workList as $value){
+                if($value){
+                    $isExecuteSuccess_2 = $this->AssignModel->create_assignment($value,$assemblyTime,$workgroupID);
+
+                }
+            }
             // if(empty($workgroupInfo)){
             //     $isExecuteSuccess = $this->RunModel->create_workgroup($runActive, $workgroupName,$leader,$line,$assemblyTime,$assemblyPlace,$maximum_number);
             //     $workgroupID = $isExecuteSuccess;
@@ -206,20 +214,30 @@ class Run extends CI_Controller
             // }else{
             //     $isExecuteSuccess = $this->RunModel->update_workgroup($runActive, $place, $content,$workgroupID);
             // }
-            if($isExecuteSuccess){
-                if($isExecuteSuccess_2){
-                    $beSentDataset['success'] = '新增成功';
-                }else{
-                    $beSentDataset['success'] = '組別新增成功，分派尚未';
-                }
+
+
+            // if($isExecuteSuccess){
+            //     if($isExecuteSuccess_2){
+            //         $beSentDataset['success'] = '新增成功';
+            //     }else{
+            //         $beSentDataset['success'] = '組別新增成功，分派尚未';
+            //     }
+            // }else{
+            //     $beSentDataset['error'] = '新增失敗';
+            // }
+            if($isExecuteSuccess_2){
+                $beSentDataset['success'] = '新增成功';
             }else{
-                $beSentDataset['error'] = '新增失敗';
+                $beSentDataset['success'] = '組別新增成功，分派尚未';
             }
             $workgroupInfo = $workgroupID ? $this->RunModel->get_workgrpup_byid($workgroupID):null;
             $assignments = $workgroupID ? $this->RunModel->get_assignment_content($workgroupID):null;
+            $assignments = $workgroupID ? $this->RunModel->get_assignment_content($workgroupID):null;
             $beSentDataset['workgroupInfo'] = $workgroupInfo;
+            $beSentDataset['assignments'] = $assignments;
             $beSentDataset['workContents'] = $assignments;
-            $beSentDataset['url'] = '/run/workgroup/'. $workgroupID;
+            // $beSentDataset['url'] = '/run/workgroup/'. $workgroupID;
+            $beSentDataset['url'] = '/run/workgroup/'.$runNo.'/'.$workgroupID;
         $this->load->view('/run/workgroup', $beSentDataset);
         } else {
             redirect('user/login');
