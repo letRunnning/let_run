@@ -12,9 +12,9 @@
       }
       window.onload = load;
       function initMap(lat,long) {
-        const myLatlng = { lat: 23.950559, lng: 120.927503 };
+        const myLatlng = { lat: lat, lng: long };
         map = new google.maps.Map(document.getElementById("map"), {
-          center: { lat: 23.950559, lng: 120.927503 },
+          center: { lat: lat, lng: long },
           zoom: 10,
         });
       // }
