@@ -131,7 +131,7 @@ INSERT INTO `grade` (`running_ID`, `group_name`, `order`, `member_ID`) VALUES
 ('A1', '休閒組', 2, 'M000002'),
 ('A1', '休閒組', 3, 'M000003');
 
-INSERT INTO `ambulance_place` (`supply_ID`,`running_ID`,`liciense_plate`,`time`) VALUES
+INSERT INTO `ambulance_placement` (`supply_ID`,`running_ID`,`liciense_plate`,`time`) VALUES
 ('L3','A1','ABV-1234', '2020-05-01 14:00:00'),
 ('L2','A1','ABV-1234', '2020-05-02 13:15:00'),
 ('L1','A1','ABV-3214', '2020-05-01 13:15:00');

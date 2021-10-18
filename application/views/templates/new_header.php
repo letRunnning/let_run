@@ -3,11 +3,9 @@
 
 <head>
   <meta charset="utf-8">
-  <!-- <link rel="icon" href="<?php echo site_url(); ?>/assets/img/yda_logo.png" type="image/png"> -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="icon" href="<?php echo site_url(); ?>files/photo/logo_temp.png" type="image/x-icon" />
-
 
   <title><?php echo $title; ?></title>
 
@@ -27,6 +25,11 @@
   <link href="<?php echo site_url(); ?>/assets/css/style.css" rel="stylesheet">
   <link href="<?php echo site_url(); ?>/assets/css/timePicker.css" rel="stylesheet">
   <script src="<?php echo site_url(); ?>/assets/js/map.js"></script>
+
+  <!-- datetimepicker -->
+  <link href="<?php echo site_url(); ?>assets/css/bootstrap-iso.css" rel="stylesheet">
+  <!-- <link href="<?php echo site_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet"> -->
+  <link href="<?php echo site_url(); ?>assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -98,8 +101,8 @@
                   <?php echo $url == '/beacon/beacon_table' ? 'active' : ''; ?>>Beacon清單</a>
               </li>
               <li>
-                <a href="<?php echo site_url('/beacon/beacon_place_table'); ?>"
-                  <?php echo $url == '/beacon/beacon_place_table' ? 'active' : ''; ?>>Beacon放置點清單</a>
+                <a href="<?php echo site_url('/beacon/beacon_placement_table'); ?>"
+                  <?php echo $url == '/beacon/beacon_placement_table' ? 'active' : ''; ?>>Beacon放置點清單</a>
               </li>
             </ul>
           </li>
@@ -126,8 +129,8 @@
                 <?php echo $url == '/ambulance/ambulance_table' ? 'active' : ''; ?>>救護車清單</a>
               </li>
               <li>
-                <a href="<?php echo site_url('/ambulance/ambulance_place_table'); ?>"
-                <?php echo $url == '/ambulance/ambulance_place_table' ? 'active' : ''; ?>>救護車停置點</a>
+                <a href="<?php echo site_url('/ambulance/ambulance_placement_table'); ?>"
+                  <?php echo $url == '/ambulance/ambulance_placement_table' ? 'active' : ''; ?>>救護車放置清單</a>
               </li>
             </ul>
           </li>
@@ -143,12 +146,13 @@
           </li>
 
           <li>
+            <a href="<?php echo site_url('/check/staff_apply_table'); ?>"
+              <?php echo $url == '/check/staff_apply_table' ? 'active' : ''; ?>>工作人員申請活動</a>
+          </li>
+
+          <li>
             <a href="#pageSubmenuCouselorD" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">檢核</a>
             <ul class="collapse list-unstyled" id="pageSubmenuCouselorD">
-              <li>
-                <a href="<?php echo site_url('/check/staff_apply_table'); ?>"
-                  <?php echo $url == '/check/staff_apply_table' ? 'active' : ''; ?>>工作人員申請活動</a>
-              </li>
               <li>
                 <a href="<?php echo site_url('/check/member_pay_status_table'); ?>"
                   <?php echo $url == '/check/member_pay_status_table' ? 'active' : ''; ?>>繳費狀態</a>

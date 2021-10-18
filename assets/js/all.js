@@ -19,22 +19,9 @@
       e.preventDefault();
       let cloneElement = target.cloneNode(true)
       target.parentNode.insertBefore(cloneElement, target.nextSibling);
-      var yourUl = document.getElementById("yourUlId");
-      yourUl.style.display = yourUl.style.display === 'none' ? '' : 'none';
-      var G = document.getElementById("yourUlId");
-      G.setAttribute("name" ,"workList[]");
-      $("#yourUlId").removeClass('yourUlId');
-      $(".timepicker_TW").removeClass('hasDatepicker').off();
-      $(".timepicker_TW").datepicker({
-        changeMonth: true,
-        changeYear: true,
-        // altField: "#hiddenRun",
-        altFormat: "yy-mm-dd",
-        dateFormat: 'yy/mm/dd'
-      });
       removeElementsByClass('select-dropdown');
       const selects = document.querySelectorAll('select');
-      // M.FormSelect.init(selects, {});
+      M.FormSelect.init(selects, {});
 
       // const datepickers = document.querySelectorAll('.datepicker');
       // for ( j=0, m=datepickers.length; j < m; j++) {
