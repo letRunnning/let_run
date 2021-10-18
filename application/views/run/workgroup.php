@@ -1,14 +1,7 @@
 <?php $this->load->view('templates/new_header');
-if(!empty($workData)){
+if(!empty($workgroupInfo)){
   // echo $workData[1]['workList'];
-  foreach($workData as $i){
-    // echo $i['runActive'];
-    // echo $i['workgroupName'];
-    // echo $i['workList'];
-    // echo $i['assemblyTime'];
-    // echo $i['assemblyPlace'];
-    // echo $i['peoples'];
-  }
+  // echo $workgroupInfo->runName;
 }
 ?>
 <div class="breadcrumb-div">
@@ -21,7 +14,7 @@ if(!empty($workData)){
         <a href="#">路跑活動</a>
       </li>
       <li class="breadcrumb-item active" style="color:blue;" aria-current="page">
-        <a href="<?php echo site_url('/run/workgroup_table'); ?>">工作組別 & 項目</a>
+        <a href="<?php echo site_url('/run/workgroup_table'); ?>">工作組別</a>
       </li>
       <li class="breadcrumb-item active" aria-current="page"><?php echo $title;?></li>
     </ol>
@@ -35,12 +28,21 @@ if(!empty($workData)){
     <?php echo isset($success) ? '<p class="green-text text-darken-3 text-center">' . $success . '</p>' : ''; ?>
       <div class="col-10 m-2 mx-auto">
         <label>路跑活動</label>
-        <select class="form-select mb-3" name="runActive" id="runActive" >
-        <?php if(empty($workgroupInfo->name)){?>
-          <option selected value="A1">請選擇</option>
-          <?php foreach($activities as $i) {?>
-          <option  value="<?php echo $i['running_ID']?>"><?php echo $i['name']?></option>
-          <?php } }else{ ?>
+          <!-- <select class="form-select mb-3" name="runActive" id="runActive" > -->
+          <?php //if(empty($workgroupInfo->name)){?>
+            <!-- <option selected value="A1">請選擇</option> -->
+            <?php //foreach($activities as $i) {?>
+            <!-- <option  value="<?php echo $i['running_ID']?>"><?php echo $i['name']?></option> -->
+            <?php //} }else{ ?>
+              <!-- <option  value="<?php echo $workgroupInfo->running_ID?>"><?php echo $workgroupInfo->name?></option> -->
+              <?php //} ?>
+          <!-- </select> -->
+          <select onchange="location = this.value;" class="form-select mb-3" name="runActive" id="G-runActive" >
+          <?php if(empty($workgroupInfo->name)){?>
+            <option selected value="<?php echo site_url('run/workgroup/'); ?>">請選擇路跑活動</option>
+            <?php foreach($activities as $i) {?>
+            <option  <?php echo ($runID == $i['running_ID']) ? 'selected' : '' ?> value="<?php echo site_url('run/workgroup/'.$i['running_ID']); ?>" ><?php echo $i['name']?></option>
+            <?php } }else{ ?>
             <option  value="<?php echo $workgroupInfo->running_ID?>"><?php echo $workgroupInfo->name?></option>
             <?php } ?>
         </select>
@@ -50,27 +52,68 @@ if(!empty($workData)){
             <label for="workgroupName" class="form-label">工作組別名稱</label>
             <input class="form-control" type="text" id="workgroupName" name="workgroupName" value="<?php echo (empty($workgroupInfo))?"":  $workgroupInfo->workName?>" required placeholder="請輸入工作組別名稱">
         </div>
-        <div class="row group">
-          <div class="col-10 m-2 mx-auto">
-              <label for="workList" class="form-label">工作項目</label>
-              <input class="form-control" type="text" id="workList" name="workList" value="<?php echo (empty($workContents))?"":  $workContents->content?>" required placeholder="請輸入工作項目">
-          </div>
-          <div class="col-10 m-2 mx-auto">
+
+        <div class="col-10 m-2 mx-auto">
+            <label for="leader" class="form-label">工作組別負責人</label>
+            <input class="form-control" type="text" id="leader" name="leader" value="<?php echo (empty($workgroupInfo))?"":  $workgroupInfo->leader?>" required placeholder="請輸入工作組別名稱">
+        </div>
+
+        <div class="col-10 m-2 mx-auto">
+            <label for="line" class="form-label">工作Line群組連結</label>
+            <input class="form-control" type="text" id="line" name="line" value="<?php echo (empty($workgroupInfo))?"":  $workgroupInfo->line?>" required placeholder="請輸入工作組別名稱">
+        </div>
+
+        <div class="col-10 m-2 mx-auto">
               <label for="assemblyTime">集合時間</label>
-              <input type="text" id="assemblyTime" name="assemblyTime" class="form-control timepicker_TW" value="<?php echo (empty($workContents))?"":  $workContents->assembletime?>" required placeholder="請輸入活動日期">
+              <input type="text" id="assemblyTime" name="assemblyTime" class="form-control timepicker_TW" value="<?php echo (empty($workgroupInfo))?"":  $workgroupInfo->assembletime?>" required placeholder="請輸入活動日期">
           </div>
-          <div class="col-10 m-2 mx-auto">
-              <label for="assemblyPlace" class="form-label">集合地點</label>
-              <input class="form-control" type="text" id="assemblyPlace" name="assemblyPlace" value="<?php echo (empty($workContents))?"":  $workContents->assembleplace?>" required placeholder="請輸入集合地點">
-          </div> 
-          <div class="col-10 m-2 mx-auto">
-              <label for="peoples" class="form-label">人數上限</label>
-              <input class="form-control" type="text" id="peoples" name="maximum_number" value="<?php echo (empty($workContents))?"":  $workContents->maximum_number?>" required placeholder="請輸入人數上限">
-          </div> 
-          <div class="col-10 m-2 mx-auto">
-            <hr>
-          </div> 
+        <div class="col-10 m-2 mx-auto">
+            <label for="assemblyPlace" class="form-label">集合地點</label>
+            <input class="form-control" type="text" id="assemblyPlace" name="assemblyPlace" value="<?php echo (empty($workgroupInfo))?"":  $workgroupInfo->assembleplace?>" required placeholder="請輸入集合地點">
         </div> 
+        <div class="col-10 m-2 mx-auto">
+            <label for="peoples" class="form-label">人數上限</label>
+            <input class="form-control" type="text" id="peoples" name="maximum_number" value="<?php echo (empty($workgroupInfo))?"":  $workgroupInfo->maximum_number?>" required placeholder="請輸入人數上限">
+        </div>
+
+      <div class="col-10 m-2 mx-auto m-4">
+        <table class="table tableForm" style="border: 1px #0091ea solid;border-top: 2px #0091ea solid;border-bottom: 2px #0091ea solid;background-color:">
+          <thead>
+            <tr style="text-align:left;">
+              <th scope="col" colspan="4" class="fs-6" style="text-align:left;border-bottom: 1px #0091ea solid;">工作項目</th>
+            </tr>
+          </thead>
+          <tbody>
+          <?php foreach($assignments as $i => $value) { ?>
+            <tr class = "text-center">
+              <td scope="col"><?php echo $i+1?></td>
+              <td scope="col"><?php echo $value['content']?></td>
+              <td scope="col"><?php echo $value['place']?></td>
+        <!-- <td scope="col"><a type="button" class="btn btn-warning" href="<?php echo site_url('run/workgroup/'.$i['runID'].'/'.$i['workgroup_ID']  );?>">編輯/查看</a></td> -->
+              <td style="text-align:center;"> 
+                <a type="button" class="btn btn-danger btn-sm px-3" href="<?php echo site_url('run/deletedata/'.$value['no'].'/'.$runID.'/'.$workgroupID);?>">
+                  <i class="fa fa-trash"></i>
+                </a>
+              </td>
+            </tr>
+            <?php } ?>
+          </tbody>
+        </table>
+      </div>
+
+        <div class="row group">
+          <div class="col-10 m-2 mx-auto yourUlId"  id="yourUlId" style="display:none">
+            <label for="peoples" class="form-label">工作項目</label>
+            <select class="form-select mb-3" id="G-runActive" name="workList[]" >
+              <?php //if(empty($workgroupInfo->name)){?>
+                <option  value="">請選擇工作項目</option>
+                <?php foreach($workcontents as $i) {?>
+                <option value="<?php echo $i['work_ID'] ?>" ><?php echo $i['content'] ?></option>
+                <?php } ?>
+            </select>
+          </div>
+        </div>
+
       <div class="row">
         <div class="d-grid gap-2 col-2 mx-auto">
           <button class="btn btn-primary m-3" type="submit">送出</button>
