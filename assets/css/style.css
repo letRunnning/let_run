@@ -364,3 +364,27 @@ th {
     border-right: 0;
     vertical-align: unset;
 }
+
+.graph {
+    vertical-align: bottom;
+    height: 500px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.bar {
+    width: 30px;
+    border: solid;
+    display: inline-block;
+    margin-right: 10px;
+    transition-duration: 0.5s;
+    position: relative;
+    overflow: visible !important;
+}
+
+.text {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+}

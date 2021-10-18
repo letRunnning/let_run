@@ -69,4 +69,11 @@ class CheckModel extends CI_Model
         $result = $this->db->get('registration');
         return $result->result_array();
     }
+
+    function update_by_id($id, $time) {
+        $this->is_send = $time;
+        
+        $this->db->where('member_ID', $id);
+        return $this->db->update('registration', $this);
+    }
 }

@@ -10,23 +10,30 @@ class Ambulance extends CI_Controller
         $this->load->model('PassingPointModel');
     }
 
-    public function ambulance_table()
+    public function ambulance_table($hospital = null)
     {
         $passport = $this->session->userdata('passport');
         $userTitle = $passport['userTitle'];
         $current_role = $passport['role'];
         $accept_role = array(6);
+
+        $hospitalName = $hospital ? $hospital : null;
+        $hospitals = $this->AmbulanceModel->get_ambulance_hospital_name();
         $ambulance = $this->AmbulanceModel->get_all_ambulance();
+        $ambulances = $hospital ? $this->AmbulanceModel->get_ambulance_by_name($hospital) : null;
 
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
                 'title' => '救護車清單',
-                'url' => '/ambulance/ambulance_table/',
+                'url' => '/ambulance/ambulance_table/' . $hospital,
                 'role' => $current_role,
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
                 'password' => $passport['password'],
-                'ambulance' => $ambulance
+                'hospitalName' => $hospitalName,
+                'hospitals' => $hospitals,
+                'ambulance' => $ambulance,
+                'ambulances' => $ambulances
             );
 
             $this->load->view('/ambulance/ambulance_table', $beSentDataset);
@@ -73,13 +80,12 @@ class Ambulance extends CI_Controller
                 redirect('ambulance/ambulance_table');
             } else {
                 $beSentDataset['error'] = '新增失敗';
-                redirect('ambulance/ambulance_table');
             }
 
-            $ambulance = $liciense ? $this->AmbulanceModel->get_by_id($liciense) : null;
-            $beSentDataset['ambulance'] = $ambulance;
-            $ambulances = $this->AmbulanceModel->get_all_ambulance();
-            $beSentDataset['ambulances'] = $ambulances;
+            // $ambulance = $liciense ? $this->AmbulanceModel->get_by_id($liciense) : null;
+            // $beSentDataset['ambulance'] = $ambulance;
+            // $ambulances = $this->AmbulanceModel->get_all_ambulance();
+            // $beSentDataset['ambulances'] = $ambulances;
 
             $this->load->view('/ambulance/ambulance_table', $beSentDataset);
         } else {
@@ -155,10 +161,9 @@ class Ambulance extends CI_Controller
 
             if (empty($liciense)) return $this->load->view('/ambulance/ambulance_placement', $beSentDataset);
 
-            print_r($ambulancePlacement);
             if (empty($ambulancePlacement)) {
                 $isExecuteSuccess = $this->AmbulancePlacementModel->create_one($running, $supply, $licienseNum, $time);
-                echo 1;
+                // echo 1;
             } else {
                 $isExecuteSuccess = $this->AmbulancePlacementModel->update_by_id($running, $supply, $licienseNum, $time);
                 // echo 2;

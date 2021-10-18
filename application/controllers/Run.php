@@ -6,6 +6,7 @@ class Run extends CI_Controller
         parent::__construct();
         $this->load->model('RunModel');
         $this->load->model('FileModel');
+        $this->load->model('BeaconPlacementModel');
     }
     public function run_active_table()
     {
@@ -427,12 +428,18 @@ class Run extends CI_Controller
         }
     }
 
-    public function dynamic_position_graph()
+    public function dynamic_position_graph($rid = null)
     {
         $passport = $this->session->userdata('passport');
         $userTitle = $passport['userTitle'];
         $current_role = $passport['role'];
         $accept_role = array(6);
+
+        $runID = $rid ? $rid : null;
+        $activities = $this->RunModel->get_all_active();
+        $beaconPlacement = $this->BeaconPlacementModel->get_all_beacon_placement();
+        $beaconPlacements = $rid ? $this->BeaconPlacementModel->get_beacon_placement_by_runningID($rid) : null;
+
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
                 'title' => '動態位置圖表',
@@ -440,7 +447,11 @@ class Run extends CI_Controller
                 'role' => $current_role,
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
-                'password' => $passport['password']
+                'password' => $passport['password'],
+                'runID' => $runID,
+                'activities' => $activities,
+                'beaconPlacement' => $beaconPlacement,
+                'beaconPlacements' => $beaconPlacements
             );
 
             $this->load->view('/run/dynamic_position_graph', $beSentDataset);

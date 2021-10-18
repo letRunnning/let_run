@@ -24,6 +24,13 @@ class AmbulanceModel extends CI_Model
         return $result->row();
     }
 
+    public function get_ambulance_by_name($hospital)
+    {
+        $this->db->where('hospital_name', $hospital);
+        $result = $this->db->get('ambulance_details');
+        return $result->result_array();
+    }
+
     function create_one($hospital, $hospitalPhone, $licensePlate) {
         $this->hospital_name = $hospital;
         $this->hospital_phone = $hospitalPhone;

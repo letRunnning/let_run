@@ -99,6 +99,7 @@ class Check extends CI_Controller
             );
 
             $data = array();
+            $now = date('Y-m-d');
             foreach ($info as $i) {
                 // 交易時間是空的 & 報名結束時間的一個禮拜後 -> 期限剩餘五天
                 $time = date('Y-m-d H:i:s', strtotime($i['end_time']. '+1week'));
@@ -125,6 +126,8 @@ class Check extends CI_Controller
                     // var_dump($result);
                     //close connection
                     curl_close($ch);
+
+                    $isExecuteSuccess = $this->CheckModel->update_by_id($i['member_ID'], $now);
                 }
             }
             $this->load->view('/check/member_pay_status_table', $beSentDataset);

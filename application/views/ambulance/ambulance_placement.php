@@ -116,13 +116,13 @@
       <div class="col-10 m-2 mx-auto">
         <label for="time">時間*</label><br />
         <div class="bootstrap-iso">
-          <div class="input-group date form_datetime col-md-12" data-link-field="time">
-            <input class="form-control" type="text" value="<?php echo (empty($ambulancePlacement)) ? "" : $ambulancePlacement->time ?>" readonly>
+        <!-- data-link-field="time" -->
+          <div class="input-group date form_datetime col-md-12" >
+            <input class="form-control" id="date-daily" onchange="myFunction()" type="text" value="<?php echo (empty($ambulancePlacement)) ? "" : $ambulancePlacement->time ?>" readonly>
             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
             <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
           </div>
-          <input type="" id="time" name="time" value="" /><br/>
-          <!-- hidden -->
+          <input type="hidden" id="time" name="time" value="" /><br/>
         </div>
       </div>
 
@@ -135,9 +135,9 @@
     </form>
   </div>
 </div>
-
-<script type="text/javascript" src="<?php echo site_url(); ?>assets/jquery/jquery-1.8.3.min.js" charset="UTF-8"></script>
-<script type="text/javascript" src="<?php echo site_url(); ?>assets/js/jquery-1.8.3.min.js" charset="UTF-8"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- <script type="text/javascript" src="<?php echo site_url(); ?>assets/jquery/jquery-1.8.3.min.js" charset="UTF-8"></script> -->
+<!-- <script type="text/javascript" src="<?php echo site_url(); ?>assets/js/jquery-1.8.3.min.js" charset="UTF-8"></script> -->
 <script type="text/javascript" src="<?php echo site_url(); ?>assets/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo site_url(); ?>assets/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 <script type="text/javascript" src="<?php echo site_url(); ?>assets/js/locales/bootstrap-datetimepicker.zh-TW.js" charset="UTF-8"></script>
@@ -155,6 +155,12 @@
         startDate:new Date(),
         showMeridian: 0 // 是否顯示上下午
     });
+</script>
+<script>
+  function myFunction() {
+    var x = document.getElementById("date-daily").value;
+    document.getElementById("time").value = x;
+  }
 </script>
 
 <?php $this->load->view('templates/new_footer'); ?>

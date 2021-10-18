@@ -22,44 +22,45 @@
             $row2 = mysqli_fetch_assoc($registration);
 
             if ($row2) {
-                if ($response == null) {
-                    $array = array(
-                        'running_ID' => null,
-                        'group_name' => null,
-                        'beaconList' => [],
-                        'ifCheckin' => 'NoActivity'
-                    );
-                    array_push($data2, $array);
-                    echo urldecode(json_encode($data2, JSON_PRETTY_PRINT));
-                } else {
-                    for ($i = 0; $i < count($response); $i++) {
-                        $beacon = get_beacon($response[$i]['running_ID']);
-                        $registrationID = $response[$i]['running_ID'].$data[0]['member_ID'];
-                        $checkin = get_checkin_by_mid($registrationID);
-                        $row2 = mysqli_fetch_assoc($checkin);
+                echo json_encode($response[0]['running_ID']);
+                // if ($response == null) {
+                //     $array = array(
+                //         'running_ID' => null,
+                //         'group_name' => null,
+                //         'beaconList' => [],
+                //         'ifCheckin' => 'NoActivity'
+                //     );
+                //     array_push($data2, $array);
+                //     echo urldecode(json_encode($data2, JSON_PRETTY_PRINT));
+                // } else {
+                //     for ($i = 0; $i < count($response); $i++) {
+                //         $beacon = get_beacon($response[$i]['running_ID']);
+                //         $registrationID = $response[$i]['running_ID'].$data[0]['member_ID'];
+                //         $checkin = get_checkin_by_mid($registrationID);
+                //         $row2 = mysqli_fetch_assoc($checkin);
 
-                        $beaconList = array();
+                //         $beaconList = array();
 
-                        foreach ($beacon as $j) {
-                            array_push($beaconList, $j['beacon_ID']);
-                        }
+                //         foreach ($beacon as $j) {
+                //             array_push($beaconList, $j['beacon_ID']);
+                //         }
 
-                        if ($row2) {
-                            $response[$i]['ifCheckin'] = 'AlreadyChenkedIn';
-                        } else {
-                            $response[$i]['ifCheckin'] = 'NotYetChenkedIn';
-                        }
+                //         if ($row2) {
+                //             $response[$i]['ifCheckin'] = 'AlreadyChenkedIn';
+                //         } else {
+                //             $response[$i]['ifCheckin'] = 'NotYetChenkedIn';
+                //         }
 
-                        $array = array(
-                            'running_ID' => $response[$i]['running_ID'],
-                            'group_name' => urlencode($response[$i]['name']),
-                            'beaconList' => $beaconList,
-                            'ifCheckin' => $response[$i]['ifCheckin']
-                        );
-                        array_push($data2, $array);
-                    }
-                    echo urldecode(json_encode($data2, JSON_PRETTY_PRINT));
-                }
+                //         $array = array(
+                //             'running_ID' => $response[$i]['running_ID'],
+                //             'group_name' => urlencode($response[$i]['name']),
+                //             'beaconList' => $beaconList,
+                //             'ifCheckin' => $response[$i]['ifCheckin']
+                //         );
+                //         array_push($data2, $array);
+                //     }
+                //     echo urldecode(json_encode($data2, JSON_PRETTY_PRINT));
+                // }
             } else{
                 echo json_encode(array(["ifCheckin" => "No registration data"]));
             }
