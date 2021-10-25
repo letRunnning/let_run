@@ -245,6 +245,7 @@ class Run extends CI_Controller
         $current_role = $passport['role'];
         $accept_role = array(6);
         $workgroups = $this->RunModel->get_all_workgrpup();
+        $activities = $this->RunModel->get_all_active();
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
                 'title' => '工作組別',
@@ -255,42 +256,9 @@ class Run extends CI_Controller
                 'password' => $passport['password'],
                 'security' => $this->security,
                 'activities' => $activities,
-                'workgroupInfo' => $workgroupInfo,
-                'workContents' => $workgroup_contents
+                'workgroups' => $workgroups
             );
-            $workData=array();
-            $runActive = $this->security->xss_clean($this->input->post('runActive'));
-            // print_r($runActive);
-            $temp['runActive'] = $runActive;
-            $workgroupName = $this->security->xss_clean($this->input->post('workgroupName'));
-            $temp['workgroupName'] = $workgroupName;
-            // print_r($workgroupName);
-            
-            if(empty($runActive)){
-                return $this->load->view('/run/workgroup', $beSentDataset);
-            }else{
-                $workgroups = array('workList', 'assemblyTime', 'assemblyPlace', 'maximum_number');
-                foreach ($workgroups as $column) {
-                    // $workData[$column] = $this->input->post($column) ? implode(",", $this->input->post($column)) : 0;
-                    $temp[$column] = $this->security->xss_clean($this->input->post($column)) ? $this->security->xss_clean($this->input->post($column)):'';
-                }
-                if(!empty($temp)){
-                    array_push($workData,$temp);
-                    echo $i['runActive'];
-                    echo $i['workgroupName'];
-                    echo $i['workList'];
-                    echo $i['assemblyTime'];
-                    echo $i['assemblyPlace'];
-                    echo $i['peoples'];
-                    $isExecuteSuccess = $this->RunModel->create_workgroup($workData['runActive'],$workData['workgroupName'],$workData['workList'],$workData['assemblyTime'],$workData['assemblyPlace'],$workData['peoples']);
-                    // $isExecuteSuccess = $this->RunModel->create_workgroup($workData['runActive'],$workData['workgroupName'],$workData['workList'],$workData['assemblyTime'],$workData['assemblyPlace'],$workData['peoples']);
-                }
-                if(!empty($workData)){
-                    // echo $workData[0]['workList'];
-                }
-                $beSentDataset['workData'] =$workData;
-                $this->load->view('/run/workgroup', $beSentDataset);
-            }
+            $this->load->view('/run/workgroup_table', $beSentDataset);
         } else {
             redirect('user/login');
         }
