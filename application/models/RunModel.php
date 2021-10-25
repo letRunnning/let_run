@@ -199,8 +199,8 @@ class RunModel extends CI_Model
         $this->place = $place;
         $this->start_time = $start_time;
         $this->end_time = $end_time;
-        $this->bank_account = $bankAccount;
-        $this->bank_code = $bankCode;
+        $this->payment_account = $bankAccount;
+        $this->payment_bank_code = $bankCode;
         $this->file_no = $file_no;
         
         $this->db->where('running_ID', $id);
