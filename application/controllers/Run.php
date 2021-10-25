@@ -63,6 +63,7 @@ class Run extends CI_Controller
         $endTime = $this->security->xss_clean($this->input->post('endTime'));
         $bankCode = $this->security->xss_clean($this->input->post('bankCode'));
         $bankAccount = $this->security->xss_clean($this->input->post('bankAccount'));
+        $fileNo = $this->security->xss_clean($this->input->post('fileNo'));
         $start_time = $startDate.' '.$startTime.':00';
         $end_time = $endDate.' '.$endTime.':00';
 
@@ -88,7 +89,7 @@ class Run extends CI_Controller
             $isExecuteSuccess = $this->RunModel->create_one($RID,$runName, $dateRun, $place,$start_time,$end_time,$bankCode,$bankAccount,$file_no);
             $runNo = $isExecuteSuccess;
         } else {
-            $isExecuteSuccess = $this->RunModel->update_by_id($runNo,$runName, $dateRun, $place,$start_time,$end_time,$bankCode,$bankAccount,$file_no);
+            $isExecuteSuccess = $this->RunModel->update_by_id($runNo,$runName, $dateRun, $place,$start_time,$end_time,$bankCode,$bankAccount,$fileNo);
         }
         if ($isExecuteSuccess) {
           $beSentDataset['success'] = '新增成功';
@@ -99,9 +100,8 @@ class Run extends CI_Controller
           $beSentDataset['error'] = '新增失敗';
         }
     
-        $activity = $runNo ? $this->RunModel->get_by_no($runNo) : null;
+        $activity = $runNo ? $this->RunModel->get_active_by_id($runNo) : null;
         $beSentDataset['activity'] = $activity;
-        // $beSentDataset['url'] = '/run/run_active/' . $runNo;
         $activities = $this->RunModel->get_all_active();
         $beSentDataset['activities'] = $activities;
         $this->load->view('/run/run_active_table', $beSentDataset);
