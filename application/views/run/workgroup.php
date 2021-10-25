@@ -28,16 +28,7 @@ if(!empty($workgroupInfo)){
     <?php echo isset($success) ? '<p class="green-text text-darken-3 text-center">' . $success . '</p>' : ''; ?>
       <div class="col-10 m-2 mx-auto">
         <label>路跑活動</label>
-          <!-- <select class="form-select mb-3" name="runActive" id="runActive" > -->
-          <?php //if(empty($workgroupInfo->name)){?>
-            <!-- <option selected value="A1">請選擇</option> -->
-            <?php //foreach($activities as $i) {?>
-            <!-- <option  value="<?php echo $i['running_ID']?>"><?php echo $i['name']?></option> -->
-            <?php //} }else{ ?>
-              <!-- <option  value="<?php echo $workgroupInfo->running_ID?>"><?php echo $workgroupInfo->name?></option> -->
-              <?php //} ?>
-          <!-- </select> -->
-          <select onchange="location = this.value;" class="form-select mb-3" name="runActive" id="G-runActive" >
+           <select onchange="location = this.value;" class="form-select mb-3" name="runActive" id="G-runActive" >
           <?php if(empty($workgroupInfo->name)){?>
             <option selected value="<?php echo site_url('run/workgroup/'); ?>">請選擇路跑活動</option>
             <?php foreach($activities as $i) {?>
@@ -62,11 +53,16 @@ if(!empty($workgroupInfo)){
             <label for="line" class="form-label">工作Line群組連結</label>
             <input class="form-control" type="text" id="line" name="line" value="<?php echo (empty($workgroupInfo))?"":  $workgroupInfo->line?>" required placeholder="請輸入工作組別名稱">
         </div>
-
-        <div class="col-10 m-2 mx-auto">
-              <label for="assemblyTime">集合時間</label>
-              <input type="text" id="assemblyTime" name="assemblyTime" class="form-control timepicker_TW" value="<?php echo (empty($workgroupInfo))?"":  $workgroupInfo->assembletime?>" required placeholder="請輸入活動日期">
-          </div>
+        <div class="row justify-content-center" id="chineseDiv">
+            <div class="col-md-5">
+              <label for="formStartTime">集合時間(日期)*</label>
+              <input class="form-control" type="text" id="dateFrom"  name="startDate" value="<?php echo (empty($workgroupInfo)) ? "" : substr($workgroupInfo->assembletime, 0, 10) ?>">
+            </div>
+            <div class="col-md-5">
+              <label for="formStartTime">集合時間(時間)*</label>
+              <input class="form-control time-picker-start" type="text" id="formStartTime" name="startTime" value="<?php echo (empty($workgroupInfo)) ? "" : substr($workgroupInfo->assembletime, 11, strlen($workgroupInfo->assembletime)) ?>">
+            </div>
+        </div>
         <div class="col-10 m-2 mx-auto">
             <label for="assemblyPlace" class="form-label">集合地點</label>
             <input class="form-control" type="text" id="assemblyPlace" name="assemblyPlace" value="<?php echo (empty($workgroupInfo))?"":  $workgroupInfo->assembleplace?>" required placeholder="請輸入集合地點">
@@ -76,6 +72,7 @@ if(!empty($workgroupInfo)){
             <input class="form-control" type="text" id="peoples" name="maximum_number" value="<?php echo (empty($workgroupInfo))?"":  $workgroupInfo->maximum_number?>" required placeholder="請輸入人數上限">
         </div>
 
+        <?php if(!empty($assignments)){ ?>
       <div class="col-10 m-2 mx-auto m-4">
         <table class="table tableForm" style="border: 1px #0091ea solid;border-top: 2px #0091ea solid;border-bottom: 2px #0091ea solid;background-color:">
           <thead>
@@ -84,25 +81,26 @@ if(!empty($workgroupInfo)){
             </tr>
           </thead>
           <tbody>
-          <?php foreach($assignments as $i => $value) { ?>
-            <tr class = "text-center">
-              <td scope="col"><?php echo $i+1?></td>
-              <td scope="col"><?php echo $value['content']?></td>
-              <td scope="col"><?php echo $value['place']?></td>
-        <!-- <td scope="col"><a type="button" class="btn btn-warning" href="<?php echo site_url('run/workgroup/'.$i['runID'].'/'.$i['workgroup_ID']  );?>">編輯/查看</a></td> -->
-              <td style="text-align:center;"> 
-                <a type="button" class="btn btn-danger btn-sm px-3" href="<?php echo site_url('run/deletedata/'.$value['no'].'/'.$runID.'/'.$workgroupID);?>">
-                  <i class="fa fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-            <?php } ?>
-          </tbody>
-        </table>
-      </div>
+            <?php foreach($assignments as $i => $value) { ?>
+              <tr class = "text-center">
+                <td scope="col"><?php echo $i+1?></td>
+                <td scope="col"><?php echo $value['content']?></td>
+                <td scope="col"><?php echo $value['place']?></td>
+          <!-- <td scope="col"><a type="button" class="btn btn-warning" href="<?php echo site_url('run/workgroup/'.$i['runID'].'/'.$i['workgroup_ID']  );?>">編輯/查看</a></td> -->
+                <td style="text-align:center;"> 
+                  <a type="button" class="btn btn-danger btn-sm px-3" href="<?php echo site_url('run/deletedata/'.$value['no'].'/'.$runID.'/'.$workgroupID);?>">
+                    <i class="fa fa-trash"></i>
+                  </a>
+                </td>
+              </tr>
+              <?php } ?>
+            </tbody>
+          </table>
+        </div>
+        <?php } ?>
 
         <div class="row group">
-          <div class="col-10 m-2 mx-auto yourUlId"  id="yourUlId" style="display:none">
+          <div class="col-10 m-2 mx-auto yourUlId"  id="yourUlId" >
             <label for="peoples" class="form-label">工作項目</label>
             <select class="form-select mb-3" id="G-runActive" name="workList[]" >
               <?php //if(empty($workgroupInfo->name)){?>
@@ -122,4 +120,11 @@ if(!empty($workgroupInfo)){
     </form>
   </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- <script type="text/javascript" src="<?php echo site_url(); ?>assets/j/query/jquery-1.8.3.min.js" charset="UTF-8"></script> -->
+<!-- <script type="text/javascript" src="<?php echo site_url(); ?>assets/js/jquery-1.8.3.min.js" charset="UTF-8"></script> -->
+<script type="text/javascript" src="<?php echo site_url(); ?>assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?php echo site_url(); ?>assets/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="<?php echo site_url(); ?>assets/js/locales/bootstrap-datetimepicker.zh-TW.js" charset="UTF-8"></script>
+
 <?php $this->load->view('templates/new_footer');?>
