@@ -73,7 +73,8 @@
           </div>
           <?php if (!empty($activity)): ?>
           <div class="col-10 m-2 mx-auto">
-              <img class="img-fluid" style="width:250px"
+          <input hidden class="form-control" type="text" id="fileNo" name="fileNo" value="<?php echo (empty($activity)) ? "" : $activity->no ?>">
+                          <img class="img-fluid" style="width:250px"
                 src="<?php echo site_url() . '/files/photo/' . $activity->photo_name; ?>" />
             </div>
           <?php endif; ?>
