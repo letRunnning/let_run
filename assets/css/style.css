@@ -387,3 +387,15 @@ th {
     left: 50%;
     transform: translateX(-50%);
 }
+
+#p1{
+    opacity: 0.3; /* 透明度設為 0.3 */
+}
+.pimg{
+    /* opacity: .5; */
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    /* background:rgba(0,0,0,0.3); */
+}
