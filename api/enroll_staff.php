@@ -13,6 +13,17 @@
     $contact_phone = $data[0]['Contact_phone'];
     $relation = $data[0]['Relation'];
     $line_id = $data[0]['Line_ID'];
+    // $name = 'testMan';
+    // $id_card = 't00000000';
+    // $password = 'Password';
+    // $email = 'test@gmail.com';
+    // $phone = '09999999';
+    // $birthday = '2021-8-8';
+    // $address = 'test-add';
+    // $contact_name = 'test-parent';
+    // $contact_phone = '08888888';
+    // $relation = '父子';
+    // $line_id = 'testlineid';
     
     $pwd_hash = password_hash($password, PASSWORD_DEFAULT);
     

@@ -12,6 +12,16 @@
     $contact_name = $data[0]['Contact_name'];
     $contact_phone = $data[0]['Contact_phone'];
     $relation = $data[0]['Relation'];
+    // $name ='123';
+    // $id_card = '123';
+    // $password = '123';
+    // $email = '123';
+    // $phone = '123';
+    // $birthday = '2021-07-01';
+    // $address = '123';
+    // $contact_name = '123';
+    // $contact_phone = '123';
+    // $relation = '123';
 
     $pwd_hash = password_hash($password, PASSWORD_DEFAULT);
 

@@ -3,7 +3,7 @@
     header("Content-Type: application/json; charset=UTF-8");
     $data = json_decode(file_get_contents("php://input"), true);
     $m_ID = $data[0]['Member_ID'];
-    // $m_ID = 'M000001';
+    // $m_ID = 'M000004';
 
     if($m_ID != ''){
         $sql_id = "SELECT *,`running_activity`.`running_ID`as RunID FROM `registration` 

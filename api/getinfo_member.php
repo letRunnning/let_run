@@ -3,6 +3,7 @@
     header("Content-Type: application/json; charset=UTF-8");
     $data = json_decode(file_get_contents("php://input"), true);
     $m_ID = $data[0]['member_ID'];
+    // $m_ID = 'M000004';
     $sql_id = "SELECT `member`.* ,`files`.name as fileName 
     FROM `member` LEFT JOIN `files` ON `files`.`no` = `member`.`file_no` WHERE `member_ID` =  '$m_ID'";
     $result_member = mysqli_query($db, $sql_id) or die("DB Error: Cannot retrieve message.");

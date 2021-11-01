@@ -9,7 +9,7 @@
         $check_SQL = "SELECT * from `staff_participation` where `workgroup_ID` = $w_ID and `staff_ID` = '$s_ID';";
         $result = mysqli_query($db, $check_SQL) or die("DB Error: Cannot retrieve message.");
         if($result){
-            echo json_encode(["ans" => "已參加"]);
+            echo json_encode(["ans" => "already participate"]);
         }
         else{
             $sql_now_num = "SELECT COUNT(*)as people_now FROM `staff_participation` WHERE `workgroup_ID`= $w_ID";

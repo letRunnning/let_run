@@ -2,8 +2,8 @@
     require_once("dbconnect.php");
     header("Content-Type: application/json; charset=UTF-8");
     $data = json_decode(file_get_contents("php://input"), true);
-    // $r_ID = $data[0]['registration_ID'];
-    $r_ID = 'A1M000001';
+    $r_ID = $data[0]['registration_ID'];
+    // $r_ID = 'A1M000001';
 
     // 原本是先判斷該報名編號是否兌換禮品了，若兌換了就顯示當時兌換時間+禮品，
     // 若尚未兌換則時間顯示null+應兌換禮品

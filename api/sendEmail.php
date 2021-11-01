@@ -11,7 +11,7 @@
     if($m_ID!=''){
         $temp = rand(1111111,9999999);
         $sql = "UPDATE `member` SET `captcha`='$temp' WHERE `member_ID`='$m_ID'";
-        $result = mysqli_query($con, $sql) ;
+        $result = mysqli_query($db, $sql) ;
         if($result){
             $name = 'service';
             $email = 'letrun05@gmail.com';

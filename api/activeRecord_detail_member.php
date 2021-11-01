@@ -14,7 +14,7 @@
         AND `running_group`.`group_name`=`registration`.`group_name` 
         JOIN `running_activity` ON `registration`.`running_ID`= `running_activity`.`running_ID` 
         WHERE `registration_ID` = '$regis_ID' and `registration`.`running_ID`='$run_ID'";
-        $result_qrcode = mysqli_query($con, $sql_id) or die("DB Error: Cannot retrieve message.");
+        $result_qrcode = mysqli_query($db, $sql_id) or die("DB Error: Cannot retrieve message.");
         $data = array();
         foreach ($result_qrcode as $i){
             $array = array( 

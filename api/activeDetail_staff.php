@@ -3,7 +3,8 @@
     header('Content-Type: application/json; charset=UTF-8');
     $data = json_decode(file_get_contents("php://input"), true);
     $r_ID = $data[0]['running_ID'];
-
+    // $r_ID = 'A1';
+    
     if ($r_ID!='') {
         $sql_id = "SELECT * from work_group WHERE `running_ID` =  '$r_ID'";
         $group = mysqli_query($db, $sql_id) or die("DB Error: Cannot retrieve message.");

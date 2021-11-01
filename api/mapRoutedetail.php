@@ -11,7 +11,7 @@
     if($running_ID != '' && $m_ID != ''){
         $sql_group = "SELECT * FROM `registration` 
         WHERE `member_ID`= '$m_ID' and `running_ID` = '$running_ID' limit 1";
-        $tmp = mysqli_fetch_assoc(mysqli_query($con,$sql_group));
+        $tmp = mysqli_fetch_assoc(mysqli_query($db,$sql_group));
         $group_name = $tmp['group_name'];
         $sql_id = "SELECT * FROM `route_detail` WHERE `running_ID` = '$running_ID' and `group_name` = '$group_name'";
         $result_routes = mysqli_query($db, $sql_id) or die("DB Error: Cannot retrieve message.");
