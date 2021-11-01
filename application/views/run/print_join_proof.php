@@ -32,5 +32,12 @@
       
     </div>
   </div>
+  
+  <div class="row mt-5 justify-content-center">
+    <div class="col-md-8 pimg " style="background-color:white;border:2px black solid;background-image:url( '<?php echo site_url(); ?>/files/photo/A1.jpg' );height: 150px;">
+      <!-- <img id="p1" src="<?php echo site_url(); ?>/files/photo/A1.jpg" class="img-fluid" alt="Responsive image"> -->
+      <input class="form-control"value="證明">
+    </div>
+  </div>
 </div>
 <?php $this->load->view('templates/new_footer');?>
