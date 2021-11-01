@@ -26,16 +26,16 @@ SET time_zone = "+00:00";
 --
 -- 資料表結構 `ambulance_details`
 --
-CREATE DATABASE `runnings`;
-use `runnings`;
+CREATE DATABASE `run`;
+use `run`;
 
 CREATE TABLE `route_detail` (
   `no` bigint(20) UNSIGNED NOT NULL COMMENT '流水號',
   `running_ID` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '路跑編號',
   `group_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '組別名稱',
   `detail` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '路線詳細說明',
-  `longitude` DECIMAL( 11, 8 ) COMMENT '經度',
-  `latitude` DECIMAL( 10, 8 ) NOT NULL COMMENT '緯度'
+  `longitude` double NOT NULL COMMENT '經度',
+  `latitude` double NOT NULL COMMENT '緯度'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='路線詳細內容';
 
 CREATE TABLE `db_log` (
@@ -46,7 +46,7 @@ CREATE TABLE `db_log` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='資料庫操作紀錄';
 CREATE TABLE `users` (
   `id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '帳號',
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '密碼',
+  `password` varchar(512) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '密碼',
   `name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '姓名',
   `manager` tinyint(4) NOT NULL DEFAULT 0 COMMENT '是否為主管',
   `yda` tinyint(3) UNSIGNED DEFAULT NULL COMMENT '青年署專員編號',
@@ -127,8 +127,8 @@ CREATE TABLE `beacon_placement` (
   `beacon_ID` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Beacon 編號',
   `running_ID` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '路跑編號',
   `supply_ID` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '補給站編號',
-  `longitude` DECIMAL( 11, 8 )  NOT NULL COMMENT '經度',
-  `latitude` DECIMAL( 10, 8 ) NOT NULL COMMENT '緯度'
+  `longitude` double NOT NULL COMMENT '經度',
+  `latitude` double NOT NULL COMMENT '緯度'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Beacon 放置';
 
 -- --------------------------------------------------------
@@ -219,8 +219,8 @@ CREATE TABLE `location` (
   `member_ID` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '會員編號',
   `running_ID` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '路跑編號',
   `pass_time` datetime NOT NULL COMMENT '經過時間',
-  `longitude` DECIMAL( 11, 8 )  NOT NULL COMMENT '經度',
-  `latitude` DECIMAL( 10, 8 ) NOT NULL COMMENT '緯度',
+  `longitude` double  NOT NULL COMMENT '經度',
+  `latitude` double NOT NULL COMMENT '緯度',
   `beacon_ID` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Beacon 編號'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='位置資訊';
 
@@ -237,7 +237,7 @@ CREATE TABLE `member` (
   `phone` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '電話',
   `email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '信箱',
   `birthday` date NOT NULL COMMENT '生日',
-  `password` varchar(16) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '密碼',
+  `password` varchar(512) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '密碼',
   `address` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '地址',
   `contact_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '緊急連絡人姓名',
   `contact_phone` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '緊急連絡人電話',
@@ -254,8 +254,8 @@ CREATE TABLE `member` (
 CREATE TABLE `supply_location` (
   `supply_ID` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '補給站編號',
   `supply_name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '補給站名稱',
-  `longitude` DECIMAL( 11, 8 )  NOT NULL COMMENT '經度',
-  `latitude` DECIMAL( 10, 8 ) NOT NULL COMMENT '緯度',
+  `longitude` double  NOT NULL COMMENT '經度',
+  `latitude` double NOT NULL COMMENT '緯度',
   `running_ID` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '路跑編號',
   `detail` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '補給物資'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='補給站';
@@ -423,7 +423,8 @@ CREATE TABLE `work_group` (
 --
 -- 已傾印資料表的索引
 --
-
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
 --
 -- 資料表索引 `ambulance_details`
 --

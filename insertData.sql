@@ -1,4 +1,4 @@
-use `runnings`;
+use `run`;
 INSERT INTO `files` (`no`, `name`, `original_name`, `path`, `create_time`, `usable`) VALUES
 (1, 'chihiro048.jpg', 'chihiro048.jpg', NULL, '2021-07-09 22:34:52', 1),
 (2, 'ponyo041.jpg', 'ponyo041.jpg', NULL, '2021-07-09 22:34:52', 1),
@@ -19,8 +19,8 @@ INSERT INTO `running_group` (`running_ID`, `group_name`, `kilometers`, `maximum_
 
 INSERT INTO `member` (`member_ID`, `id_card`, `name`, `phone`, `email`, `birthday`, `password`, `address`, `contact_name`, `contact_phone`, `relation`, `file_no`) VALUES
 ('M000001', 'A221234567', '會員一', '0912345678', '123@gmail.com', '2000-07-01', '$2y$10$FBTil9SiGTDRy3tLAMq7r.VYNhbTlTbw2djrxvfKNf3FVacMkHJ4y', '台北市', '會依爸', '0975321854', '父女', 3),
-('M000002', 'B121234567', '會員二', '0978945612', '456@gmail.com', '1998-03-18', NULL, '新竹縣', '會二爸', '0975321877', '父子', 4),
-('M000003', 'C120123456', '會員三', '0900000000', '789@gmail.com', '1955-07-05', NULL, '嘉義市', '會三媽', '0975321888', '母子', 4),
+('M000002', 'B121234567', '會員二', '0978945612', '456@gmail.com', '1998-03-18', '$2y$10$NAwfKe1HUd0EmEmk4udmZeDFOCIdajqUlM.IC667dm84Yc.4rKJay', '新竹縣', '會二爸', '0975321877', '父子', 4),
+('M000003', 'C120123456', '會員三', '0900000000', '789@gmail.com', '1955-07-05', '$2y$10$NAwfKe1HUd0EmEmk4udmZeDFOCIdajqUlM.IC667dm84Yc.4rKJay', '嘉義市', '會三媽', '0975321888', '母子', 4),
 ('M000004', 'B123456789', '王小明', '0912345675', '123456@gmail.com', '2001-07-20', '$2y$10$NAwfKe1HUd0EmEmk4udmZeDFOCIdajqUlM.IC667dm84Yc.4rKJay', '台中市北區三民路一段19號', '王大陸', '0987654320', '父', 5);
 
 INSERT INTO `registration` (`registration_ID`, `member_ID`, `time`, `running_ID`, `group_name`) VALUES
