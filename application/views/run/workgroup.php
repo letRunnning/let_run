@@ -53,15 +53,23 @@ if(!empty($workgroupInfo)){
             <label for="line" class="form-label">工作Line群組連結</label>
             <input class="form-control" type="text" id="line" name="line" value="<?php echo (empty($workgroupInfo))?"":  $workgroupInfo->line?>" required placeholder="請輸入工作組別名稱">
         </div>
-        <div class="row justify-content-center" id="chineseDiv">
-            <div class="col-md-5">
-              <label for="formStartTime">集合時間(日期)*</label>
-              <input class="form-control" type="text" id="dateFrom"  name="startDate" value="<?php echo (empty($workgroupInfo)) ? "" : substr($workgroupInfo->assembletime, 0, 10) ?>">
+        <div class="col-10 m-2 mx-auto">
+          <label for="time">集合時間</label><br />
+          <div class="bootstrap-iso">
+            <div class="input-group date form_datetime col-md-12" >
+              <input class="form-control" id="date-daily" type="text" name="assumbly_time" value="<?php echo (empty($workgroupInfo)) ? "" : $workgroupInfo->assembletime ?>">
+              <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+              <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
             </div>
-            <div class="col-md-5">
-              <label for="formStartTime">集合時間(時間)*</label>
-              <input class="form-control time-picker-start" type="text" id="formStartTime" name="startTime" value="<?php echo (empty($workgroupInfo)) ? "" : substr($workgroupInfo->assembletime, 11, strlen($workgroupInfo->assembletime)) ?>">
+          </div>
+          <label for="time">結束時間</label><br />
+          <div class="bootstrap-iso">
+            <div class="input-group date form_datetime col-md-12" >
+              <input class="form-control" id="date-daily" type="text" name="endtime" value="<?php echo (empty($workgroupInfo)) ? "" : $workgroupInfo->endtime ?>">
+              <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+              <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
             </div>
+          </div>
         </div>
         <div class="col-10 m-2 mx-auto">
             <label for="assemblyPlace" class="form-label">集合地點</label>
@@ -88,7 +96,7 @@ if(!empty($workgroupInfo)){
                 <td scope="col"><?php echo $value['place']?></td>
           <!-- <td scope="col"><a type="button" class="btn btn-warning" href="<?php echo site_url('run/workgroup/'.$i['runID'].'/'.$i['workgroup_ID']  );?>">編輯/查看</a></td> -->
                 <td style="text-align:center;"> 
-                  <a type="button" class="btn btn-danger btn-sm px-3" href="<?php echo site_url('run/deletedata/'.$value['no'].'/'.$runID.'/'.$workgroupID);?>">
+                  <a type="button" class="btn btn-danger btn-sm px-3" href="<?php echo site_url('run/deletedata/'.$runID.'/'.$workgroupID.'/'.$value['work_ID']);?>">
                     <i class="fa fa-trash"></i>
                   </a>
                 </td>
@@ -121,10 +129,26 @@ if(!empty($workgroupInfo)){
   </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<!-- <script type="text/javascript" src="<?php echo site_url(); ?>assets/j/query/jquery-1.8.3.min.js" charset="UTF-8"></script> -->
+<!-- <script type="text/javascript" src="<?php echo site_url(); ?>assets/jquery/jquery-1.8.3.min.js" charset="UTF-8"></script> -->
 <!-- <script type="text/javascript" src="<?php echo site_url(); ?>assets/js/jquery-1.8.3.min.js" charset="UTF-8"></script> -->
 <script type="text/javascript" src="<?php echo site_url(); ?>assets/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo site_url(); ?>assets/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="<?php echo site_url(); ?>assets/js/bootstrap-datetimepicker.min.js" charset="UTF-8"></script>
 <script type="text/javascript" src="<?php echo site_url(); ?>assets/js/locales/bootstrap-datetimepicker.zh-TW.js" charset="UTF-8"></script>
+
+<script type="text/javascript">
+    $('.form_datetime').datetimepicker({
+        language: 'zh-TW',
+        format: 'yyyy-mm-dd hh:ii:00',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
+        startDate:new Date(),
+        showMeridian: 0 // 是否顯示上下午
+    });
+</script>
 
 <?php $this->load->view('templates/new_footer');?>
