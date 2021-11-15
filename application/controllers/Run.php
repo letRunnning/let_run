@@ -9,6 +9,7 @@ class Run extends CI_Controller
         $this->load->model('AssignModel');
         $this->load->model('MapModel');
         $this->load->model('BeaconPlacementModel');
+        $this->load->model('GiftModel');
     }
     public function run_active_table()
     {
@@ -66,7 +67,7 @@ class Run extends CI_Controller
         $fileNo = $this->security->xss_clean($this->input->post('fileNo'));
         $start_time = $startDate.' '.$startTime.':00';
         $end_time = $endDate.' '.$endTime.':00';
-
+        
         $config['upload_path'] = './files/photo';
         $config['allowed_types'] = 'jpg|png|pdf';
         $config['max_size'] = 5000;
@@ -74,14 +75,19 @@ class Run extends CI_Controller
         $config['max_height'] = 5000;
         $config['encrypt_name'] = true;
         $this->load->library('upload', $config);
-        // upload family diagram
-        if ($this->upload->do_upload('photoFile')) {
-            $fileMetaData = $this->upload->data();
-            $file_no = $this->FileModel->create_one($fileMetaData['file_name'], $fileMetaData['orig_name']);
-        }
-    
+        // upload family diagram    
         if (empty($runName)) return $this->load->view('/run/run_active', $beSentDataset);
         
+        if ($this->upload->do_upload('file')) {
+            $fileMetaData = $this->upload->data();
+            $pfile = (site_url().'files/photo/');
+            print_r($pfile);
+            $file_no = $this->FileModel->create_one($fileMetaData['file_name'], $fileMetaData['orig_name'],$fileMetaData['file_path']);
+            // $file_no = $this->FileModel->create_one($fileMetaData['file_name'], $fileMetaData['orig_name'],$pfile);
+        }else{
+                echo $this->upload->display_errors();
+        }
+
         if (empty($activity)) {
             $temp = $this->RunModel->getActiveNumber();
             $runNums = substr($temp->running_ID,1,strlen($temp->running_ID));
@@ -89,7 +95,9 @@ class Run extends CI_Controller
             $isExecuteSuccess = $this->RunModel->create_one($RID,$runName, $dateRun, $place,$start_time,$end_time,$bankCode,$bankAccount,$file_no);
             $runNo = $isExecuteSuccess;
         } else {
-            $isExecuteSuccess = $this->RunModel->update_by_id($runNo,$runName, $dateRun, $place,$start_time,$end_time,$bankCode,$bankAccount,$fileNo);
+            if($file_no){
+                $isExecuteSuccess = $this->RunModel->update_by_id($runNo,$runName, $dateRun, $place,$start_time,$end_time,$bankCode,$bankAccount,$file_no);
+            }
         }
         if ($isExecuteSuccess) {
           $beSentDataset['success'] = '新增成功';
@@ -343,6 +351,7 @@ class Run extends CI_Controller
         $userTitle = $passport['userTitle'];
         $current_role = $passport['role'];
         $accept_role = array(6);
+        $rungroups = $this->RunModel->get_running_group();
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
                 'title' => '路跑組別 & 禮品',
@@ -350,7 +359,8 @@ class Run extends CI_Controller
                 'role' => $current_role,
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
-                'password' => $passport['password']
+                'password' => $passport['password'],
+                'rungroups' => $rungroups
             );
 
             $this->load->view('/run/rungroup_gift_table', $beSentDataset);
@@ -358,23 +368,149 @@ class Run extends CI_Controller
             redirect('user/login');
         }
     }
-    public function rungroup_gift($rungroupNo = null)
+    public function rungroup_gift($runNo = null,$groupName=null)
     {
         $passport = $this->session->userdata('passport');
         $userTitle = $passport['userTitle'];
         $current_role = $passport['role'];
         $accept_role = array(6);
+        $runID = $runNo ? $runNo : null;
+        $activities = $this->RunModel->get_all_active();
+        // $groupName = base64_decode($groupName);
+        $rungroupInfo = ($runNo&&$groupName) ? $this->RunModel->get_rungroup_byid($runNo,base64_decode($groupName)):null;
+        $rungroupGift = ($runNo&&$groupName) ? $this->RunModel->get_rungroupGift_byid($runNo,base64_decode($groupName)):null;
+        // print_r($rungroupGift);
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
                 'title' => '路跑禮品表單',
-                'url' => '/run/rungroup_gift/'.$rungroupNo,
+                'url' => '/run/rungroup_gift/'.$runNo.'/'.($groupName),
                 'role' => $current_role,
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
-                'password' => $passport['password']
+                'password' => $passport['password'],
+                'security' => $this->security,
+                'rungroupInfo' => $rungroupInfo,
+                'activities' => $activities,
+                'runNo' => $runNo,
+                'rungroupGift'=> $rungroupGift,
+                'groupName' => $groupName
             );
+            $runActive = $this->security->xss_clean($this->input->post('runActive'));
+            $rungroupName = $this->security->xss_clean($this->input->post('rungroupName'));
+            $kilometers = $this->security->xss_clean($this->input->post('kilometers'));
+            $maximum_number = $this->security->xss_clean($this->input->post('peoples'));
+            $time = $this->security->xss_clean($this->input->post('assumbly_time'));
+            $start_time = $this->security->xss_clean($this->input->post('start_time'));
+            $end_time = $this->security->xss_clean($this->input->post('end_time'));
+            $place = $this->security->xss_clean($this->input->post('assemblyPlace'));
+            $amount = $this->security->xss_clean($this->input->post('price'));
+            $giftName = $this->security->xss_clean($this->input->post('giftName'));
+            
 
+            if (empty($runActive)) return $this->load->view('/run/rungroup_gift', $beSentDataset);
+            
+            $config['upload_path'] = './files/photo';
+            $config['allowed_types'] = 'jpg|png|pdf';
+            $config['max_size'] = 5000;
+            $config['max_width'] = 5000;
+            $config['max_height'] = 5000;
+            $config['encrypt_name'] = true;
+            $this->load->library('upload', $config);
+            
+            // if (empty($runActive)) return $this->load->view('/run/rungroup_gift', $beSentDataset);
+            
+            $isExecuteSuccess_3=null;
+            if(empty($rungroupInfo)){
+                $isExecuteSuccess = $this->RunModel->create_rungroup($runActive, $rungroupName, $kilometers, $maximum_number, $start_time, $end_time, $amount, $place, $time);
+                $rungroupID = $isExecuteSuccess;
+                if($giftName){
+                    if ($this->upload->do_upload('file')) {
+                        $fileMetaData = $this->upload->data();
+                        $pfile = (site_url().'files/photo/');
+                        // print_r($pfile);
+                        $file_no = $this->FileModel->create_one($fileMetaData['file_name'], $fileMetaData['orig_name'],$fileMetaData['file_path']);
+                        // $file_no = $this->FileModel->create_one($fileMetaData['file_name'], $fileMetaData['orig_name'],$pfile);
+                    }else{
+                            echo $this->upload->display_errors();
+                    }
+                    if($file_no){
+                        $temp = $this->RunModel->getGiftNumber();
+                        $giftNums = substr($temp->gift_ID,1,strlen($temp->gift_ID));
+                        $GID = 'G'.($giftNums+1);
+                        $isExecuteSuccess3 = $this->GiftModel->create_gift($GID,$giftName,base64_decode($groupName),$runActive,$file_no);
+                    }
+                }
+            }else{
+                $isExecuteSuccess = $this->RunModel->update_rungroup($runNo, $rungroupName, $kilometers, $maximum_number, $start_time, $end_time, $amount, $place, $time);
+                if($giftName){
+                    if ($this->upload->do_upload('file')) {
+                        $fileMetaData = $this->upload->data();
+                        $pfile = (site_url().'files/photo/');
+                        // print_r($pfile);
+                        $file_no = $this->FileModel->create_one($fileMetaData['file_name'], $fileMetaData['orig_name'],$fileMetaData['file_path']);
+                        // $file_no = $this->FileModel->create_one($fileMetaData['file_name'], $fileMetaData['orig_name'],$pfile);
+                    }else{
+                            echo $this->upload->display_errors();
+                    }
+                    if($file_no){
+                        $temp = $this->RunModel->getGiftNumber();
+                        $giftNums = substr($temp->gift_ID,1,strlen($temp->gift_ID));
+                        $GID = 'G'.($giftNums+1);
+                        $isExecuteSuccess3 = $this->GiftModel->create_gift($GID,$giftName,base64_decode($groupName),$runNo,$file_no);
+                    }
+                }
+            }
+
+
+            if($isExecuteSuccess){
+                $beSentDataset['url']='/run/rungroup_gift/'. $runID.'/'.base64_encode($rungroupName);
+                if($isExecuteSuccess_3){
+                    $beSentDataset['success'] = '新增成功';
+                }else{
+                    $beSentDataset['success'] = '組別新增成功';
+                }
+            }else{
+                $beSentDataset['url']='/run/rungroup_gift/'. $runID.'/'.base64_encode($rungroupName);
+                $beSentDataset['error'] = '新增失敗';
+            }
+            $rungroupInfo = ($runID&&$rungroupName) ? $this->RunModel->get_rungroup_byid($runID,$rungroupName):null;
+            $rungroupGift = ($runID&&$rungroupName) ? $this->RunModel->get_rungroupGift_byid($runID,$rungroupName):null;
+            $beSentDataset['rungroupInfo']=$rungroupInfo;
+            $beSentDataset['rungroupGift']=$rungroupGift;
+            $beSentDataset['url']='/run/rungroup_gift/'. $runID.'/'.base64_encode($rungroupName);
             $this->load->view('/run/rungroup_gift', $beSentDataset);
+        } else {
+            redirect('user/login');
+        }
+    }
+    public function deletedata_gift($giftID=null,$groupName=null,$runNo=null)
+    {
+        $passport = $this->session->userdata('passport');
+        $userTitle = $passport['userTitle'];
+        $current_role = $passport['role'];
+        $accept_role = array(6);
+        // $groupName = base64_decode($groupName);    
+        if (in_array($current_role, $accept_role)) {
+            $response = ($giftID&&$groupName) ? $this->RunModel->deleteGift($giftID,base64_decode($groupName)) : null;
+            $activities = $this->RunModel->get_all_active();
+            $rungroupInfo = ($runNo&&$groupName) ? $this->RunModel->get_rungroup_byid($runNo,base64_decode($groupName)):null;
+            $rungroupGift = ($runNo&&$groupName) ? $this->RunModel->get_rungroupGift_byid($runNo,base64_decode($groupName)):null;
+            $beSentDataset = array(
+                'title' => '路跑禮品表單',
+                'url' => '/run/rungroup_gift/'.$runNo.'/'.$groupName,
+                'role' => $current_role,
+                'userTitle' => $userTitle,
+                'current_role' => $current_role,
+                'password' => $passport['password'],
+                'security' => $this->security,
+                'rungroupInfo' => $rungroupInfo,
+                'activities' => $activities,
+                'runNo' => $runNo,
+                'rungroupGift'=> $rungroupGift,
+                'groupName' => $groupName
+            );
+            redirect('/run/rungroup_gift/'.$runNo.'/'.$groupName);
+            // $this->load->view('/run/rungroup_gift', $beSentDataset);
         } else {
             redirect('user/login');
         }
@@ -477,7 +613,7 @@ class Run extends CI_Controller
                         'supply_ID' => $i['supply_ID'],
                         'running_ID' => $i['running_ID'],
                         'supply_name' => urlencode($i['supply_name']),
-                        'supplies' => urlencode($i['supplies']),
+                        'supplies' => urlencode($i['detail']),
                         'longitude' => $i['longitude'], // 因為有中文所以要用 urlencode 去 encode
                         'latitude' => $i['latitude']
                     );
@@ -538,6 +674,7 @@ class Run extends CI_Controller
         $userTitle = $passport['userTitle'];
         $current_role = $passport['role'];
         $accept_role = array(6);
+        $activities = $this->RunModel->get_all_active();
         $activity = $no? $this->RunModel->get_active_by_id($no):null;
         $groups = $no? $this->RunModel->get_activeGroup_by_no($no):null;
         // $routes = $no? $this->RunModel->get_routes_by_no($no):null;
@@ -552,7 +689,7 @@ class Run extends CI_Controller
                     'group_name' => urlencode($i['group_name']),
                     'detail' => urlencode($i['detail']),
                     'longitude' => $i['longitude'], // 因為有中文所以要用 urlencode 去 encode
-                    'latitude' => $i['latitude']
+                    'latitude' => $i['latitude'],
                 );
                 array_push($data, $array);
             }
@@ -572,7 +709,8 @@ class Run extends CI_Controller
                 'groups' => $groups,//指定路跑之其組別下拉式選單
                 'security' => $this->security,
                 'group_name' => base64_decode($g_name),//指定路跑指定組別之名稱
-                'data' => $data //該特定路跑之指定組別之路線詳細資料
+                'data' => $data, //該特定路跑之指定組別之路線詳細資料
+                'activities' => $activities
             );
             $runActive = $this->security->xss_clean($this->input->post('runActive'));
             $detail = $this->security->xss_clean($this->input->post('detail'));
