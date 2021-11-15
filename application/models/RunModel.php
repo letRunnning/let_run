@@ -137,7 +137,7 @@ class RunModel extends CI_Model
         $this->db->delete("assignment");
         return true;
     }
-    public function get_active_work_by_id($runNo,$workID)
+        public function get_active_work_by_id($runNo,$workID)
     {
         $this->db->select('*');
         $this->db->where('running_ID', $runNo);
@@ -267,5 +267,81 @@ class RunModel extends CI_Model
 
         $this->db->where('work_ID', $work_ID);
         return $this->db->update('work_content', $this);
+    }
+    function create_rungroup($running_ID, $group_name, $kilometers, $maximum_number, $start_time, $end_time, $amount, $place, $time)
+    {
+        $this->	running_ID = $running_ID;
+        $this->	group_name = $group_name;
+        $this->	kilometers = $kilometers;
+        $this->	maximum_number = $maximum_number;
+        $this->	start_time = $start_time;
+        $this->	end_time = $end_time;
+        $this->	amount = $amount;
+        $this->	place = $place;
+        $this->	time = $time;
+
+        return ($this->db->insert('running_group', $this)) ? $this->db->insert_id() : '';
+    }
+    function update_rungroup($running_ID, $group_name, $kilometers, $maximum_number, $start_time, $end_time, $amount, $place, $time)
+    {
+        $this->	running_ID = $running_ID;
+        $this->	group_name = $group_name;
+        $this->	kilometers = $kilometers;
+        $this->	maximum_number = $maximum_number;
+        $this->	start_time = $start_time;
+        $this->	end_time = $end_time;
+        $this->	amount = $amount;
+        $this->	place = $place;
+        $this->	time = $time;
+
+        $this->db->where('running_ID', $running_ID);
+        $this->db->where('group_name', $group_name);
+        return ($this->db->update('running_group', $this));
+    }
+    function create_gift($GID,$gift_name,$groupName,$runNo,$file_no)
+    {
+        $this->	gift_ID = $GID;
+        $this->	group_name = $groupName;
+        $this->	gift_name = $gift_name;
+        $this->	running_ID = $runNo;
+        $this->	file_no = $file_no;
+
+        return ($this->db->insert('gift', $this)) ? $this->db->insert_id() : '';
+    }
+    public function get_rungroupGift_byid($runNo,$groupName){
+
+        $this->db->join('files', '`gift`.`file_no`= `files`.no ');
+        $this->db->where('running_ID', $runNo);
+        $this->db->where('group_name', $groupName);
+        $result = $this->db->get('gift')->result_array();
+        return $result;
+    }
+    public function get_rungroup_byid($runNo,$groupName){
+        $this->db->where('running_ID', $runNo);
+        $this->db->where('group_name', $groupName);
+        $result = $this->db->get('running_group');
+        return $result->row();
+    }
+    public function get_running_group()
+    {
+        $this->db->select('running_group.*,running_activity.name as runName');
+        $this->db->join('running_activity', 'running_activity.running_ID = running_group.running_ID');
+        $result = $this->db->get('running_group')->result_array();
+        return $result;
+    }
+    public function getGiftNumber()
+    {
+        $this->db->select('gift_ID');
+        $this->db->order_by('gift_ID', 'DESC');
+        $this->db->limit(1);
+        $result = $this->db->get('gift',1);
+        return $result->row();
+    }
+    public function deleteGift($gift_ID,$groupName)
+    {
+        $this->db->where("gift_ID", $gift_ID);
+        $this->db->where("group_name", $groupName);
+        $this->db->delete("gift");
+        return true;
     }
 }
