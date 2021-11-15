@@ -1,5 +1,5 @@
 <?php
-    $con = mysqli_connect("localhost", "id17256516_root", '&qM$(wP3Nu6/U$T3', "id17256516_run");
+    $con = mysqli_connect("localhost", "pmauser", 'safety#25508', "run");
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\Exception;
 
