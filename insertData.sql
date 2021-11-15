@@ -93,10 +93,10 @@ INSERT INTO `work_content` (`work_ID`,`running_ID`, `place`, `content`) VALUES
 ('2','A1', '暨南大學學生活動中心', '負責記錄已報到會員名單'),
 ('3','A1', '日月潭伊達邵', '伺機而動');
 
-INSERT INTO `work_group` (`workgroup_ID`, `running_ID`, `name`, `leader`, `line`, `assembletime`, `assembleplace`,`maximum_number`) VALUES
-(1, 'A1', '機動組', '袁宮依', 'http://line.me/ti/g/W14ABM_xo_', '2020-05-01 09:00:00', '暨南大學學生活動中心',100),
-(2, 'A1', '報到組', '袁宮二', 'http://line.me/ti/v/W14ABM_vo_', '2020-05-01 09:00:00', '暨南大學大草坪',100),
-(3, 'A2', '機動組', '袁宮依', 'http://line.me/ti/g/W14JIS_vo_', '2020-06-05 09:00:00', '日月潭伊達邵',100);
+INSERT INTO `work_group` (`workgroup_ID`, `running_ID`, `name`, `leader`, `line`, `assembletime`,`endtime`, `assembleplace`,`maximum_number`) VALUES
+(1, 'A1', '機動組', '袁宮依', 'http://line.me/ti/g/W14ABM_xo_', '2020-05-01 09:00:00', '2020-05-01 18:00:00', '暨南大學學生活動中心',100),
+(2, 'A1', '報到組', '袁宮二', 'http://line.me/ti/v/W14ABM_vo_', '2020-05-01 09:00:00', '2020-05-01 18:00:00', '暨南大學大草坪',100),
+(3, 'A2', '機動組', '袁宮依', 'http://line.me/ti/g/W14JIS_vo_', '2020-06-05 09:00:00', '2020-05-01 18:00:00', '日月潭伊達邵',100);
 
 INSERT INTO `staff_participation`(`workgroup_ID`, `staff_ID`, `running_ID`, `checkin_time`) VALUES
 (1, 'S000001', 'A1', NULL),
