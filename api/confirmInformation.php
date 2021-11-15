@@ -16,7 +16,7 @@
                 $information = confirm_information($registrationID, $data[0]['member_ID'], $data[0]['running_ID'], $data[0]['group_name'], $data[0]['registration_time']);
                 
                 for ($i = 0; $i < count($data[0]['gift_size']); $i++) {
-                    $gift = insert_selected_gift_size($registrationID, $data[0]['gift_size'][$i]['id'], $data[0]['gift_size'][$i]['selectedSize']);
+                    $gift = insert_selected_gift_size($registrationID, $data[0]['gift_size'][$i]['id'], $data[0]['gift_size'][$i]['SelectedSize']);
                 }
 
                 $result = check_information($registrationID);
