@@ -8,19 +8,19 @@
     
     header("Content-Type: application/json; charset=UTF-8");
     $data = json_decode(file_get_contents("php://input"), true);
-    // $email = $data[0]['Email'];
-    $email = 'letrun.05@gmail.com';
+    $email = $data[0]['Email'];
+    // $email = 'letrun.05@gmail.com';
 
     if($email != ''){
         $sql_id = "SELECT * FROM `member` 
         WHERE `email` = '$email' limit 1";
-        $tmp = mysqli_fetch_assoc(mysqli_query($con,$sql_id));
+        $tmp = mysqli_fetch_assoc(mysqli_query($db,$sql_id));
         $name = $tmp['name'];
-        $result = mysqli_query($con, $sql_id);
+        $result = mysqli_query($db, $sql_id);
         if($result){
             $temp = rand(1111111,9999999);
             $sql = "UPDATE `member` SET `captcha`='$temp' WHERE `email`='$email'";
-            $result_second = mysqli_query($con, $sql) ;
+            $result_second = mysqli_query($db, $sql) ;
             if($result_second){
                 $name = 'service';
                 // $email = 'letrun05@gmail.com';
@@ -59,7 +59,7 @@
                     $response = "Email is sent!";
                 } else {
                     $status = "failed";
-                    $response = "Something is wrong: " . $mail->ErrorInfo;
+                    $response = "Something is wrong:" . $mail->ErrorInfo;
                 }
                 $data = array();
                 $array = array( 
