@@ -14,7 +14,7 @@
                 'Name' => urlencode($i['name']),
                 'Date' => $i['date'],
                 'Running_ID' => $i['running_ID'],
-                'Registraion_ID' => $i['registration_ID']
+                'Registration_ID' => $i['registration_ID']
             );
             array_push($data, $array);
         }
