@@ -31,12 +31,12 @@
         parseFloat(data[i].longitude)
         ]);
       }
-        // const myLatlng = { lat: 23.950559, lng: 120.927503 };
-        const myLatlng = { lat: parseFloat(data[0].latitude), lng: parseFloat(data[0].longitude) };
+        const myLatlng = { lat: 23.950559, lng: 120.927503 };
+        // const myLatlng = { lat: parseFloat(data[0].latitude), lng: parseFloat(data[0].longitude) };
         console.log(data[0].latitude,data[0].longitude)
         map = new google.maps.Map(document.getElementById("map"), {
-          // center: { lat: 23.950559, lng: 120.927503 },
-          center: { lat: parseFloat(data[0].latitude), lng: parseFloat(data[0].longitude) },
+          center: { lat: 23.950559, lng: 120.927503 },
+          // center: { lat: parseFloat(data[0].latitude), lng: parseFloat(data[0].longitude) },
           zoom: 15,
         });
       // }
