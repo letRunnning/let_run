@@ -115,14 +115,14 @@ class Run extends CI_Controller
         $this->load->view('/run/run_active_table', $beSentDataset);
            
     }
-    public function deletedata($no=null,$runNo=null,$workgroupID=null)
+    public function deletedata($runNo=null,$workgroupID=null,$work_ID=null)
     {
         $passport = $this->session->userdata('passport');
         $userTitle = $passport['userTitle'];
         $current_role = $passport['role'];
         $accept_role = array(6);
         if (in_array($current_role, $accept_role)) {
-            $response = $no ? $this->RunModel->deleteAssignment($no) : null;
+            $response = ($work_ID&&$workgroupID) ? $this->RunModel->deleteAssignment($work_ID,$workgroupID) : null;
             $runID = $runNo ? $runNo : null;
             $activities = $this->RunModel->get_all_active();
             $workgroupInfo = $workgroupID ? $this->RunModel->get_workgrpup_byid($workgroupID):null;
@@ -184,25 +184,24 @@ class Run extends CI_Controller
             $assemblyPlace = $this->security->xss_clean($this->input->post('assemblyPlace'));
             $maximum_number = $this->security->xss_clean($this->input->post('maximum_number'));
             $workList = $this->security->xss_clean($this->input->post('workList[]'));
-            $startDate = $this->security->xss_clean($this->input->post('startDate'));
-            $startTime = $this->security->xss_clean($this->input->post('startTime'));
-            $assemblyTime = $startDate.' '.$startTime.':00';
+            $assemblyTime = $this->security->xss_clean($this->input->post('assumbly_time'));
+            $endtime = $this->security->xss_clean($this->input->post('endtime'));
 
             if (empty($runActive)) return $this->load->view('/run/workgroup', $beSentDataset);
             
             $isExecuteSuccess_2=null;
 
             if(empty($workgroupInfo)){
-                $isExecuteSuccess = $this->RunModel->create_workgroup($runID, $workgroupName,$leader,$line,$assemblyTime,$assemblyPlace,$maximum_number);
+                $isExecuteSuccess = $this->RunModel->create_workgroup($runID, $workgroupName,$leader,$line,$assemblyTime,$assemblyPlace,$maximum_number,$endtime);
                 $workgroupID = $isExecuteSuccess;
-                if(!empty($isExecuteSuccess) && !empty($workList)){
+                if(!empty($isExecuteSuccess) && !empty($workList['0'])){
                     foreach($workList as $value){
                         $isExecuteSuccess_2 = $this->AssignModel->create_assignment($value,$assemblyTime,$workgroupID);
                     }
                 }
             }else{
-                $isExecuteSuccess = $this->RunModel->update_workgroup($runID, $workgroupName,$leader,$line,$assemblyTime,$assemblyPlace,$maximum_number,$workgroupID);
-                if($workList){
+                $isExecuteSuccess = $this->RunModel->update_workgroup($runID, $workgroupName,$leader,$line,$assemblyTime,$assemblyPlace,$maximum_number,$workgroupID,$endtime);
+                if($workList['0']!=''){
                     foreach($workList as $value){
                         $isExecuteSuccess_2 = $this->AssignModel->create_assignment($value,$assemblyTime,$workgroupID);
                     }
