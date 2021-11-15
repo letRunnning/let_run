@@ -2,7 +2,7 @@
     require_once("dbconnect.php");
     header("Content-Type: application/json; charset=UTF-8");
     $data = json_decode(file_get_contents("php://input"), true);
-    $m_ID = $data[0]['staff_ID'];
+    $m_ID = $data[0]['Staff_ID'];
     // $m_ID = 'S000007';
     $sql_id = "SELECT `staff`.* ,`files`.name as fileName 
     FROM `staff` LEFT JOIN `files` ON `files`.`no` = `staff`.`file_no` WHERE `staff_ID` =  '$m_ID'";
@@ -20,7 +20,7 @@
             'Contact_name' => urlencode($i['contact_name']),
             'Contact_phone' => $i['contact_phone'],
             'Relation' => urlencode($i['relation']),
-            'Photo' =>$tmpName,
+            'Photo_code' =>$tmpName,
             'Line_ID' => $i['lineid']
         );
         array_push($data, $array);
