@@ -34,7 +34,7 @@
     $staff_ID = 'S'.sprintf("%06d",$sNums+1);
     
     if($name != '' && $id_card !='' && $password !='' && $email !='' && $phone!=''){
-        if (preg_match("/[0-9]+/", $password) && preg_match("/[a-z]+/", $password) && preg_match("/[A-Z]+/", $password) && strlen($password) >= 8) {
+        if (preg_match("/[0-9]+/", $password) && (preg_match("/[a-z]+/", $password) || preg_match("/[A-Z]+/", $password)) && (strlen($password) >= 8)) {
             
             $sql = "INSERT INTO `staff`(`staff_ID`, `name`, `password`, `id_card`, `phone`, `email`, `lineid`, `birthday`, `address`, `contact_name`, `contact_phone`, `relation`, `file_no`) 
             VALUES ('$staff_ID','$name','$pwd_hash','$id_card','$phone','$email','$line_id','$birthday','$address','$contact_name','$contact_phone','$relation',null);";
@@ -45,7 +45,7 @@
                 echo json_encode(["ans" => "NoSuccess"]);
             }
         }else{
-            echo urldecode(json_encode(["ans" => urlencode("密碼需包含英文字母大寫、英文字母小寫與數字並長度大於8")]));
+            echo urldecode(json_encode(["ans" => urlencode("密碼需包含英文字母與數字並長度大於8")]));
         }
     }else{
         echo json_encode(["ans" => "NoEmpty"]);
