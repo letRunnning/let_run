@@ -15,17 +15,21 @@
         JOIN `running_activity` ON `registration`.`running_ID`= `running_activity`.`running_ID` 
         WHERE `registration_ID` = '$regis_ID' and `registration`.`running_ID`='$run_ID'";
         $result_qrcode = mysqli_query($db, $sql_id) or die("DB Error: Cannot retrieve message.");
-        $data = array();
-        foreach ($result_qrcode as $i){
-            $array = array( 
-                'Name' => urlencode($i['runName']),
-                'Group_name' => urlencode($i['groupName']),
-                'Place' => urlencode($i['groupPlace']),
-                'Time' => $i['groupTime']
-            );
-            array_push($data, $array);
+        if($result_qrcode->num_rows!=0){
+            $data = array();
+            foreach ($result_qrcode as $i){
+                $array = array( 
+                    'Name' => urlencode($i['runName']),
+                    'Group_name' => urlencode($i['groupName']),
+                    'Place' => urlencode($i['groupPlace']),
+                    'Time' => $i['groupTime']
+                );
+                array_push($data, $array);
+            }
+            echo urldecode(json_encode($data, JSON_PRETTY_PRINT));
+        }else{
+            echo json_encode(["ans" => "this registration_ID hasn't regist."]);
         }
-        echo urldecode(json_encode($data, JSON_PRETTY_PRINT));
     }else{
         echo json_encode(["ans" => "regis_ID and run_ID can't empty"]);
     }        
