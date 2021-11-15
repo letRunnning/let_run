@@ -32,7 +32,7 @@
     $member_ID = 'M'.sprintf("%06d",$sNums+1);
 
     if($name != '' && $id_card !='' && $password !='' && $email !='' && $phone!=''){
-        if (preg_match("/[0-9]+/", $password) && preg_match("/[a-z]+/", $password) && preg_match("/[A-Z]+/", $password) && strlen($password) >= 8) {
+        if (preg_match("/[0-9]+/", $password) && (preg_match("/[a-z]+/", $password) || preg_match("/[A-Z]+/", $password)) && (strlen($password) >= 8)) {
             $sql = "INSERT INTO `member`(`member_ID`, `id_card`, `name`, `phone`, `email`, `birthday`, `password`, `address`, `contact_name`, `contact_phone`, `relation`, `file_no`) 
             VALUES ('$member_ID','$id_card','$name','$phone','$email','$birthday','$pwd_hash','$address','$contact_name','$contact_phone','$relation',null);";
             $result = mysqli_query($db, $sql) ;//or die("Insert failed, SQL query error,sql"); //執行SQL       
@@ -42,7 +42,7 @@
                 echo json_encode(["ans" => "NoSuccess"]);
             }
         }else{
-            echo urldecode(json_encode(["ans" => urlencode("密碼需包含英文字母大寫、英文字母小寫與數字並長度大於8")]));
+            echo urldecode(json_encode(["ans" => urlencode("密碼需包含英文字母與數字並長度大於8")]));
         }
     }else{
             echo json_encode(["ans" => "NoEmpty"]);
