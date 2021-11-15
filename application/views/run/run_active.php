@@ -68,8 +68,8 @@
               <input class="form-control" type="text" id="bankAccount" name="bankAccount" value="<?php echo (empty($activity)) ? "" : $activity->payment_account ?>" placeholder="****-****-****-****">
           </div> 
           <div class="col-10 m-2 mx-auto">
-            <label for="photoFile">上傳圖片(jpg/png/pdf)</label>
-            <input type="file" id="photoFile" name="photoFile" class="form-control" >
+            <label for="file">上傳圖片(jpg/png/pdf)</label>
+            <input type="file" id="file" name="file" class="form-control" >
           </div>
           <?php if (!empty($activity)): ?>
           <div class="col-10 m-2 mx-auto">
