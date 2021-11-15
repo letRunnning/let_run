@@ -2,12 +2,13 @@
     require_once("dbconnect.php");
     header("Content-Type: application/json; charset=UTF-8");
 
-    $sql_runs = "SELECT *,`running_activity`.`name` as `runName`,`files`.name as fileName FROM `running_activity` LEFT JOIN `files` ON `files`.`no` = `running_activity`.`file_no`";
+    $sql_runs = "SELECT *,`running_activity`.`name` as `runName`,`files`.name as fileName,`files`.path as filePath FROM `running_activity` LEFT JOIN `files` ON `files`.`no` = `running_activity`.`file_no`";
     $result_runs = mysqli_query($db, $sql_runs) or die("DB Error: Cannot retrieve message.");
     $weekarray=array("日","一","二","三","四","五","六");
     $data = array();
     foreach ($result_runs as $i){
         $tmpID = $i['running_ID'];
+        $tmpPath = $i['filePath'];
         $tmpName = $i['fileName'];
         $sql_rungroup ="SELECT * ,`running_activity`.`name` as runName,`running_activity`.`place` as runPlace
         FROM `running_group` 
@@ -31,7 +32,8 @@
             'Location' => urlencode($i['place']),
             //'Group' => urlencode($text),
             'Group' => $kiloList,
-            'ImageUrl' =>$tmpName
+            'ImageName' =>$tmpName,
+            'ImageUrl' =>urlencode($tmpPath.$tmpName)
         );
         array_push($data, $array);
     }
