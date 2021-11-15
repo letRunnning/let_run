@@ -125,15 +125,16 @@ class RunModel extends CI_Model
     // }
     public function get_assignment_content($workgroupID)
     {
-        $this->db->select('assignment.no,assignment.work_ID as A_ID,work_content.*');
+        $this->db->select('assignment.work_ID as A_ID,work_content.*');
         $this->db->join('work_content', 'work_content.work_ID = assignment.work_ID');
         $this->db->where('assignment.workgroup_ID', $workgroupID);
         $result = $this->db->get('assignment');
         return $result->result_array();
     }
-    public function deleteAssignment($id)
+    public function deleteAssignment($work_ID,$workgroupID)
     {
-        $this->db->where("no", $id);
+        $this->db->where("work_ID", $work_ID);
+        $this->db->where("workgroup_ID", $workgroupID);
         $this->db->delete("assignment");
         return true;
     }
@@ -159,7 +160,7 @@ class RunModel extends CI_Model
       
         return ($this->db->insert('running_activity', $this)) ? $this->db->insert_id() : '';
     }
-    function create_workgroup($running_ID, $name,$leader,$line,$time,$place,$people) 
+    function create_workgroup($running_ID, $name,$leader,$line,$time,$place,$people,$endtime) 
     { 
         $this->	running_ID = $running_ID;
         $this->	name = $name;
@@ -168,10 +169,11 @@ class RunModel extends CI_Model
         $this-> assembletime = $time;
         $this->	assembleplace = $place;
         $this->	maximum_number = $people;
+        $this->	endtime = $endtime;
         
         return ($this->db->insert('work_group', $this)) ? $this->db->insert_id() : '';
     }
-    function update_workgroup($running_ID, $name,$leader,$line,$time,$place,$people,$workgroupID) 
+    function update_workgroup($running_ID, $name,$leader,$line,$time,$place,$people,$workgroupID,$endtime) 
     {
         $this->	running_ID = $running_ID;
         $this->	name = $name;
@@ -180,6 +182,7 @@ class RunModel extends CI_Model
         $this-> assembletime = $time;
         $this->	assembleplace = $place;
         $this->	maximum_number = $people;
+        $this->	endtime = $endtime;
       
         $this->db->where('workgroup_ID', $workgroupID);
         return ($this->db->update('work_group', $this));
