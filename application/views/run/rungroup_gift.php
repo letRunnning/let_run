@@ -122,11 +122,11 @@
         <div class="row group">
           <div class="col-10 m-2 mx-auto">
             <label for="giftName">禮品名稱</label>
-            <input type="text" id="giftName" name="giftName" class="form-control" value="" required placeholder="請輸入禮品名稱">
+            <input type="text" id="giftName" name="giftName" class="form-control" value="" placeholder="請輸入禮品名稱">
           </div>
           <div class="col-10 m-2 mx-auto">
             <label for="file">上傳圖片</label>
-            <input type="file" id="file" name="file" class="form-control" value="" required >
+            <input type="file" id="file" name="file" class="form-control" value="" >
           </div>
         </div> 
       </div> 

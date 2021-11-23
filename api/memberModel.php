@@ -252,4 +252,14 @@
         
         return $result;
     }
+    function get_location($rid) {
+        global $db;
+        $sql = "SELECT COUNT(`beacon_ID`) AS num FROM `location` WHERE `running_ID` = ?";
+        $stmt = mysqli_prepare($db, $sql); // prepare sql statement
+        mysqli_stmt_bind_param($stmt, "s", $rid); // bind parameters with variables
+        mysqli_stmt_execute($stmt); // 執行 SQL
+        $result = mysqli_stmt_get_result($stmt); // get result
+        
+        return $result;
+    }
 ?>

@@ -1,4 +1,23 @@
 <?php $this->load->view('templates/new_header');?>
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript">
+      // let map;
+      function load() {
+        fetch('http://running.im.ncnu.edu.tw/run_api/runningActive.php')
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(myJson) {
+          console.log(myJson);
+        });
+      }
+      window.onload = load;
+    </script>
+
+  </head>
 <div class="breadcrumb-div">
   <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
