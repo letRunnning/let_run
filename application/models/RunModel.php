@@ -30,8 +30,8 @@ class RunModel extends CI_Model
     // }
     public function getPassNumber()
     {
-        $this->db->select('supply_ID');
-        $this->db->order_by('supply_ID', 'DESC');
+        $this->db->select('CAST(SUBSTR(supply_ID, 2,Length(`supply_ID`)) AS int)as num','supply_location.*');
+        $this->db->order_by('num', 'DESC');
         $this->db->limit(1);
         $result = $this->db->get('supply_location',1);
         return $result->row();
@@ -78,6 +78,8 @@ class RunModel extends CI_Model
     }
     public function get_supply_location()//for supply_location table
     {
+        $this->db->select('CAST(SUBSTR(supply_ID, 2,Length(`supply_ID`)) AS int)as num,supply_location.*');
+        $this->db->order_by('num', 'ASC');
         $result = $this->db->get('supply_location')->result_array();
         return $result;
     }
@@ -233,7 +235,7 @@ class RunModel extends CI_Model
         $this->longitude = $lon;
         $this->latitude = $lat;
         $this->running_ID = $runID;
-        $this->supplies = $supplies;
+        $this->detail = $supplies;
         return $this->db->insert('supply_location', $this);
     }
     // public function update_pass_point($no,$name, $lon, $lat)
@@ -251,7 +253,7 @@ class RunModel extends CI_Model
         $this->longitude = $lon;
         $this->latitude = $lat;
         $this->running_ID = $running_ID;
-        $this->supplies = $supplies;
+        $this->detail = $supplies;
         $this->db->where('supply_ID', $no);
         return $this->db->update('supply_location', $this);
     }

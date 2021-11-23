@@ -36,7 +36,7 @@
             echo json_encode(["ans" => "Member_ID,Running_ID,Latitude,Longitude can't empty"]);
         }  
     }
-    // else {
-    //     echo json_encode(["result" => "time"]);
-    // }    
+    else {
+        echo json_encode(["ans" => "unperiod"]);
+    }    
 ?>

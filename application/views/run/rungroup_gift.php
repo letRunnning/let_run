@@ -19,8 +19,8 @@
   <div class="row">
     <form action="<?php echo site_url($url); ?>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
     <input type="hidden" name="<?php echo $security->get_csrf_token_name() ?>" value="<?php echo $security->get_csrf_hash() ?>" />
-    <?php echo isset($error) ? '<p class="red-text text-darken-3 text-center">' . $error . '</p>' : ''; ?>
-    <?php echo isset($success) ? '<p class="green-text text-darken-3 text-center">' . $success . '</p>' : ''; ?>
+    <?php echo isset($error) ? '<p class="red-text text-center">' . $error . '</p>' : ''; ?>
+    <?php echo isset($success) ? '<p class="red-text text-center">' . $success . '</p>' : ''; ?>
       <div class="col-10 m-2 mx-auto">
         <label>路跑活動</label>
            <select onchange="location = this.value;" class="form-select mb-3" name="runActive" id="G-runActive" >

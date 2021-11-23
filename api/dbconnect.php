@@ -3,8 +3,8 @@
 連線資料庫用的副程式
 */
 $host = 'localhost'; // 執行 DB Server 的主機
-$user = 'pmauser'; // 登入 DB 用的 DB 帳號
-$pass = 'safety#25508'; // 登入 DB 用的 DB 密碼
+$user = 'root'; // 登入 DB 用的 DB 帳號
+$pass = ''; // 登入 DB 用的 DB 密碼
 $dbName = 'run'; // 使用的資料庫名稱
 
 /* $db 即為未來執行 SQL 指令所使用的物件 */

@@ -77,15 +77,19 @@ class Run extends CI_Controller
         $this->load->library('upload', $config);
         // upload family diagram    
         if (empty($runName)) return $this->load->view('/run/run_active', $beSentDataset);
-        
-        if ($this->upload->do_upload('file')) {
-            $fileMetaData = $this->upload->data();
-            $pfile = (site_url().'files/photo/');
-            print_r($pfile);
-            $file_no = $this->FileModel->create_one($fileMetaData['file_name'], $fileMetaData['orig_name'],$fileMetaData['file_path']);
-            // $file_no = $this->FileModel->create_one($fileMetaData['file_name'], $fileMetaData['orig_name'],$pfile);
+        echo $fileNo;
+        if(empty($fileNo)){
+            if ($this->upload->do_upload('file')) {
+                $fileMetaData = $this->upload->data();
+                $pfile = (site_url().'files/photo/');
+                print_r($pfile);
+                // $file_no = $this->FileModel->create_one($fileMetaData['file_name'], $fileMetaData['orig_name'],$fileMetaData['file_path']);
+                $file_no = $this->FileModel->create_one($fileMetaData['file_name'], $fileMetaData['orig_name'],$pfile);
+            }else{
+                    echo $this->upload->display_errors();
+            }
         }else{
-                echo $this->upload->display_errors();
+            $file_no = $fileNo;
         }
 
         if (empty($activity)) {
@@ -95,9 +99,11 @@ class Run extends CI_Controller
             $isExecuteSuccess = $this->RunModel->create_one($RID,$runName, $dateRun, $place,$start_time,$end_time,$bankCode,$bankAccount,$file_no);
             $runNo = $isExecuteSuccess;
         } else {
+            // if(empty($fileNo)){
             if($file_no){
                 $isExecuteSuccess = $this->RunModel->update_by_id($runNo,$runName, $dateRun, $place,$start_time,$end_time,$bankCode,$bankAccount,$file_no);
             }
+            // }
         }
         if ($isExecuteSuccess) {
           $beSentDataset['success'] = '新增成功';
@@ -218,14 +224,18 @@ class Run extends CI_Controller
             }else{
                 $beSentDataset['error'] = '新增失敗';
             }
-            $workgroupInfo = $workgroupID ? $this->RunModel->get_workgrpup_byid($workgroupID):null;
-            $assignments = $workgroupID ? $this->RunModel->get_assignment_content($workgroupID):null;
-            $assignments = $workgroupID ? $this->RunModel->get_assignment_content($workgroupID):null;
-            $beSentDataset['workgroupInfo'] = $workgroupInfo;
-            $beSentDataset['assignments'] = $assignments;
-            $beSentDataset['workContents'] = $assignments;
-            $beSentDataset['url'] = '/run/workgroup/'.$runNo.'/'.$workgroupID;
-        $this->load->view('/run/workgroup', $beSentDataset);
+            // $workgroupInfo = $workgroupID ? $this->RunModel->get_workgrpup_byid($workgroupID):null;
+            // $assignments = $workgroupID ? $this->RunModel->get_assignment_content($workgroupID):null;
+            // $assignments = $workgroupID ? $this->RunModel->get_assignment_content($workgroupID):null;
+            // $beSentDataset['workgroupInfo'] = $workgroupInfo;
+            // $beSentDataset['assignments'] = $assignments;
+            // $beSentDataset['workContents'] = $assignments;
+            // $beSentDataset['url'] = '/run/workgroup/'.$runNo.'/'.$workgroupID;
+            $workgroups = $this->RunModel->get_all_workgrpup();
+            $activities = $this->RunModel->get_all_active();
+            $beSentDataset['activities'] = $activities;
+            $beSentDataset['workgroups'] = $workgroups;
+            $this->load->view('/run/workgroup_table', $beSentDataset);
         } else {
             redirect('user/login');
         }
@@ -420,23 +430,23 @@ class Run extends CI_Controller
             
             $isExecuteSuccess_3=null;
             if(empty($rungroupInfo)){
-                $isExecuteSuccess = $this->RunModel->create_rungroup($runActive, $rungroupName, $kilometers, $maximum_number, $start_time, $end_time, $amount, $place, $time);
+                $isExecuteSuccess = $this->RunModel->create_rungroup($runNo, $rungroupName, $kilometers, $maximum_number, $start_time, $end_time, $amount, $place, $time);
                 $rungroupID = $isExecuteSuccess;
                 if($giftName){
                     if ($this->upload->do_upload('file')) {
                         $fileMetaData = $this->upload->data();
                         $pfile = (site_url().'files/photo/');
                         // print_r($pfile);
-                        $file_no = $this->FileModel->create_one($fileMetaData['file_name'], $fileMetaData['orig_name'],$fileMetaData['file_path']);
-                        // $file_no = $this->FileModel->create_one($fileMetaData['file_name'], $fileMetaData['orig_name'],$pfile);
+                        // $file_no = $this->FileModel->create_one($fileMetaData['file_name'], $fileMetaData['orig_name'],$fileMetaData['file_path']);
+                        $file_no = $this->FileModel->create_one($fileMetaData['file_name'], $fileMetaData['orig_name'],$pfile);
                     }else{
                             echo $this->upload->display_errors();
                     }
                     if($file_no){
                         $temp = $this->RunModel->getGiftNumber();
-                        $giftNums = substr($temp->gift_ID,1,strlen($temp->gift_ID));
-                        $GID = 'G'.($giftNums+1);
-                        $isExecuteSuccess3 = $this->GiftModel->create_gift($GID,$giftName,base64_decode($groupName),$runActive,$file_no);
+                        $giftNums = substr($temp->gift_ID,0,strlen($temp->gift_ID));
+                        $GID = ($giftNums+1);
+                        $isExecuteSuccess3 = $this->GiftModel->create_gift($GID,$giftName,$rungroupName,$runNo,$file_no);
                     }
                 }
             }else{
@@ -446,16 +456,16 @@ class Run extends CI_Controller
                         $fileMetaData = $this->upload->data();
                         $pfile = (site_url().'files/photo/');
                         // print_r($pfile);
-                        $file_no = $this->FileModel->create_one($fileMetaData['file_name'], $fileMetaData['orig_name'],$fileMetaData['file_path']);
-                        // $file_no = $this->FileModel->create_one($fileMetaData['file_name'], $fileMetaData['orig_name'],$pfile);
+                        // $file_no = $this->FileModel->create_one($fileMetaData['file_name'], $fileMetaData['orig_name'],$fileMetaData['file_path']);
+                        $file_no = $this->FileModel->create_one($fileMetaData['file_name'], $fileMetaData['orig_name'],$pfile);
                     }else{
                             echo $this->upload->display_errors();
                     }
                     if($file_no){
                         $temp = $this->RunModel->getGiftNumber();
-                        $giftNums = substr($temp->gift_ID,1,strlen($temp->gift_ID));
-                        $GID = 'G'.($giftNums+1);
-                        $isExecuteSuccess3 = $this->GiftModel->create_gift($GID,$giftName,base64_decode($groupName),$runNo,$file_no);
+                        $giftNums = substr($temp->gift_ID,0,strlen($temp->gift_ID));
+                        $GID = ($giftNums+1);
+                        $isExecuteSuccess3 = $this->GiftModel->create_gift($GID,$giftName,$rungroupName,$runNo,$file_no);
                     }
                 }
             }
@@ -571,14 +581,13 @@ class Run extends CI_Controller
             if (empty($supply_name)) return $this->load->view('/run/pass_point', $beSentDataset);
             
             if (empty($point)) {
-            $num = $this->RunModel->getPassNumber();
-            $Number = substr(($num->supply_ID),1,strlen($num->supply_ID))+1;
-            $passID = 'L'.$Number;
-            // $isExecuteSuccess = $this->RunModel->create_pass_point($passID,$supply_name,$longitude, $latitude);
-            $isExecuteSuccess = $this->RunModel->create_supply_location($passID,$supply_name,$longitude, $latitude,$runActive,$supplies);
+                $num = $this->RunModel->getPassNumber();
+                // $Number = substr(($num->num),1,strlen($num->num))+1;
+                $Number = $num->num + 1;
+                $passID = 'L'.$Number;
+                $isExecuteSuccess = $this->RunModel->create_supply_location($passID,$supply_name,$longitude, $latitude,$runActive,$supplies);
             } else {
-            // $isExecuteSuccess = $this->RunModel->update_pass_point($no,$supply_name,$longitude, $latitude);
-            $isExecuteSuccess = $this->RunModel->update_supply_location($no,$supply_name,$longitude, $latitude,$runActive,$supplies);
+                $isExecuteSuccess = $this->RunModel->update_supply_location($no,$supply_name,$longitude, $latitude,$runActive,$supplies);
             }
 
             if ($isExecuteSuccess) {

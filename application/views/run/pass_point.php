@@ -8,30 +8,36 @@
         console.log("load event detected!");
         const la=parseFloat(document.getElementById("latitude").value);
         const lo=parseFloat(document.getElementById("longitude").value);
-        initMap(la,lo);
+        initMap();
       }
       window.onload = load;
-      function initMap(lat,long) {
-        const myLatlng = { lat: lat, lng: long };
+
+      function initMap() {
+        const myLatlng = { lat: 23.950559, lng: 120.927503 };
+        console.log(23.950559,120.927503);
+        // const myLatlng = { lat: lat, lng: long };
         map = new google.maps.Map(document.getElementById("map"), {
-          center: { lat: lat, lng: long },
+          center: { lat: 23.950559, lng: 120.927503 },
+          // center: { lat: lat, lng: long },
           zoom: 10,
         });
       // }
-      var marker = new google.maps.Marker({
-        position: {
-          lat: lat,
-          lng: long
-        },
-        map: map
-      });
-      marker.addListener('click',function(){
-        if(marker.getAnimation()==null){
-          marker.setAnimation(google.maps.Animation.BOUNCE);
-        }else{
-          marker.setAnimation(null);
-        }
-      });
+      // var marker = new google.maps.Marker({
+      //   position: {
+      //     // lat: lat,
+      //     // lng: long
+      //     lat: 23.950559,
+      //     lng: 120.927503
+      //   },
+      //   map: map
+      // });
+      // marker.addListener('click',function(){
+      //   if(marker.getAnimation()==null){
+      //     marker.setAnimation(google.maps.Animation.BOUNCE);
+      //   }else{
+      //     marker.setAnimation(null);
+      //   }
+      // });
       
       let infoWindow = new google.maps.InfoWindow({
         content: "點擊地圖即可取得經緯度",
@@ -105,7 +111,7 @@
         </div>
         <div class="col-10 m-2 mx-auto">
             <label for="supplies" class="form-label">補給物資</label>
-            <input class="form-control" type="text" id="supplies" name="supplies" value="<?php echo (empty($point))?"": $point->supplies?>" required placeholder="請輸入補給物資">
+            <input class="form-control" type="text" id="supplies" name="supplies" value="<?php echo (empty($point))?"": $point->detail?>" required placeholder="請輸入補給物資">
         </div>
         <div class="col-10 m-2 mx-auto">
             <label for="longitude" class="form-label">經度</label>

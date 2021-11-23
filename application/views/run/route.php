@@ -9,10 +9,19 @@
         console.log("load event detected!");
         const la=parseFloat(document.getElementById("latitude").value);
         const lo=parseFloat(document.getElementById("longitude").value);
-        initMap(la,lo);
+        if(la){
+          console.log('123');
+          initMap(la,lo);
+          console.log(la);
+          console.log(lo);
+        }else{
+          console.log('456');
+          initMap(23.898082, 120.887002);
+        }
       }
       window.onload = load;
-      var data = <?php echo $data?>;
+      // $no ? $this->RunModel->get_passPoint_by_no($no) : null ;
+      var data = <?php $data ? print_r($data) : print_r('[]');?>;
       // console.log(data);
       
       function initMap(lat,long) {
@@ -33,7 +42,9 @@
       }
         const myLatlng = { lat: 23.950559, lng: 120.927503 };
         // const myLatlng = { lat: parseFloat(data[0].latitude), lng: parseFloat(data[0].longitude) };
-        console.log(data[0].latitude,data[0].longitude)
+        
+        console.log(23.950559,120.927503)
+        // console.log(data[0].latitude,data[0].longitude)
         map = new google.maps.Map(document.getElementById("map"), {
           center: { lat: 23.950559, lng: 120.927503 },
           // center: { lat: parseFloat(data[0].latitude), lng: parseFloat(data[0].longitude) },
