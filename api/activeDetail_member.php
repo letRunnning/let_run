@@ -12,39 +12,42 @@
             $gift = get_gift_detail($data[0]['running_ID']);
 
             $data = array();
-            $giftArray = array();
 
             foreach ($group as $i) {
+                $giftArray = array();
                 foreach ($gift as $j) {
-                    array_push($giftArray, urlencode($j['gift_name']));
-                    array_push($giftArray, $j['name']);
+                    if ($i['group_name'] == $j['group_name']) {
+                        array_push($giftArray, urlencode($j['gift_name']));
+                        array_push($giftArray, $j['name']);
+                    } 
+                    // else {
+                        // $array = array(
+                        //     'running_ID' => $i['running_ID'],
+                        //     'group_name' => urlencode($i['group_name']),
+                        //     'amount' => $i['amount'],
+                        //     'maximum_number' => $i['maximum_number'],
+                        //     'start_time' => $i['start_time'],
+                        //     'total_time' => strtotime($i['end_time']) - strtotime($i['start_time'])
+                        // );
+                        // array_push($data, $array);
+                        // // break;
+                    // }
                 }
-
-                if ($i['group_name'] == $j['group_name']) {
-                    $array = array(
-                        'running_ID' => $i['running_ID'],
-                        'group_name' => urlencode($i['group_name']),
-                        'amount' => $i['amount'],
-                        'maximum_number' => $i['maximum_number'],
-                        'start_time' => $i['start_time'],
-                        'total_time' => strtotime($i['end_time']) - strtotime($i['start_time']),
-                        'gift' => $giftArray
-                    );
-                    array_push($data, $array);
-                } else {
-                    $array = array(
-                        'running_ID' => $i['running_ID'],
-                        'group_name' => urlencode($i['group_name']),
-                        'amount' => $i['amount'],
-                        'maximum_number' => $i['maximum_number'],
-                        'start_time' => $i['start_time'],
-                        'total_time' => strtotime($i['end_time']) - strtotime($i['start_time'])
-                    );
-                    array_push($data, $array);
-                    break;
-                }
+                $array = array(
+                    'running_ID' => $i['running_ID'],
+                    'group_name' => urlencode($i['group_name']),
+                    'amount' => $i['amount'],
+                    'maximum_number' => $i['maximum_number'],
+                    'start_time' => $i['start_time'],
+                    'total_time' => strtotime($i['end_time']) - strtotime($i['start_time']),
+                    'gift' => $giftArray
+                );
+                $giftArray = [];
+                array_push($data, $array);
             }
             echo urldecode(json_encode($data, JSON_PRETTY_PRINT));
+        } else {
+            echo json_encode(["ans" => "NoData"]);
         }
     // }
 ?>
