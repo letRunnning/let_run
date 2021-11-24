@@ -24,7 +24,7 @@
   <link data-require="jqueryui@*" data-semver="1.10.0" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/css/smoothness/jquery-ui-1.10.0.custom.min.css" />
   <link href="<?php echo site_url(); ?>/assets/css/style.css" rel="stylesheet">
   <link href="<?php echo site_url(); ?>/assets/css/timePicker.css" rel="stylesheet">
-  <script src="<?php echo site_url(); ?>/assets/js/map.js"></script>
+  <!-- <script src="<?php echo site_url(); ?>assets/js/map.js"></script> -->
 
   <!-- datetimepicker -->
   <link href="<?php echo site_url(); ?>assets/css/bootstrap-iso.css" rel="stylesheet">
