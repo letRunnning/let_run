@@ -105,7 +105,8 @@ class Check extends CI_Controller
                 $time = date('Y-m-d H:i:s', strtotime($i['end_time']. '+1week'));
                 
                 if ($i['time'] == '' && $time <= date('Y-m-d H:i:s')) {
-                    $url = "https://letrun05.000webhostapp.com/letRun/sendReminderEmail.php";
+                    // $url = "https://letrun05.000webhostapp.com/letRun/sendReminderEmail.php";
+                    $url = "http://running.im.ncnu.edu.tw/run_api/sendReminderEmail.php";
                     $data = array(
                         'member_ID' => $i['member_ID'],
                         'running_ID' => $i['running_ID'],
