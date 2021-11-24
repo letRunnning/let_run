@@ -24,7 +24,7 @@
 
     function get_gift_detail($id) {
         global $db;
-        $sql = "SELECT `gift`.`group_name`, `gift`.`gift_name`, `files`.`name` FROM `gift` JOIN `files` ON `files`.`no` = `gift`.`file_no` WHERE `gift`.`running_ID` = ?";
+        $sql = "SELECT `gift`.`group_name`, `gift`.`gift_name`, `files`.`name` FROM `gift` LEFT JOIN `files` ON `files`.`no` = `gift`.`file_no` WHERE `gift`.`running_ID` = ?";
         $stmt = mysqli_prepare($db, $sql); // prepare sql statement
         mysqli_stmt_bind_param($stmt, "s", $id); // bind parameters with variables
         mysqli_stmt_execute($stmt); // 執行 SQL
@@ -247,6 +247,17 @@
         $sql = "SELECT `registration_ID` FROM `registration` WHERE `member_ID` = ?";
         $stmt = mysqli_prepare($db, $sql); // prepare sql statement
         mysqli_stmt_bind_param($stmt, "s", $mid); // bind parameters with variables
+        mysqli_stmt_execute($stmt); // 執行 SQL
+        $result = mysqli_stmt_get_result($stmt); // get result
+        
+        return $result;
+    }
+
+    function get_location($rid, $bid) {
+        global $db;
+        $sql = "SELECT COUNT(`beacon_ID`) AS num FROM `location` WHERE `running_ID` = ? AND `beacon_ID` = ?";
+        $stmt = mysqli_prepare($db, $sql); // prepare sql statement
+        mysqli_stmt_bind_param($stmt, "ss", $rid, $bid); // bind parameters with variables
         mysqli_stmt_execute($stmt); // 執行 SQL
         $result = mysqli_stmt_get_result($stmt); // get result
         
