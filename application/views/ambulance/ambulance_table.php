@@ -11,11 +11,11 @@
 </div>
 
 <div class="container">
-  <?php print_r($ambulance) ?>
-  <br><br>
-  <?php print_r($hospitals) ?>
-  <br><br>
-  <?php print_r($ambulances) ?>
+  <?php //print_r($ambulance) ?>
+  <!-- <br><br> -->
+  <?php //print_r($hospitals) ?>
+  <!-- <br><br> -->
+  <?php //print_r($ambulances) ?>
   <div class="row justify-content-center">
     <div class="col-4 text-right">
       <select onchange="location = this.value;" class="form-select mb-3" name="hospital" id="hospital" >
