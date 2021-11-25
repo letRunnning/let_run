@@ -14,7 +14,7 @@
             $array = array( 
                 'Longitude' => $i['longitude'],
                 'Latitude' => $i['latitude'],
-                'Supplies' => urlencode($i['supplies'])
+                'Supplies' => urlencode($i['detail'])
             );
             array_push($data, $array);
         }

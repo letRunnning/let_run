@@ -3,8 +3,8 @@
     
     header("Content-Type: application/json; charset=UTF-8");
     $data = json_decode(file_get_contents("php://input"), true);
-    // $email = $data[0]['Email'];
-    $email = 'letrun.05@gmail.com';
+    $email = $data[0]['Email'];
+    // $email = 'letrun.05@gmail.com';
     // $email = '123456@gmail.com';
 
     if($email != ''){
