@@ -1,5 +1,28 @@
 <?php $this->load->view('templates/new_header'); ?>
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript">
+      // let map;
+      function load() {
+        var url = 'http://running.im.ncnu.edu.tw/run_api/getLocation.php';
+        var data = {running_ID: 'A1'};
 
+        fetch(url, {
+          method: 'POST', // or 'PUT'
+          body: JSON.stringify(data), // data can be string or {object}!
+          headers: new Headers({
+            'Content-Type': 'application/json'
+          })
+        }).then(res => res.json())
+        // .catch(error => console.error('Error:', error))
+        .then(response => console.log('Success:', response));
+      }
+      window.onload = load;
+    </script>
+
+  </head>
 <div class="breadcrumb-div">
   <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -40,7 +63,6 @@
   <?php } ?>
 </div>
 
-<script type="text/javascript" src="<?php echo site_url(); ?>assets/jquery/jquery-1.8.3.min.js" charset="UTF-8"></script>
 <script type="text/javascript" src="<?php echo site_url(); ?>assets/js/jquery-1.8.3.min.js" charset="UTF-8"></script>
 <script type="text/javascript">
   var datas = [];
