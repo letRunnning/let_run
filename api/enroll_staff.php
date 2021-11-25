@@ -1,5 +1,5 @@
 <?php
-    require_once("dbconnec.php");
+    require_once("dbconnect.php");
     header("Content-Type: application/json; charset=UTF-8");
     $data = json_decode(file_get_contents("php://input"), true);
     $name = $data[0]['Name'];
@@ -24,6 +24,17 @@
     // $contact_phone = '08888888';
     // $relation = '父子';
     // $line_id = 'testlineid';
+    // $Password: "Bb1234567";
+    // $Name: "yoyo";
+    // $Email: "vickie890514@gmail.com";
+    // $Phone: "0911222333";
+    // $Id_card: "A122345678";
+    // $Birthday: "2002-11-25T00:00:00";
+    // $Address: "南投市";
+    // $Contact_name: "banbi";
+    // $Contact_phone: "0911888222";
+    // $Relation: "父女";
+    // $line_id = "1ethic";
     
     $pwd_hash = password_hash($password, PASSWORD_DEFAULT);
     
