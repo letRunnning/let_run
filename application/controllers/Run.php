@@ -10,6 +10,7 @@ class Run extends CI_Controller
         $this->load->model('MapModel');
         $this->load->model('BeaconPlacementModel');
         $this->load->model('GiftModel');
+        $this->load->model('GiftDetailModel');
     }
     public function run_active_table()
     {
@@ -414,6 +415,8 @@ class Run extends CI_Controller
             $place = $this->security->xss_clean($this->input->post('assemblyPlace'));
             $amount = $this->security->xss_clean($this->input->post('price'));
             $giftName = $this->security->xss_clean($this->input->post('giftName'));
+            $gdetail_size = $this->security->xss_clean($this->input->post('gdetail_size'));
+            $gdetail_amount = $this->security->xss_clean($this->input->post('gdetail_amount'));
             
 
             if (empty($runActive)) return $this->load->view('/run/rungroup_gift', $beSentDataset);
@@ -428,7 +431,8 @@ class Run extends CI_Controller
             
             // if (empty($runActive)) return $this->load->view('/run/rungroup_gift', $beSentDataset);
             
-            $isExecuteSuccess_3=null;
+            $isExecuteSuccess3=null;
+            $isExecuteSuccess4=null;
             if(empty($rungroupInfo)){
                 $isExecuteSuccess = $this->RunModel->create_rungroup($runNo, $rungroupName, $kilometers, $maximum_number, $start_time, $end_time, $amount, $place, $time);
                 $rungroupID = $isExecuteSuccess;
@@ -447,6 +451,7 @@ class Run extends CI_Controller
                         $giftNums = substr($temp->gift_ID,0,strlen($temp->gift_ID));
                         $GID = ($giftNums+1);
                         $isExecuteSuccess3 = $this->GiftModel->create_gift($GID,$giftName,$rungroupName,$runNo,$file_no);
+                        $isExecuteSuccess4 = $this->GiftDetailModel->create_gift_detail($GID,$gdetail_size,$gdetail_amount);
                     }
                 }
             }else{
@@ -466,6 +471,7 @@ class Run extends CI_Controller
                         $giftNums = substr($temp->gift_ID,0,strlen($temp->gift_ID));
                         $GID = ($giftNums+1);
                         $isExecuteSuccess3 = $this->GiftModel->create_gift($GID,$giftName,$rungroupName,$runNo,$file_no);
+                        $isExecuteSuccess4 = $this->GiftDetailModel->create_gift_detail($GID,$gdetail_size,$gdetail_amount);
                     }
                 }
             }
@@ -473,14 +479,23 @@ class Run extends CI_Controller
 
             if($isExecuteSuccess){
                 $beSentDataset['url']='/run/rungroup_gift/'. $runID.'/'.base64_encode($rungroupName);
-                if($isExecuteSuccess_3){
-                    $beSentDataset['success'] = '新增成功';
+                if($isExecuteSuccess3){
+                    if($isExecuteSuccess4){
+                        $beSentDataset['success'] = '新增成功!!';
+                    }else{
+                        $beSentDataset['success'] = '禮品新增成功!!';
+                    }
                 }else{
-                    $beSentDataset['success'] = '組別新增成功';
+                    if($isExecuteSuccess4){
+                        $beSentDataset['success'] = '新增禮品尺寸成功!';
+                    }else{
+                        $beSentDataset['success'] = '更新成功!';
+                    }
+                    // $beSentDataset['success'] = '新增組別成功!';
                 }
             }else{
                 $beSentDataset['url']='/run/rungroup_gift/'. $runID.'/'.base64_encode($rungroupName);
-                $beSentDataset['error'] = '新增失敗';
+                $beSentDataset['error'] = '新增成功';
             }
             $rungroupInfo = ($runID&&$rungroupName) ? $this->RunModel->get_rungroup_byid($runID,$rungroupName):null;
             $rungroupGift = ($runID&&$rungroupName) ? $this->RunModel->get_rungroupGift_byid($runID,$rungroupName):null;
@@ -501,6 +516,7 @@ class Run extends CI_Controller
         // $groupName = base64_decode($groupName);    
         if (in_array($current_role, $accept_role)) {
             $response = ($giftID&&$groupName) ? $this->RunModel->deleteGift($giftID,base64_decode($groupName)) : null;
+            $response1 = ($giftID) ? $this->GiftDetailModel->delete_gift_detail($giftID) : null;
             $activities = $this->RunModel->get_all_active();
             $rungroupInfo = ($runNo&&$groupName) ? $this->RunModel->get_rungroup_byid($runNo,base64_decode($groupName)):null;
             $rungroupGift = ($runNo&&$groupName) ? $this->RunModel->get_rungroupGift_byid($runNo,base64_decode($groupName)):null;
@@ -516,8 +532,16 @@ class Run extends CI_Controller
                 'activities' => $activities,
                 'runNo' => $runNo,
                 'rungroupGift'=> $rungroupGift,
-                'groupName' => $groupName
+                'groupName' => $groupName,
+                'success' => '刪除成功'
             );
+            // $beSentDataset['success'] = '刪除成功!';
+            // $rungroupInfo = ($runNo&&$groupName) ? $this->RunModel->get_rungroup_byid($runNo,$groupName):null;
+            // $rungroupGift = ($runNo&&$groupName) ? $this->RunModel->get_rungroupGift_byid($runNo,$groupName):null;
+            // $beSentDataset['rungroupInfo']=$rungroupInfo;
+            // $beSentDataset['rungroupGift']=$rungroupGift;
+            // $beSentDataset['url']='/run/rungroup_gift/'. $runNo.'/'.base64_encode($groupName);
+            // $this->load->view('/run/rungroup_gift', $beSentDataset);
             redirect('/run/rungroup_gift/'.$runNo.'/'.$groupName);
             // $this->load->view('/run/rungroup_gift', $beSentDataset);
         } else {
