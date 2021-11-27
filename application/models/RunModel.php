@@ -316,6 +316,7 @@ class RunModel extends CI_Model
     public function get_rungroupGift_byid($runNo,$groupName){
 
         $this->db->join('files', '`gift`.`file_no`= `files`.no ');
+        $this->db->join('gift_detail', '`gift_detail`.`gift_ID`= `gift`.gift_ID ');
         $this->db->where('running_ID', $runNo);
         $this->db->where('group_name', $groupName);
         $result = $this->db->get('gift')->result_array();
