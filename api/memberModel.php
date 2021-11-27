@@ -253,11 +253,12 @@
         return $result;
     }
 
-    function get_location($rid, $bid) {
+    function get_location($rid) {
         global $db;
-        $sql = "SELECT COUNT(`beacon_ID`) AS num FROM `location` WHERE `running_ID` = ? AND `beacon_ID` = ?";
+        // $sql = "SELECT `beacon_ID`,COUNT(`beacon_ID`) AS `num` FROM `location` WHERE `running_ID` = ? AND (`pass_time` BETWEEN DATE_ADD(NOW(), INTERVAL -1 SECOND) AND DATE_ADD(NOW(), INTERVAL 1 SECOND) GROUP BY `beacon_ID`";
+        $sql = "SELECT `beacon_ID`,COUNT(`beacon_ID`) AS num FROM location WHERE running_ID = 'A8' AND (pass_time BETWEEN DATE_ADD('2021-11-25 21:32:52', INTERVAL -1 SECOND) AND DATE_ADD('2021-11-25 21:32:52', INTERVAL 1 SECOND)) GROUP BY beacon_ID";
         $stmt = mysqli_prepare($db, $sql); // prepare sql statement
-        mysqli_stmt_bind_param($stmt, "ss", $rid, $bid); // bind parameters with variables
+        mysqli_stmt_bind_param($stmt, "s", $rid); // bind parameters with variables
         mysqli_stmt_execute($stmt); // 執行 SQL
         $result = mysqli_stmt_get_result($stmt); // get result
         
