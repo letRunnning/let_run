@@ -19,8 +19,8 @@
   <div class="row">
     <form action="<?php echo site_url($url); ?>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
     <input type="hidden" name="<?php echo $security->get_csrf_token_name() ?>" value="<?php echo $security->get_csrf_hash() ?>" />
-    <?php echo isset($error) ? '<p class="red-text text-center">' . $error . '</p>' : ''; ?>
-    <?php echo isset($success) ? '<p class="red-text text-center">' . $success . '</p>' : ''; ?>
+    <?php echo isset($error) ? '<p class="text-danger text-center">' . $error . '</p>' : ''; ?>
+    <?php echo isset($success) ? '<p class="text-danger text-center">' . $success . '</p>' : ''; ?>
       <div class="col-10 m-2 mx-auto">
         <label>路跑活動</label>
            <select onchange="location = this.value;" class="form-select mb-3" name="runActive" id="G-runActive" >
@@ -86,15 +86,17 @@
         <table class="table tableForm" style="border: 1px #0091ea solid;border-top: 2px #0091ea solid;border-bottom: 2px #0091ea solid;background-color:">
           <thead>
             <tr style="text-align:left;">
-              <th scope="col" colspan="4" class="fs-6" style="text-align:left;border-bottom: 1px #0091ea solid;">禮品名稱</th>
+              <th scope="col" colspan="4" class="fs-6" style="text-align:left;border-bottom: 1px #0091ea solid;">禮品</th>
             </tr>
           </thead>
           <tbody>
             <?php foreach($rungroupGift as $i => $value) { ?>
               <tr class = "text-center">
-                <td scope="col"><?php echo $i+1?></td>
+                <!-- <td scope="col"><?php echo $i+1?></td> -->
                 <td scope="col"><?php echo $value['gift_name']?></td>
-                <td scope="col"><img class="img-fluid" style="width:250px"
+                <td scope="col"><?php echo $value['gdetail_size']?></td>
+                <!-- <td scope="col"><?php echo $value['gdetail_amount']?></td> -->
+                <td scope="col"><img class="img-fluid" style="width:150px"
                 src="<?php echo site_url() . '/files/photo/' . $value['name']; ?>" /></td>
                 <td style="text-align:center;"> 
                   <a type="button" class="btn btn-danger btn-sm px-3" href="<?php echo site_url('run/deletedata_gift/'.$value['gift_ID'].'/'.base64_encode($value['group_name']).'/'.$runNo);?>">
@@ -123,6 +125,14 @@
           <div class="col-10 m-2 mx-auto">
             <label for="giftName">禮品名稱</label>
             <input type="text" id="giftName" name="giftName" class="form-control" value="" placeholder="請輸入禮品名稱">
+          </div>
+          <div class="col-10 m-2 mx-auto">
+            <label for="gdetail_size">禮品尺寸</label>
+            <input type="text" id="gdetail_size" name="gdetail_size" class="form-control" value="" placeholder="請輸入禮品名稱">
+          </div>
+          <div class="col-10 m-2 mx-auto">
+            <label for="gdetail_amount">禮品數量</label>
+            <input type="text" id="gdetail_amount" name="gdetail_amount" class="form-control" value="" placeholder="請輸入禮品名稱">
           </div>
           <div class="col-10 m-2 mx-auto">
             <label for="file">上傳圖片</label>
