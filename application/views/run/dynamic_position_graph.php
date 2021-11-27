@@ -99,6 +99,11 @@
       }
     });
   }
+
+  $(function() {
+    // 每隔一秒
+    setInterval("active()", 1000);
+  })
 </script>
 
 <?php $this->load->view('templates/new_footer'); ?>
