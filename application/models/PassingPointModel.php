@@ -3,7 +3,7 @@ class PassingPointModel extends CI_Model
 {
     public function get_all_passing_point()
     {
-        $result = $this->db->get('passing_point')->result_array();
+        $result = $this->db->get('supply_location')->result_array();
         return $result;
     }
 
