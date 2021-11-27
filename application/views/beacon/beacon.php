@@ -9,7 +9,7 @@
         <a href="#">路跑活動</a>
       </li>
       <li class="breadcrumb-item active" style="color:blue;" aria-current="page">
-        <a href="<?php echo site_url('/run/beacon'); ?>">Beacon</a>
+        <a href="<?php echo site_url('/beacon/beacon_table'); ?>">Beacon</a>
       </li>
       <li class="breadcrumb-item active" aria-current="page"><?php echo $title;?></li>
     </ol>
