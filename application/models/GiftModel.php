@@ -12,6 +12,7 @@ class GiftModel extends CI_Model {
         $this->	running_ID = $runNo;
         $this->	file_no = $file_no;
 
-        return ($this->db->insert('gift', $this)) ? $this->db->insert_id() : '';
+        // return ($this->db->insert('gift', $this)) ? $this->db->insert_id() : '';
+        return $this->db->insert('gift', $this);
     }
 }
