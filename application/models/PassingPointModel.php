@@ -6,7 +6,6 @@ class PassingPointModel extends CI_Model
         $result = $this->db->get('supply_location')->result_array();
         return $result;
     }
-
     // public function get_ambulance_placement_by_id($liciensePlate)
     // {
     //     $this->db->where('license_plate', $liciensePlate);
