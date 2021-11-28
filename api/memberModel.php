@@ -262,4 +262,18 @@
         
         return $result;
     }
+    function get_starttime_member($rid,$mid) {
+        global $db;
+        $sql = "select * from location where member_ID = '$mid' and running_id='$rid' order by pass_time ASC limit 1;";
+        $result = mysqli_query($db, $sql) or die("DB Error: Cannot retrieve message.");
+        
+        return $result;
+    }
+    function get_endtime_member($rid,$mid) {
+        global $db;
+        $sql = "select * from location where member_ID = '$mid' and running_id='$rid' order by pass_time DESC limit 1;";
+        $result = mysqli_query($db, $sql) or die("DB Error: Cannot retrieve message.");
+        
+        return $result;
+    }
 ?>
