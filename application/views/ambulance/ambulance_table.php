@@ -1,4 +1,5 @@
 <?php $this->load->view('templates/new_header'); ?>
+
 <div class="breadcrumb-div">
   <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -11,18 +12,16 @@
 </div>
 
 <div class="container">
-  <?php print_r($ambulance) ?>
-  <br><br>
-  <?php print_r($hospitals) ?>
-  <br><br>
-  <?php print_r($ambulances) ?>
+  <!-- <?php print_r($ambulance) ?>
+  <br><br> -->
+
   <div class="row justify-content-center">
     <div class="col-4 text-right">
       <select onchange="location = this.value;" class="form-select mb-3" name="hospital" id="hospital" >
         <?php if (empty($ambulance->hospital_name)) { ?>
           <option selected value="<?php echo site_url('ambulance/ambulance_table/'); ?>">請選擇醫院</option>
           <?php foreach ($hospitals as $i) { ?>
-            <option <?php echo ($hospitalName == $i['hospital_name']) ? 'selected' : '' ?> value="<?php echo site_url('ambulance/ambulance_table/'.$i['hospital_name']); ?>"><?php echo $i['hospital_name']?></option>
+            <option <?php echo ($hospitalName == $i['hospital_name']) ? 'selected' : '' ?> value="<?php echo site_url('ambulance/ambulance_table/' . base64_encode($i['hospital_name'])); ?>"><?php echo urldecode($i['hospital_name']) ?></option>
           <?php } } else { ?>
             <option  value="<?php echo $ambulance->hospital_name?>"><?php echo $ambulance->hospital_name?></option>
             <?php } ?>

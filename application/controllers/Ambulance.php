@@ -17,15 +17,18 @@ class Ambulance extends CI_Controller
         $current_role = $passport['role'];
         $accept_role = array(6);
 
-        $hospitalName = $hospital ? $hospital : null;
+        $hospitalName = base64_decode($hospital) ? base64_decode($hospital) : null;
         $hospitals = $this->AmbulanceModel->get_ambulance_hospital_name();
         $ambulance = $this->AmbulanceModel->get_all_ambulance();
-        $ambulances = $hospital ? $this->AmbulanceModel->get_ambulance_by_name($hospital) : null;
+        $ambulances = base64_decode($hospital) ? $this->AmbulanceModel->get_ambulance_by_name(base64_decode($hospital)) : null;
+
+        print_r($ambulances);
+        print_r(1);
 
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
                 'title' => '救護車清單',
-                'url' => '/ambulance/ambulance_table/' . $hospital,
+                'url' => '/ambulance/ambulance_table/' . base64_decode($hospital),
                 'role' => $current_role,
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
