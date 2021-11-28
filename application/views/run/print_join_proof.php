@@ -1,4 +1,26 @@
 <?php $this->load->view('templates/new_header');?>
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript">
+      function load() {
+        console.log("load event detected!");
+        // fetch(`http://running.im.ncnu.edu.tw/run_api/get_print_join_proof.php?running_ID=${running_ID}&member_ID=${member_ID}`)
+        var running_ID="A6";
+        var member_ID="M000004";
+        fetch(`http://running.im.ncnu.edu.tw/run_api/get_print_join_proof.php?running_ID=${running_ID}&member_ID=${member_ID}`)
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(myJson) {
+          console.log(myJson);
+        });
+      }
+      window.onload = load;
+    </script>
+
+  </head>
 <div class="breadcrumb-div">
   <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
