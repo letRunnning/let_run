@@ -4,6 +4,7 @@ class Run extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->model('UserModel');
         $this->load->model('RunModel');
         $this->load->model('FileModel');
         $this->load->model('AssignModel');
@@ -879,12 +880,17 @@ class Run extends CI_Controller
         }
     }
 
-    public function print_join_proof()
+    public function print_join_proof($runNo = null,$member_ID=null)
     {
         $passport = $this->session->userdata('passport');
         $userTitle = $passport['userTitle'];
         $current_role = $passport['role'];
         $accept_role = array(6);
+        $activities = $this->RunModel->get_all_active(); //下拉式選單用
+        $activity = $runNo ? $this->RunModel->get_active_by_id($runNo) : null; //顯示當前的路跑
+        $members = $runNo ? $this->UserModel->get_member_by_runNo($runNo) : null; //顯示當前的路跑
+        $memberInfo = $member_ID ? $this->UserModel->get_member_by_id($member_ID) : null; //顯示當前的路跑
+        
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
                 'title' => '列印參賽證明',
@@ -892,7 +898,13 @@ class Run extends CI_Controller
                 'role' => $current_role,
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
-                'password' => $passport['password']
+                'password' => $passport['password'],
+                'activities' => $activities,
+                'activity' => $activity,
+                'runID' => $runNo,
+                'member_ID' => $member_ID,
+                'memberInfo' => $memberInfo,
+                'members' => $members
             );
 
             $this->load->view('/run/print_join_proof', $beSentDataset);
