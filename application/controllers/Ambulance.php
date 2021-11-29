@@ -22,9 +22,6 @@ class Ambulance extends CI_Controller
         $ambulance = $this->AmbulanceModel->get_all_ambulance();
         $ambulances = base64_decode($hospital) ? $this->AmbulanceModel->get_ambulance_by_name(base64_decode($hospital)) : null;
 
-        print_r($ambulances);
-        print_r(1);
-
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
                 'title' => '救護車清單',
