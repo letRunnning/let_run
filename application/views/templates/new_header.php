@@ -168,6 +168,10 @@
             <a href="#pageSubmenuCouselorE" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">列印Qrcode</a>
             <ul class="collapse list-unstyled" id="pageSubmenuCouselorE">
               <li>
+                <a href="<?php echo site_url('/prints/run_qrcode'); ?>"
+                  <?php echo $url == '/prints/run_qrcode' ? 'active' : ''; ?>>路跑活動 Qrcode</a>
+              </li>
+              <li>
                 <a href="<?php echo site_url('/prints/beacon_qrcode'); ?>"
                   <?php echo $url == '/prints/beacon_qrcode' ? 'active' : ''; ?>>Beacon Qrcode</a>
               </li>
