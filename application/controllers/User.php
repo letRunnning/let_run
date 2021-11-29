@@ -85,28 +85,28 @@ class User extends CI_Controller
             $user = $user->row_array();
             
             // login failed for three times, lock for 15 minutes
-            if($checkLoign>=3) {
-              $this->UserModel->update_login_fail_time_by_id($id);
-              $minutes_to_add = 15;
+            // if($checkLoign>=3) {
+            //   $this->UserModel->update_login_fail_time_by_id($id);
+            //   $minutes_to_add = 15;
 
-              $time = new DateTime(date("Y-m-d H:i:s"));
-              $time->add(new DateInterval('PT' . $minutes_to_add . 'M'));
-              $beSentDataset['error'] = '因密碼輸入錯誤三次，下次能登入時間為 ' .$time->format('Y-m-d H:i:s'); 
+            //   $time = new DateTime(date("Y-m-d H:i:s"));
+            //   $time->add(new DateInterval('PT' . $minutes_to_add . 'M'));
+            //   $beSentDataset['error'] = '因密碼輸入錯誤三次，下次能登入時間為 ' .$time->format('Y-m-d H:i:s'); 
               
-              return $this->load->view('/user/login', $beSentDataset);
-            }
+            //   return $this->load->view('/user/login', $beSentDataset);
+            // }
 
-            if($user['login_fail_time']) {
-              $minutes_to_add = 15;
+            // if($user['login_fail_time']) {
+            //   $minutes_to_add = 15;
 
-              $time = new DateTime($user['login_fail_time']);
-              $time->add(new DateInterval('PT' . $minutes_to_add . 'M'));
-              if(date("Y-m-d H:i:s") < $time->format('Y-m-d H:i:s')) {
-                $beSentDataset['error'] = '因密碼輸入錯誤三次，下次能登入時間為 ' .$time->format('Y-m-d H:i:s'); 
-                return $this->load->view('/user/login', $beSentDataset);
-              }
+            //   $time = new DateTime($user['login_fail_time']);
+            //   $time->add(new DateInterval('PT' . $minutes_to_add . 'M'));
+            //   if(date("Y-m-d H:i:s") < $time->format('Y-m-d H:i:s')) {
+            //     $beSentDataset['error'] = '因密碼輸入錯誤三次，下次能登入時間為 ' .$time->format('Y-m-d H:i:s'); 
+            //     return $this->load->view('/user/login', $beSentDataset);
+            //   }
               
-            }
+            // }
 
             // verify password
             if (password_verify($password, $user['password'])) {
@@ -117,13 +117,13 @@ class User extends CI_Controller
                 $counselor = $user['counselor'];
                 $youth = $user['youth'];
 
-                $effectiveDate = $user['update_password_time'];
-                if(empty($effectiveDate)){
-                    $updatePwd = false;
-                }else {
-                    $effectiveDate = date('Y-m-d H:i:s', strtotime("+3 months", strtotime($effectiveDate)));
-                    $updatePwd = date("Y-m-d H:i:s") > $effectiveDate ? true : false;
-                }
+                // $effectiveDate = $user['update_password_time'];
+                // if(empty($effectiveDate)){
+                //     $updatePwd = false;
+                // }else {
+                //     $effectiveDate = date('Y-m-d H:i:s', strtotime("+3 months", strtotime($effectiveDate)));
+                //     $updatePwd = date("Y-m-d H:i:s") > $effectiveDate ? true : false;
+                // }
 
                 if ($manager == 0) {
                     $role = 6;
