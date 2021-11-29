@@ -23,7 +23,7 @@
             $uploadcode = explode(',',$uploadcode);
             $uploadcode = $uploadcode[1];
         }
-        $path = "../photo/staff/";
+        $path = "../running/files/photo/staff/";
         $imageSrc=  $path."/". $imageName; 
         $r = file_put_contents($imageSrc, base64_decode($uploadcode));//返回的是位元組數
         if ($r) {
@@ -35,8 +35,8 @@
     if($file_no != ''){
         if($name != '' && $id_card !='' && $email !='' && $phone!=''){
             $sql = "UPDATE `staff` SET `id_card`='$id_card',`name`='$name',`phone`='$phone',
-        `email`='$email',`birthday`='$birthday',`address`='$address',`contact_name`='$contact_name',
-        `contact_phone`='$contact_phone',`relation`='$relation',`file_no`='$file_no',`lineid`='$lineid' WHERE `staff_ID` = '$staff_ID'";
+            `email`='$email',`birthday`='$birthday',`address`='$address',`contact_name`='$contact_name',
+            `contact_phone`='$contact_phone',`relation`='$relation',`file_no`='$file_no',`lineid`='$lineid' WHERE `staff_ID` = '$staff_ID'";
             $result = mysqli_query($db, $sql) ;//or die("Insert failed, SQL query error,sql"); //執行SQL       
             if($result){
                 echo json_encode([["ans" => $imageName]]);
@@ -47,7 +47,27 @@
             echo json_encode([["ans" => "No empty"]]);
         }
     }else{
-        echo json_encode([["ans" => "photo upload failed"]]);
+        if($name != '' && $id_card !='' && $email !='' && $phone!=''){
+            $sql = "UPDATE `staff` SET `id_card`='$id_card',`name`='$name',`phone`='$phone',
+            `email`='$email',`birthday`='$birthday',`address`='$address',`contact_name`='$contact_name',
+            `contact_phone`='$contact_phone',`relation`='$relation',`lineid`='$lineid' WHERE `staff_ID` = '$staff_ID'";
+            $result = mysqli_query($db, $sql) ;//or die("Insert failed, SQL query error,sql"); //執行SQL   
+            
+            $sql_id = "SELECT `staff`.* ,`files`.name as fileName 
+            FROM `staff` LEFT JOIN `files` ON `files`.`no` = `staff`.`file_no` WHERE `staff_ID` =  '$staff_ID' limit 1;";
+            $result_staff = mysqli_query($db, $sql_id) or die("DB Error: Cannot retrieve message.");
+            
+            $result_staff = $result_staff->fetch_object();
+            $Photo_code = $result_staff->fileName;
+            
+            if($result){
+                echo json_encode([["ans" => $Photo_code]]);
+            }else{
+                echo json_encode([["ans" => "no"]]);
+            }
+        }else{
+            echo json_encode([["ans" => "No empty"]]);
+        }
     }
 
 ?>
