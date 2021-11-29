@@ -23,7 +23,8 @@
             $uploadcode = explode(',',$uploadcode);
             $uploadcode = $uploadcode[1];
         }
-        $path = "../photo/";
+        $path = "../running/files/photo/member/";
+        // $path = "http://running.im.ncnu.edu.tw/running/files/photo/member/";
         $imageSrc=  $path."/". $imageName; 
         $r = file_put_contents($imageSrc, base64_decode($uploadcode));//返回的是位元組數
         if ($r) {
@@ -47,7 +48,27 @@
             echo json_encode([["ans" => "No empty"]]);
         }
     }else{
-        echo json_encode([["ans" => "photo upload failed"]]);
+        if($name != '' && $id_card !='' && $email !='' && $phone!=''){
+            $sql = "UPDATE `member` SET `id_card`='$id_card',`name`='$name',`phone`='$phone',
+            `email`='$email',`birthday`='$birthday',`address`='$address',`contact_name`='$contact_name',
+            `contact_phone`='$contact_phone',`relation`='$relation' WHERE `member_ID` = '$member_ID'";
+            $result = mysqli_query($db, $sql) ;//or die("Insert failed, SQL query error,sql"); //執行SQL       
+            
+            $sql_id = "SELECT `member`.* ,`files`.name as fileName 
+            FROM `member` LEFT JOIN `files` ON `files`.`no` = `member`.`file_no` WHERE `member_ID` =  '$member_ID' limit 1;";
+            $result_member = mysqli_query($db, $sql_id) or die("DB Error: Cannot retrieve message.");
+            
+            $result_member = $result_member->fetch_object();
+            $Photo_code = $result_member->fileName;
+            
+            if($result){
+                echo json_encode([["Photo_code" => "$Photo_code"]]);
+            }else{
+                echo json_encode([["ans" => "no"]]);
+            }
+        }else{
+            echo json_encode([["ans" => "No empty"]]);
+        }
     }
 
 ?>
