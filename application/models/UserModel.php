@@ -12,6 +12,15 @@ class UserModel extends CI_Model
 
         return $result;
     }
+    public function get_member_by_runNo($rid)
+    {
+        $this->db->select('registration.*,member.name as mName,`files`.name as fileName,files.path');
+        $this->db->join('member', '`registration`.`member_ID`=`member`.`member_ID`', 'left');
+        $this->db->join('files', '`files`.`no` = `member`.`file_no`', 'left');
+        $this->db->where('running_ID', $rid);
+        $result = $this->db->get('registration')->result_array();
+        return $result;
+    }
     public function get_member_info()
     {
         $result = $this->db->get('member')->result_array();
@@ -22,6 +31,14 @@ class UserModel extends CI_Model
         $result = $this->db->get('staff')->result_array();
         return $result;
     } 
+    public function get_member_by_id($mid)
+    {
+        $this->db->select('member.*,f.name as photo_name,f.no as no');
+        $this->db->where('member_ID', $mid);
+        $this->db->join('files as f', 'member.file_no = f.no', 'left');
+        $result = $this->db->get('member',1);
+        return $result->row();
+    }
     
     /*
      * get columns from schema
