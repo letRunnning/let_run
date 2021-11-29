@@ -1,4 +1,5 @@
 <?php
+    // 工作人員掃描會員 QR Code 報到
     require("memberModel.php");
     header('Content-Type: application/json; charset=UTF-8');
 
