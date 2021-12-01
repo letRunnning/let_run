@@ -255,8 +255,8 @@
 
     function get_location($rid) {
         global $db;
-        // $sql = "SELECT `beacon_ID`,COUNT(`beacon_ID`) AS `num` FROM `location` WHERE `running_ID` = ? AND (`pass_time` BETWEEN DATE_ADD(DATE_SUB(NOW(), INTERVAL '-8' HOUR), INTERVAL -1 SECOND) AND DATE_ADD(DATE_SUB(NOW(), INTERVAL '-8' HOUR), INTERVmAL 1 SECOND) GROUP BY `beacon_ID`";
-        $sql = "SELECT `beacon_ID`,COUNT(`beacon_ID`) AS num FROM location WHERE running_ID = 'A8' AND (pass_time BETWEEN DATE_ADD('2021-11-25 21:32:52', INTERVAL -1 SECOND) AND DATE_ADD('2021-11-25 21:32:52', INTERVAL 1 SECOND)) GROUP BY beacon_ID";
+        // $sql = "SELECT `beacon_ID`, COUNT(`beacon_ID`) AS `num` FROM `location` WHERE `running_ID` = ? AND (`pass_time` BETWEEN DATE_ADD(DATE_SUB(NOW(), INTERVAL '-8' HOUR), INTERVAL -1 SECOND) AND DATE_ADD(DATE_SUB(NOW(), INTERVAL '-8' HOUR), INTERVmAL 1 SECOND) GROUP BY `beacon_ID`";
+        $sql = "SELECT `beacon_ID`, COUNT(`beacon_ID`) AS num FROM `location` WHERE running_ID = 'A8' AND (pass_time BETWEEN DATE_ADD('2021-11-29 14:00:52', INTERVAL -7 HOUR) AND DATE_ADD('2021-11-29 14:00:52', INTERVAL 7 HOUR)) GROUP BY beacon_ID";
         $stmt = mysqli_prepare($db, $sql); // prepare sql statement
         mysqli_stmt_bind_param($stmt, "s", $rid); // bind parameters with variables
         mysqli_stmt_execute($stmt); // 執行 SQL
