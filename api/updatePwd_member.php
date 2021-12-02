@@ -4,7 +4,7 @@
 
     $data = json_decode(file_get_contents("php://input"), true);
 
-    if ($data) {
+    if ($data[0]['Member_ID'] && $data[0]['Password']) {
         $password = $data[0]['Password'];
         if (preg_match("/[0-9]+/", $password) && (preg_match("/[a-z]+/", $password) || preg_match("/[A-Z]+/", $password)) && strlen($password) >= 8) {
             $pwd_hash = password_hash($password, PASSWORD_DEFAULT);
