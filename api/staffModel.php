@@ -113,22 +113,22 @@
         return $result;
     }
 
-    function checkin($rid, $sid) {
+    function checkin($wid, $sid) {
         global $db;
-        $sql = "SELECT `checkin_time` FROM `staff_participation` WHERE `running_ID` = ? AND `staff_ID` = ?";
+        $sql = "SELECT `checkin_time` FROM `staff_participation` WHERE `workgroup_ID` = ? AND `staff_ID` = ?";
         $stmt = mysqli_prepare($db, $sql); // prepare sql statement
-        mysqli_stmt_bind_param($stmt, "ss", $rid, $sid); // bind parameters with variables
+        mysqli_stmt_bind_param($stmt, "is", $wid, $sid); // bind parameters with variables
         mysqli_stmt_execute($stmt); // 執行 SQL
         $result = mysqli_stmt_get_result($stmt); // get result
         
         return $result;
     }
 
-    function update_checkin_time($rid, $sid) {
+    function update_checkin_time($wid, $sid) {
         global $db;
-        $sql = "UPDATE `staff_participation` SET `checkin_time`= DATE_SUB(NOW(), INTERVAL '-8' HOUR) WHERE `running_ID` = ? AND `staff_ID` = ?";
+        $sql = "UPDATE `staff_participation` SET `checkin_time`= DATE_SUB(NOW(), INTERVAL '-8' HOUR) WHERE `workgroup_ID` = ? AND `staff_ID` = ?";
         $stmt = mysqli_prepare($db, $sql); // prepare sql statement
-        mysqli_stmt_bind_param($stmt, "ss", $rid, $sid); // bind parameters with variables
+        mysqli_stmt_bind_param($stmt, "is", $wid, $sid); // bind parameters with variables
         mysqli_stmt_execute($stmt); // 執行 SQL
         $result = mysqli_stmt_get_result($stmt); // get result
         
