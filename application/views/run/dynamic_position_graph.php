@@ -102,7 +102,7 @@
 
   $(function() {
     // 每隔一秒
-    setInterval("active()", 1000);
+    setInterval(active(), 1000);
   })
 </script>
 
