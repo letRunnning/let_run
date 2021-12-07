@@ -11,7 +11,7 @@
             if (mysqli_num_rows($supply) > 0) {
                 echo "<select>";
                 while ($row = mysqli_fetch_assoc($supply)) {
-                    echo "<option>" . $row['supply_name'] . "</option>";
+                    echo "<option value='" . $row['supply_ID']. "'>" . $row['supply_name'] . "</option>";
                 }
                 echo "</select>";
             } else {

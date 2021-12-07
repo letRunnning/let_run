@@ -11,7 +11,7 @@
             if (mysqli_num_rows($hospital) > 0) {
                 echo "<select>";
                 while ($row = mysqli_fetch_assoc($hospital)) {
-                    echo "<option>" . $row['liciense_plate'] . "</option>";
+                    echo "<option value='" . $row['liciense_plate']. "'>" . $row['liciense_plate'] . "</option>";
                 }
                 echo "</select>";
             } else {
