@@ -143,6 +143,11 @@
           </li>
 
           <li>
+            <a href="<?php echo site_url('/run/realtime_position'); ?>"
+              <?php echo $url == '/run/realtime_position' ? 'active' : ''; ?>>跑者即時位置</a>
+          </li>
+
+          <li>
             <a href="<?php echo site_url('/run/dynamic_position_graph'); ?>"
               <?php echo $url == '/run/dynamic_position_graph' ? 'active' : ''; ?>>動態位置圖表</a>
           </li>
