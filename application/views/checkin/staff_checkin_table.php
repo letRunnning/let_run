@@ -48,7 +48,7 @@
               <th scope="col"><?php echo $i['staff_ID']; ?></th>
               <td scope="col"><?php echo $i['sName']; ?></td>
               <td scope="col"><?php echo $i['running_ID']; ?></td>
-              <td scope="col"><?php echo $i['name']; ?></td>
+              <td scope="col"><?php echo $i['wName']; ?></td>
               <td scope="col">
                 <?php 
                   if ($i['checkin_time'] != '') {

@@ -23,7 +23,7 @@ class CheckinModel extends CI_Model
     }
 
     public function get_staff_checkin_by_runningID($rid) {
-        $this->db->select('*, running_activity.name AS rName, staff.name AS sName');
+        $this->db->select('*, staff.name AS sName, work_group.name AS wName');
         $this->db->where('staff_participation.running_ID', $rid);
         $this->db->join('running_activity', 'running_activity.running_ID = staff_participation.running_ID');
         $this->db->join('work_group', 'staff_participation.workgroup_ID = work_group.workgroup_ID');
