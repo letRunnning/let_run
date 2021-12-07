@@ -36,9 +36,8 @@ class CheckinModel extends CI_Model
         $this->db->select('*, running_activity.name AS rName, member.name AS mName');
         $this->db->where('registration.running_ID', $rid);
         $this->db->join('running_activity', 'running_activity.running_ID = registration.running_ID');
-        $this->db->join('checkin', 'checkin.registration_ID = registration.registration_ID', 'left');
+        $this->db->join('checkin', 'registration.registration_ID = checkin.registration_ID', 'left');
         $this->db->join('member', 'registration.member_ID = member.member_ID');
-        $this->db->join('running_group', 'registration.group_name = running_group.group_name');
         $this->db->order_by('member.member_ID', 'asc');
         $result = $this->db->get('registration');
         return $result->result_array();

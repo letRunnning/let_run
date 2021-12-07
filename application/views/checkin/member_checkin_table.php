@@ -1,4 +1,4 @@
-<?php $this->load->view('templates/new_header');?>
+<?php $this->load->view('templates/new_header'); ?>
 <div class="breadcrumb-div">
   <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -19,9 +19,9 @@
         <?php if (empty($registration->name)) { ?>
           <option selected value="<?php echo site_url('checkin/member_checkin_table/'); ?>">請選擇路跑活動</option>
           <?php foreach ($activities as $i) { ?>
-            <option <?php echo ($runID == $i['running_ID']) ? 'selected' : '' ?> value="<?php echo site_url('checkin/member_checkin_table/'.$i['running_ID']); ?>" ><?php echo $i['name']?></option>
+            <option <?php echo ($runID == $i['running_ID']) ? 'selected' : '' ?> value="<?php echo site_url('checkin/member_checkin_table/'.$i['running_ID']); ?>" ><?php echo $i['name'] ?></option>
           <?php } } else { ?>
-            <option  value="<?php echo $registration->running_ID?>"><?php echo $registration->name?></option>
+            <option  value="<?php echo $registration->running_ID ?>"><?php echo $registration->name ?></option>
             <?php } ?>
         </select>
     </div>
