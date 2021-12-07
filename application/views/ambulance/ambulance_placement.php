@@ -25,7 +25,7 @@
         <div class="col-md-5">
           <label>路跑活動</label>
           <div class="input-group">
-            <select class="form-select" name="runActive" id="runActive">
+            <select class="form-select" name="runActive" id="runActive" onchange="selectActive(this.value);">
               <?php if (empty($ambulancePlacement->running_ID)) { ?>
                 <option disabled selected value>請選擇</option>
               <?php } ?>
@@ -48,20 +48,7 @@
           <label>補給站</label>
           <div class="input-group">
             <select class="form-select" name="supply" id="supply">
-              <?php if (empty($ambulancePlacement->supply_ID)) { ?>
-                <option disabled selected value>請選擇</option>
-              <?php } ?>
-              <?php foreach ($pass as $i) {
-                      if (!empty($ambulancePlacement->supply_ID)) {
-                        if ($i['supply_ID'] == $ambulancePlacement->supply_ID) { ?>
-                          <option selected value="<?php echo $i['supply_ID']; ?>"><?php echo $i['supply_name']; ?></option>
-                  <?php } else { ?>
-                          <option value="<?php echo $i['supply_ID']; ?>"><?php echo $i['supply_name']; ?></option>
-                  <?php }
-                      } else { ?>
-                        <option value="<?php echo $i['supply_ID']; ?>"><?php echo $i['supply_name']; ?></option>
-                <?php } ?>
-              <?php } ?>
+              <option disabled selected value>請選擇</option>
             </select>
           </div>
         </div>
@@ -161,6 +148,22 @@
   function myFunction() {
     var x = document.getElementById("date-daily").value;
     document.getElementById("time").value = x;
+  }
+
+  function selectActive(str) {
+    if (window.XMLHttpRequest) {
+      xmlhttp = new XMLHttpRequest();
+    } else {
+      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById('supply').innerHTML = this.responseText;
+      }
+    }
+    xmlhttp.open("GET", "../../../run_api/getSupply.php?running_ID=" + str, true);
+    xmlhttp.send();
   }
 </script>
 
