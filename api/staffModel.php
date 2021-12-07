@@ -167,4 +167,15 @@
         
         return $result;
     }
+
+    function get_license($hospitalName) {
+        global $db;
+        $sql = "SELECT * FROM `ambulance_details` WHERE `hospital_name` = ?";
+        $stmt = mysqli_prepare($db, $sql); // prepare sql statement
+        mysqli_stmt_bind_param($stmt, "s", $hospitalName); // bind parameters with variables
+        mysqli_stmt_execute($stmt); // 執行 SQL
+        $result = mysqli_stmt_get_result($stmt); // get result
+        
+        return $result;
+    }
 ?>
