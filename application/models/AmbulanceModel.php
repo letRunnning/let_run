@@ -36,7 +36,7 @@ class AmbulanceModel extends CI_Model
         $this->hospital_phone = $hospitalPhone;
         $this->liciense_plate = $licensePlate;
       
-        return ($this->db->insert('ambulance_details', $this)) ? $this->db->insert_id() : '';
+        return ($this->db->insert('ambulance_details', $this)) ? $licensePlate : false;
     }
     
     function update_by_id($hospital, $hospitalPhone, $licensePlate) {

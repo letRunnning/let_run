@@ -71,23 +71,23 @@ class Ambulance extends CI_Controller
 
             if (empty($ambulance)) {
                 $isExecuteSuccess = $this->AmbulanceModel->create_one($hospital, $hospitalPhone, $liciense);
+                $licensePlate = $isExecuteSuccess;
             } else {
                 $isExecuteSuccess = $this->AmbulanceModel->update_by_id($hospital, $hospitalPhone, $liciense);
+                $licensePlate = $liciense;
             }
 
             if ($isExecuteSuccess) {
                 $beSentDataset['success'] = '新增成功';
-                redirect('ambulance/ambulance_table');
             } else {
                 $beSentDataset['error'] = '新增失敗';
             }
 
-            // $ambulance = $liciense ? $this->AmbulanceModel->get_by_id($liciense) : null;
-            // $beSentDataset['ambulance'] = $ambulance;
-            // $ambulances = $this->AmbulanceModel->get_all_ambulance();
-            // $beSentDataset['ambulances'] = $ambulances;
+            $ambulance = $licensePlate ? $this->AmbulanceModel->get_ambulance_by_id($licensePlate) : null;
+            $beSentDataset['ambulance'] = $ambulance;
+            $beSentDataset['url'] = '/ambulance/ambulance/' . $licensePlate;
 
-            $this->load->view('/ambulance/ambulance_table', $beSentDataset);
+            $this->load->view('/ambulance/ambulance', $beSentDataset);
         } else {
             redirect('user/login');
         }
