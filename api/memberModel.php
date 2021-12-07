@@ -280,4 +280,15 @@
         
         return $result;
     }
+
+    function check_staff_registration($rid, $sid) {
+        global $db;
+        $sql = "SELECT * FROM `staff_participation` WHERE `running_ID` = ? AND `staff_ID` = ?";
+        $stmt = mysqli_prepare($db, $sql); // prepare sql statement
+        mysqli_stmt_bind_param($stmt, "ss", $rid, $sid); // bind parameters with variables
+        mysqli_stmt_execute($stmt); // 執行 SQL
+        $result = mysqli_stmt_get_result($stmt); // get result
+        
+        return $result;
+    }
 ?>
