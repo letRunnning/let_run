@@ -1,4 +1,4 @@
-<?php $this->load->view('templates/new_header');?>
+<?php $this->load->view('templates/new_header'); ?>
 <div class="breadcrumb-div">
   <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -22,7 +22,7 @@
           <?php foreach ($activities as $i) { ?>
             <option <?php echo ($runID == $i['running_ID']) ? 'selected' : '' ?> value="<?php echo site_url('beacon/beacon_placement_table/'.$i['running_ID']); ?>" ><?php echo $i['name']?></option>
           <?php } } else { ?>
-            <option  value="<?php echo $beaconPlacement->running_ID?>"><?php echo $beaconPlacement->name?></option>
+            <option  value="<?php echo $beaconPlacement->running_ID ?>"><?php echo $beaconPlacement->name ?></option>
             <?php } ?>
         </select>
     </div>
@@ -49,7 +49,7 @@
             <th scope="col"><?php echo $i['beacon_ID']; ?></th>
             <td scope="col"><?php echo $i['running_ID']; ?></td>
             <td scope="col"><?php echo $i['supply_ID']; ?></td>
-            <td scope="col"><a type="button" class="btn btn-warning" href="<?php echo site_url('beacon/beacon_placement/'.$i['beacon_ID'] );?>">編輯/查看</a></td>
+            <td scope="col"><a type="button" class="btn btn-warning" href="<?php echo site_url('beacon/beacon_placement/'.$i['no'] );?>">編輯/查看</a></td>
           </tr>
         <?php } ?>
       </tbody>
@@ -60,4 +60,4 @@
     </div>
   <?php } ?>
 </div>
-<?php $this->load->view('templates/new_footer');?>
+<?php $this->load->view('templates/new_footer'); ?>

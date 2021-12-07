@@ -120,14 +120,14 @@ class Beacon extends CI_Controller
         }
     }
     
-    public function beacon_placement($beaconID = null)
+    public function beacon_placement($no = null)
     {
         $passport = $this->session->userdata('passport');
         $userTitle = $passport['userTitle'];
         $current_role = $passport['role'];
         $accept_role = array(6);
 
-        $beaconPlacement = $beaconID ? $this->BeaconPlacementModel->get_beacon_placement_by_id($beaconID) : null;
+        $beaconPlacement = $no ? $this->BeaconPlacementModel->get_beacon_placement_by_id($no) : null;
         $beacons = $this->BeaconModel->get_all_beacon();
         $activities = $this->RunModel->get_all_active();
         $supply = $this->SupplyLocationModel->get_all_supply_location();
@@ -135,7 +135,7 @@ class Beacon extends CI_Controller
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
                 'title' => 'Beacon放置點',
-                'url' => '/beacon/beacon_placement/' . $beaconID,
+                'url' => '/beacon/beacon_placement/' . $no,
                 'role' => $current_role,
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
@@ -155,24 +155,23 @@ class Beacon extends CI_Controller
 
             if (empty($beaconPlacement)) {
                 $isExecuteSuccess = $this->BeaconPlacementModel->create_one($beaconID, $runActive, $supplyID);
+                $id = $isExecuteSuccess;
             } else {
-                $isExecuteSuccess = $this->BeaconPlacementModel->update_by_id($beaconID, $runActive, $supplyID);
+                $isExecuteSuccess = $this->BeaconPlacementModel->update_by_id($no, $runActive, $supplyID);
+                $id = $no;
             }
 
             if ($isExecuteSuccess) {
                 $beSentDataset['success'] = '新增成功';
-                redirect('beacon/beacon_placement_table');
             } else {
                 $beSentDataset['error'] = '新增失敗';
-                redirect('beacon/beacon_placement_table');
             }
             
-            $beaconPlacement = $beaconID ? $this->BeaconPlacementModel->get_by_id($beaconID) : null;
+            $beaconPlacement = $id ? $this->BeaconPlacementModel->get_by_id($id) : null;
             $beSentDataset['beaconPlacement'] = $beaconPlacement;
-            $placement = $this->BeaconPlacementModel->get_all_beacon_placement();
-            $beSentDataset['placement'] = $placement;
+            $beSentDataset['url'] = '/beacon/beacon_placement/' . $no;
 
-            $this->load->view('/beacon/beacon_placement_table', $beSentDataset);
+            $this->load->view('/beacon/beacon_placement', $beSentDataset);
         } else {
             redirect('user/login');
         }

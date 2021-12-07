@@ -7,9 +7,9 @@ class BeaconPlacementModel extends CI_Model
         return $result;
     }
 
-    public function get_beacon_placement_by_id($beaconID)
+    public function get_beacon_placement_by_id($no)
     {
-        $this->db->where('beacon_ID', $beaconID);
+        $this->db->where('no', $no);
         $result = $this->db->get('beacon_placement', 1);
         return $result->row();
     }
@@ -22,12 +22,12 @@ class BeaconPlacementModel extends CI_Model
         return ($this->db->insert('beacon_placement', $this)) ? $this->db->insert_id() : '';
     }
     
-    public function update_by_id($id, $active, $supplyID) {
+    public function update_by_id($no, $active, $supplyID) {
         // $this->beacon_ID = $id;
         $this->running_ID = $active;
         $this->supply_ID = $supplyID;
         
-        $this->db->where('beacon_ID', $id);
+        $this->db->where('no', $no);
         return $this->db->update('beacon_placement', $this);
     }
 
