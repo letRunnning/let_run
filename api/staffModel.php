@@ -101,7 +101,7 @@
 
     function get_work_content($wid) {
         global $db;
-        $sql = "SELECT `content`, `assembletime`, `place` FROM `work_content` 
+        $sql = "SELECT `content`, `assignment`.`time` AS `aTime`, `place` FROM `work_content` 
             JOIN `assignment` ON `assignment`.`work_ID` = `work_content`.`work_ID` 
             JOIN `work_group` ON `work_group`.`workgroup_ID` = `assignment`.`workgroup_ID` 
             WHERE `assignment`.`workgroup_ID` = ?";

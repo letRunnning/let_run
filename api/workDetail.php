@@ -13,7 +13,7 @@
                 foreach ($workContent as $i) {
                     $array = array(
                         'Content' => urlencode($i['content']),
-                        'Time' => $i['assembletime'],
+                        'Time' => $i['aTime'],
                         'Place' => urlencode($i['place'])
                     );
                     array_push($data2, $array);
