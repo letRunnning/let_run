@@ -58,7 +58,7 @@
         <div class="col-md-5">
           <label>醫院名稱</label>
           <div class="input-group">
-            <select class="form-select" name="hospital" id="hospital">
+            <select class="form-select" name="hospital" id="hospital" onchange="selectHospital(this.value);">
               <?php if (empty($ambulancePlacement->liciense_plate)) { ?>
                 <option disabled selected value>請選擇</option>
               <?php } ?>
@@ -81,20 +81,7 @@
           <label>車牌號碼</label>
             <div class="input-group">
               <select class="form-select" name="liciense" id="liciense">
-                <?php if (empty($ambulancePlacement->liciense_plate)) { ?>
-                  <option disabled selected value>請選擇</option>
-                <?php } ?>
-                <?php foreach ($liciensePlate as $i) {
-                        if (!empty($ambulancePlacement->liciense_plate)) {
-                          if ($i['liciense_plate'] == $ambulancePlacement->liciense_plate) { ?>
-                            <option selected value="<?php echo $i['liciense_plate']; ?>"><?php echo $i['liciense_plate']; ?></option>
-                  <?php } else { ?>
-                          <option value="<?php echo $i['liciense_plate']; ?>"><?php echo $i['liciense_plate']; ?></option>
-                  <?php }
-                      } else { ?>
-                        <option value="<?php echo $i['liciense_plate']; ?>"><?php echo $i['liciense_plate']; ?></option>
-                <?php } ?>
-              <?php } ?>
+                <option disabled selected value>請選擇</option>
             </select>
           </div>
         </div>
@@ -163,6 +150,22 @@
       }
     }
     xmlhttp.open("GET", "../../../run_api/getSupply.php?running_ID=" + str, true);
+    xmlhttp.send();
+  }
+
+  function selectHospital(str) {
+    if (window.XMLHttpRequest) {
+      xmlhttp = new XMLHttpRequest();
+    } else {
+      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById('liciense').innerHTML = this.responseText;
+      }
+    }
+    xmlhttp.open("GET", "../../../run_api/getLicense.php?hospital_name=" + str, true);
     xmlhttp.send();
   }
 </script>
