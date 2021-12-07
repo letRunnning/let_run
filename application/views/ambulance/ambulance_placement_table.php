@@ -48,7 +48,7 @@
             <th scope="col"><?php echo $i['liciense_plate']; ?></th>
             <td scope="col"><?php echo $i['time']; ?></td>
             <td scope="col"><?php echo $i['supply_ID']; ?></td>
-            <td scope="col"><a type="button" class="btn btn-warning" href="<?php echo site_url('ambulance/ambulance_placement/'.$i['running_ID'].'/'.$i['liciense_plate']);?>">編輯/查看</a></td>
+            <td scope="col"><a type="button" class="btn btn-warning" href="<?php echo site_url('ambulance/ambulance_placement/'.$i['no']);?>">編輯/查看</a></td>
           </tr>
         <?php } ?>
       </tbody>

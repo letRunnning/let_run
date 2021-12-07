@@ -25,7 +25,8 @@
         <div class="col-md-5">
           <label>路跑活動</label>
           <div class="input-group">
-            <select class="form-select" name="runActive" id="runActive" onchange="selectActive(this.value);">
+            <!-- <select class="form-select" name="runActive" id="runActive" onchange="selectActive(this.value);"> -->
+            <select class="form-select" name="runActive" id="runActive">
               <?php if (empty($ambulancePlacement->running_ID)) { ?>
                 <option disabled selected value>請選擇</option>
               <?php } ?>
@@ -48,7 +49,20 @@
           <label>補給站</label>
           <div class="input-group">
             <select class="form-select" name="supply" id="supply">
-              <option disabled selected value>請選擇</option>
+              <?php if (empty($ambulancePlacement->supply_ID)) { ?>
+                <option disabled selected value>請選擇</option>
+              <?php } ?>
+              <?php foreach ($pass as $i) {
+                      if (!empty($ambulancePlacement->supply_ID)) {
+                        if ($i['supply_ID'] == $ambulancePlacement->supply_ID) { ?>
+                          <option selected value="<?php echo $i['supply_ID']; ?>"><?php echo $i['supply_name']; ?></option>
+                  <?php } else { ?>
+                          <option value="<?php echo $i['supply_ID']; ?>"><?php echo $i['supply_name']; ?></option>
+                  <?php }
+                      } else { ?>
+                        <option value="<?php echo $i['supply_ID']; ?>"><?php echo $i['supply_name']; ?></option>
+                <?php } ?>
+              <?php } ?>
             </select>
           </div>
         </div>
@@ -58,19 +72,21 @@
         <div class="col-md-5">
           <label>醫院名稱</label>
           <div class="input-group">
-            <select class="form-select" name="hospital" id="hospital" onchange="selectHospital(this.value);">
+            <!-- <select class="form-select" name="hospital" id="hospital" onchange="selectHospital(this.value);"> -->
+            <!-- <select class="form-select" name="hospital" id="hospital" onchange="location = this.value;"> -->
+            <select class="form-select" name="hospital" id="hospital">
               <?php if (empty($ambulancePlacement->liciense_plate)) { ?>
-                <option disabled selected value>請選擇</option>
+                <option disabled selected value="<?php echo site_url('ambulance/ambulance_placement/'); ?>">請選擇</option>
               <?php } ?>
               <?php foreach ($ambulanceDetails as $i) {
                       if (!empty($ambulancePlacement->liciense_plate)) {
                         if ($i['hospital_name'] == $ambulancePlacement->liciense_plate) { ?>
-                          <option selected value="<?php echo $i['hospital_name']; ?>"><?php echo $i['hospital_name']; ?></option>
+                          <option selected value="<?php echo site_url('ambulance/ambulance_placement/'.$no.'/'.base64_encode($i['hospital_name'])); ?>"><?php echo $i['hospital_name']; ?></option>
                   <?php } else { ?>
-                          <option value="<?php echo $i['hospital_name']; ?>"><?php echo $i['hospital_name']; ?></option>
+                          <option value="<?php echo site_url('ambulance/ambulance_placement/'.$no.'/'.base64_encode($i['hospital_name'])); ?>"><?php echo $i['hospital_name']; ?></option>
                   <?php }
                       } else { ?>
-                        <option value="<?php echo $i['hospital_name']; ?>"><?php echo $i['hospital_name']; ?></option>
+                        <option value="<?php echo site_url('ambulance/ambulance_placement/'.$no); ?>"><?php echo $i['hospital_name']; ?></option>
                 <?php } ?>
               <?php } ?>
             </select>
@@ -81,7 +97,20 @@
           <label>車牌號碼</label>
             <div class="input-group">
               <select class="form-select" name="liciense" id="liciense">
-                <option disabled selected value>請選擇</option>
+                <?php if (empty($ambulancePlacement->liciense_plate)) { ?>
+                  <option disabled selected value>請選擇</option>
+                <?php } ?>
+                <?php foreach ($liciensePlate as $i) {
+                        if (!empty($ambulancePlacement->liciense_plate)) {
+                          if ($i['liciense_plate'] == $ambulancePlacement->liciense_plate) { ?>
+                            <option selected value="<?php echo $i['liciense_plate']; ?>"><?php echo $i['liciense_plate']; ?></option>
+                  <?php } else { ?>
+                          <option value="<?php echo $i['liciense_plate']; ?>"><?php echo $i['liciense_plate']; ?></option>
+                  <?php }
+                      } else { ?>
+                        <option value="<?php echo $i['liciense_plate']; ?>"><?php echo $i['liciense_plate']; ?></option>
+                <?php } ?>
+              <?php } ?>
             </select>
           </div>
         </div>
@@ -90,7 +119,6 @@
       <div class="col-10 m-2 mx-auto">
         <label for="time">時間*</label><br />
         <div class="bootstrap-iso">
-        <!-- data-link-field="time" -->
           <div class="input-group date form_datetime col-md-12" >
             <input class="form-control" id="date-daily" onchange="myFunction()" type="text" value="<?php echo (empty($ambulancePlacement)) ? "" : $ambulancePlacement->time ?>" readonly>
             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>

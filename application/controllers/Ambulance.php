@@ -125,14 +125,14 @@ class Ambulance extends CI_Controller
         }
     }
 
-    public function ambulance_placement($runningID = null, $liciense = null)
+    public function ambulance_placement($no = null)
     {
         $passport = $this->session->userdata('passport');
         $userTitle = $passport['userTitle'];
         $current_role = $passport['role'];
         $accept_role = array(6);
 
-        $ambulancePlacement = $this->AmbulancePlacementModel->get_ambulance_placement_by_id($runningID, $liciense);
+        $ambulancePlacement = $this->AmbulancePlacementModel->get_ambulance_placement_by_id($no);
         $activities = $this->RunModel->get_all_active();
         $pass = $this->PassingPointModel->get_all_passing_point();
         $ambulanceDetails = $this->AmbulanceModel->get_ambulance_hospital_name();
@@ -141,12 +141,13 @@ class Ambulance extends CI_Controller
         if (in_array($current_role, $accept_role)) {
             $beSentDataset = array(
                 'title' => '救護車停置點',
-                'url' => '/ambulance/ambulance_placement/' . $runningID . '/' . $liciense,
+                'url' => '/ambulance/ambulance_placement/' . $no,
                 'role' => $current_role,
                 'userTitle' => $userTitle,
                 'current_role' => $current_role,
                 'password' => $passport['password'],
                 'security' => $this->security,
+                'no' => $no,
                 'ambulancePlacement' => $ambulancePlacement,
                 'activities' => $activities,
                 'pass' => $pass,
@@ -159,24 +160,28 @@ class Ambulance extends CI_Controller
             $licienseNum = $this->security->xss_clean($this->input->post('liciense'));
             $time = $this->security->xss_clean($this->input->post('time'));
 
-            if (empty($liciense)) return $this->load->view('/ambulance/ambulance_placement', $beSentDataset);
+            if (empty($licienseNum)) return $this->load->view('/ambulance/ambulance_placement', $beSentDataset);
 
             if (empty($ambulancePlacement)) {
                 $isExecuteSuccess = $this->AmbulancePlacementModel->create_one($running, $supply, $licienseNum, $time);
-                // echo 1;
+                $id = $isExecuteSuccess;
+                echo 1;
             } else {
-                $isExecuteSuccess = $this->AmbulancePlacementModel->update_by_id($running, $supply, $licienseNum, $time);
-                // echo 2;
+                $isExecuteSuccess = $this->AmbulancePlacementModel->update_by_id($no, $running, $supply, $licienseNum, $time);
+                $id = $no;
+                echo 2;
             }
 
             if ($isExecuteSuccess) {
                 $beSentDataset['success'] = '新增成功';
-                $ambulancePlacements = $this->AmbulancePlacementModel->get_all_ambulance_placement();
-                $beSentDataset['ambulancePlacements'] = $ambulancePlacements;
-                // redirect('ambulance/ambulance_placement_table');
             } else {
                 $beSentDataset['error'] = '新增失敗';
             }
+
+            $ambulancePlacement = $id ? $this->AmbulancePlacementModel->get_ambulance_placement_by_id($id) : null;
+            $beSentDataset['ambulancePlacement'] = $ambulancePlacement;
+            $beSentDataset['url'] = '/ambulance/ambulance_placement/' . $id;
+
             $this->load->view('/ambulance/ambulance_placement', $beSentDataset);
         } else {
             redirect('user/login');
